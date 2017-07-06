@@ -2,16 +2,16 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.channelengine.apiclient</groupId>
-  <artifactId>ChannelEngineApiClient</artifactId>
+  <artifactId>api-client-java</artifactId>
   <packaging>jar</packaging>
-  <name>ChannelEngineApiClient</name>
-  <version>2.1.3</version>
-  <url>https://github.com/swagger-api/swagger-codegen</url>
-  <description>Swagger Java</description>
+  <name>api-client-java</name>
+  <version>2.2.0</version>
+  <url>https://github.com/channelengine/api-client-java</url>
+  <description>ChannelEngine API Client for java</description>
   <scm>
-    <connection>scm:git:git@github.com:swagger-api/swagger-codegen.git</connection>
-    <developerConnection>scm:git:git@github.com:swagger-api/swagger-codegen.git</developerConnection>
-    <url>https://github.com/swagger-api/swagger-codegen</url>
+    <connection>scm:git:git://github.com:channelengine/api-client-java.git</connection>
+    <developerConnection>scm:git:git://github.com:channelengine/api-client-java.git</developerConnection>
+    <url>https://github.com/channelengine/api-client-java</url>
   </scm>
   <prerequisites>
     <maven>2.2.0</maven>
@@ -19,18 +19,18 @@
 
   <licenses>
     <license>
-      <name>Unlicense</name>
-      <url>http://unlicense.org</url>
+      <name>MIT</name>
+      <url>https://opensource.org/licenses/mit-license.php</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
 
   <developers>
     <developer>
-      <name>Swagger</name>
-      <email>apiteam@swagger.io</email>
-      <organization>Swagger</organization>
-      <organizationUrl>http://swagger.io</organizationUrl>
+      <name>Christiaan de Ridder</name>
+      <email>support@channelengine.com</email>
+      <organization>ChannelEngine</organization>
+      <organizationUrl>https://www.channelengine.com</organizationUrl>
     </developer>
   </developers>
 
