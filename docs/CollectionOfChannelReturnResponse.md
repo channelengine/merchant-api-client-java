@@ -5,7 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **content** | [**List&lt;ChannelReturnResponse&gt;**](ChannelReturnResponse.md) |  |  [optional]
-**count** | **Integer** |  |  [optional]
+**count** | **Integer** | The number of items in the current response |  [optional]
+**totalCount** | **Integer** | The total number of items |  [optional]
+**itemsPerPage** | **Integer** | The number of items per page |  [optional]
 **statusCode** | **Integer** |  |  [optional]
 **success** | **Boolean** |  |  [optional]
 **message** | **String** |  |  [optional]
