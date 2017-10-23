@@ -146,7 +146,7 @@ apikey.setApiKey("YOUR API KEY");
 //apikey.setApiKeyPrefix("Token");
 
 ReturnApi apiInstance = new ReturnApi();
-DateTime createdSince = new DateTime(); // DateTime | 
+OffsetDateTime createdSince = new OffsetDateTime(); // OffsetDateTime | 
 try {
     CollectionOfMerchantReturnResponse result = apiInstance.returnGetDeclaredByChannel(createdSince);
     System.out.println(result);
@@ -160,7 +160,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createdSince** | **DateTime**|  |
+ **createdSince** | **OffsetDateTime**|  |
 
 ### Return type
 
@@ -201,7 +201,7 @@ apikey.setApiKey("YOUR API KEY");
 //apikey.setApiKeyPrefix("Token");
 
 ReturnApi apiInstance = new ReturnApi();
-DateTime createdSince = new DateTime(); // DateTime | 
+OffsetDateTime createdSince = new OffsetDateTime(); // OffsetDateTime | 
 try {
     CollectionOfChannelReturnResponse result = apiInstance.returnGetDeclaredByMerchant(createdSince);
     System.out.println(result);
@@ -215,7 +215,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createdSince** | **DateTime**|  |
+ **createdSince** | **OffsetDateTime**|  |
 
 ### Return type
 

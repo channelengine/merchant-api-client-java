@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * ChannelProductResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-20T12:47:30.980+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
 public class ChannelProductResponse {
   @SerializedName("Id")
   private Integer id = null;
@@ -618,6 +618,6 @@ public class ChannelProductResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

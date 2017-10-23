@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * MerchantProductResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-20T12:47:30.980+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
 public class MerchantProductResponse {
   @SerializedName("IsActive")
   private Boolean isActive = null;
@@ -147,7 +147,7 @@ public class MerchantProductResponse {
    * @return isActive
   **/
   @ApiModelProperty(value = "")
-  public Boolean getIsActive() {
+  public Boolean isIsActive() {
     return isActive;
   }
 
@@ -562,6 +562,6 @@ public class MerchantProductResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

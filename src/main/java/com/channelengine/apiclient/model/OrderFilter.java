@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * OrderFilter
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-20T12:47:30.980+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
 public class OrderFilter {
   /**
    * Gets or Sets statuses
@@ -221,7 +221,7 @@ public class OrderFilter {
    * @return excludeMarketplaceFulfilledOrdersAndLines
   **/
   @ApiModelProperty(value = "")
-  public Boolean getExcludeMarketplaceFulfilledOrdersAndLines() {
+  public Boolean isExcludeMarketplaceFulfilledOrdersAndLines() {
     return excludeMarketplaceFulfilledOrdersAndLines;
   }
 
@@ -312,6 +312,6 @@ public class OrderFilter {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

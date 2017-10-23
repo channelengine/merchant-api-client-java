@@ -28,12 +28,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.joda.time.DateTime;
+import org.threeten.bp.OffsetDateTime;
 
 /**
  * ChannelOrderRequest
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-20T12:47:30.980+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
 public class ChannelOrderRequest {
   @SerializedName("ChannelOrderNo")
   private String channelOrderNo = null;
@@ -63,7 +63,7 @@ public class ChannelOrderRequest {
   private String currencyCode = null;
 
   @SerializedName("OrderDate")
-  private DateTime orderDate = null;
+  private OffsetDateTime orderDate = null;
 
   @SerializedName("ChannelCustomerNo")
   private String channelCustomerNo = null;
@@ -244,7 +244,7 @@ public class ChannelOrderRequest {
     this.currencyCode = currencyCode;
   }
 
-  public ChannelOrderRequest orderDate(DateTime orderDate) {
+  public ChannelOrderRequest orderDate(OffsetDateTime orderDate) {
     this.orderDate = orderDate;
     return this;
   }
@@ -254,11 +254,11 @@ public class ChannelOrderRequest {
    * @return orderDate
   **/
   @ApiModelProperty(required = true, value = "")
-  public DateTime getOrderDate() {
+  public OffsetDateTime getOrderDate() {
     return orderDate;
   }
 
-  public void setOrderDate(DateTime orderDate) {
+  public void setOrderDate(OffsetDateTime orderDate) {
     this.orderDate = orderDate;
   }
 
@@ -407,6 +407,6 @@ public class ChannelOrderRequest {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

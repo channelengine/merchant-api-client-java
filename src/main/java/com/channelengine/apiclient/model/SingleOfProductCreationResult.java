@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * SingleOfProductCreationResult
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-20T12:47:30.980+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
 public class SingleOfProductCreationResult {
   @SerializedName("Content")
   private ProductCreationResult content = null;
@@ -93,7 +93,7 @@ public class SingleOfProductCreationResult {
    * @return success
   **/
   @ApiModelProperty(value = "")
-  public Boolean getSuccess() {
+  public Boolean isSuccess() {
     return success;
   }
 
@@ -192,6 +192,6 @@ public class SingleOfProductCreationResult {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * ChannelProductChangesResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-20T12:47:30.980+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
 public class ChannelProductChangesResponse {
   @SerializedName("ToBeCreated")
   private List<ChannelProductResponse> toBeCreated = null;
@@ -161,6 +161,6 @@ public class ChannelProductChangesResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

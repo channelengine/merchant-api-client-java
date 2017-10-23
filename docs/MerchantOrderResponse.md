@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **paymentMethod** | **String** |  | 
 **shippingCostsInclVat** | **Double** | The shipping fee including VAT  (in the tenant&#39;s base currency calculated using the exchange rate at the time of ordering). | 
 **currencyCode** | **String** |  | 
-**orderDate** | [**DateTime**](DateTime.md) |  | 
+**orderDate** | [**OffsetDateTime**](OffsetDateTime.md) |  | 
 **channelCustomerNo** | **String** |  |  [optional]
 **billingAddress** | [**EntitiesAddressModels**](EntitiesAddressModels.md) |  | 
 **shippingAddress** | [**EntitiesAddressModels**](EntitiesAddressModels.md) |  | 

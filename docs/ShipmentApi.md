@@ -90,7 +90,7 @@ apikey.setApiKey("YOUR API KEY");
 //apikey.setApiKeyPrefix("Token");
 
 ShipmentApi apiInstance = new ShipmentApi();
-DateTime createdSince = new DateTime(); // DateTime | 
+OffsetDateTime createdSince = new OffsetDateTime(); // OffsetDateTime | 
 try {
     CollectionOfChannelShipmentResponse result = apiInstance.shipmentIndex(createdSince);
     System.out.println(result);
@@ -104,7 +104,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createdSince** | **DateTime**|  |
+ **createdSince** | **OffsetDateTime**|  |
 
 ### Return type
 

@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * MerchantReturnResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-20T12:47:30.980+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
 public class MerchantReturnResponse {
   @SerializedName("MerchantOrderNo")
   private String merchantOrderNo = null;
@@ -294,6 +294,6 @@ public class MerchantReturnResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

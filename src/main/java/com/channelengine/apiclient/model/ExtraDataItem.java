@@ -26,7 +26,7 @@ import java.io.IOException;
 /**
  * ExtraDataItem
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-20T12:47:30.980+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
 public class ExtraDataItem {
   @SerializedName("Key")
   private String key = null;
@@ -155,7 +155,7 @@ public class ExtraDataItem {
    * @return isPublic
   **/
   @ApiModelProperty(value = "")
-  public Boolean getIsPublic() {
+  public Boolean isIsPublic() {
     return isPublic;
   }
 
@@ -208,6 +208,6 @@ public class ExtraDataItem {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

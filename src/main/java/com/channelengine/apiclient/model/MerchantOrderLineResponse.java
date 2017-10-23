@@ -26,7 +26,7 @@ import java.io.IOException;
 /**
  * MerchantOrderLineResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-20T12:47:30.980+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
 public class MerchantOrderLineResponse {
   /**
    * Gets or Sets status
@@ -203,7 +203,7 @@ public class MerchantOrderLineResponse {
    * @return isFulfillmentByMarketplace
   **/
   @ApiModelProperty(value = "")
-  public Boolean getIsFulfillmentByMarketplace() {
+  public Boolean isIsFulfillmentByMarketplace() {
     return isFulfillmentByMarketplace;
   }
 
@@ -392,6 +392,6 @@ public class MerchantOrderLineResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

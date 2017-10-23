@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**orderAcknowledge**](OrderApi.md#orderAcknowledge) | **POST** /v2/orders/acknowledge | Merchant: Acknowledge Order
 [**orderCreate**](OrderApi.md#orderCreate) | **POST** /v2/orders | Channel: Create Order
+[**orderGetByFilter**](OrderApi.md#orderGetByFilter) | **GET** /v2/orders | Merchant: Get Orders By Filter
 [**orderGetNew**](OrderApi.md#orderGetNew) | **GET** /v2/orders/new | Merchant: Get New Orders
 [**orderInvoice**](OrderApi.md#orderInvoice) | **GET** /v2/orders/{merchantOrderNo}/invoice | Merchant: Download Invoice
 [**orderPackingSlip**](OrderApi.md#orderPackingSlip) | **GET** /v2/orders/{merchantOrderNo}/packingslip | Merchant: Download Packing Slip
@@ -119,6 +120,69 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/x-www-form-urlencoded
+ - **Accept**: application/json, text/json
+
+<a name="orderGetByFilter"></a>
+# **orderGetByFilter**
+> CollectionOfMerchantOrderResponse orderGetByFilter(filterStatuses, filterMerchantOrderNos, filterExcludeMarketplaceFulfilledOrdersAndLines, filterFulfillmentType, filterPage)
+
+Merchant: Get Orders By Filter
+
+For merchants.                Fetch orders based on the provided OrderFilter
+
+### Example
+```java
+// Import classes:
+//import com.channelengine.apiclient.ApiClient;
+//import com.channelengine.apiclient.ApiException;
+//import com.channelengine.apiclient.Configuration;
+//import com.channelengine.apiclient.auth.*;
+//import com.channelengine.apiclient.api.OrderApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: apikey
+ApiKeyAuth apikey = (ApiKeyAuth) defaultClient.getAuthentication("apikey");
+apikey.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.setApiKeyPrefix("Token");
+
+OrderApi apiInstance = new OrderApi();
+List<String> filterStatuses = Arrays.asList("filterStatuses_example"); // List<String> | 
+List<String> filterMerchantOrderNos = Arrays.asList("filterMerchantOrderNos_example"); // List<String> | 
+Boolean filterExcludeMarketplaceFulfilledOrdersAndLines = true; // Boolean | 
+String filterFulfillmentType = "filterFulfillmentType_example"; // String | Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true.
+Integer filterPage = 56; // Integer | 
+try {
+    CollectionOfMerchantOrderResponse result = apiInstance.orderGetByFilter(filterStatuses, filterMerchantOrderNos, filterExcludeMarketplaceFulfilledOrdersAndLines, filterFulfillmentType, filterPage);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrderApi#orderGetByFilter");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filterStatuses** | [**List&lt;String&gt;**](String.md)|  | [optional] [enum: IN_PROGRESS, SHIPPED, IN_BACKORDER, CANCELED, MANCO, IN_COMBI, CLOSED, NEW, RETURNED, REQUIRES_CORRECTION]
+ **filterMerchantOrderNos** | [**List&lt;String&gt;**](String.md)|  | [optional]
+ **filterExcludeMarketplaceFulfilledOrdersAndLines** | **Boolean**|  | [optional]
+ **filterFulfillmentType** | **String**| Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. | [optional] [enum: ALL, ONLY_MERCHANT, ONLY_CHANNEL, MIXED]
+ **filterPage** | **Integer**|  | [optional]
+
+### Return type
+
+[**CollectionOfMerchantOrderResponse**](CollectionOfMerchantOrderResponse.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json, text/json
 
 <a name="orderGetNew"></a>

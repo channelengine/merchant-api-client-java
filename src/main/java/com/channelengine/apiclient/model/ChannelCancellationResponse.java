@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * ChannelCancellationResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-20T12:47:30.980+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
 public class ChannelCancellationResponse {
   @SerializedName("ChannelOrderNo")
   private String channelOrderNo = null;
@@ -142,6 +142,6 @@ public class ChannelCancellationResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 
