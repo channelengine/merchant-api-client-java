@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * SingleOfCollectionsDictionary2Generic
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T09:29:25.527+02:00")
 public class SingleOfCollectionsDictionary2Generic {
   @SerializedName("Content")
   private Map<String, List<String>> content = null;

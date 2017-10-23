@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * CollectionOfMerchantReturnResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T08:29:46.200+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-10-23T09:29:25.527+02:00")
 public class CollectionOfMerchantReturnResponse {
   @SerializedName("Content")
   private List<MerchantReturnResponse> content = null;
