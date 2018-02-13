@@ -1,16 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.channelengine.apiclient</groupId>
-    <artifactId>api-client-java</artifactId>
+    <groupId>com.channelengine.merchant.apiclient</groupId>
+    <artifactId>merchant-api-client-java</artifactId>
     <packaging>jar</packaging>
-    <name>api-client-java</name>
-    <version>2.4.2</version>
+    <name>merchant-api-client-java</name>
+    <version>2.5.0</version>
     <url>https://github.com/channelengine/api-client-java</url>
-    <description>ChannelEngine API Client for java</description>
+    <description>ChannelEngine merchant API Client for java</description>
     <scm>
-        <connection>scm:git:git://github.com:channelengine/api-client-java.git</connection>
-        <developerConnection>scm:git:git://github.com:channelengine/api-client-java.git</developerConnection>
+        <connection>scm:git:git://github.com:channelengine/merchant-api-client-java.git</connection>
+        <developerConnection>scm:git:git://github.com:channelengine/merchant-api-client-java.git</developerConnection>
         <url>https://github.com/channelengine/api-client-java</url>
     </scm>
 

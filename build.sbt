@@ -1,8 +1,8 @@
 lazy val root = (project in file(".")).
   settings(
-    organization := "com.channelengine.apiclient",
-    name := "api-client-java",
-    version := "2.4.2",
+    organization := "com.channelengine.merchant.apiclient",
+    name := "merchant-api-client-java",
+    version := "2.5.0",
     scalaVersion := "2.11.4",
     scalacOptions ++= Seq("-feature"),
     javacOptions in compile ++= Seq("-Xlint:deprecation"),
