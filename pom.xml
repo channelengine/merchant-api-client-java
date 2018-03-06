@@ -5,7 +5,7 @@
     <artifactId>merchant-api-client-java</artifactId>
     <packaging>jar</packaging>
     <name>merchant-api-client-java</name>
-    <version>2.5.3</version>
+    <version>2.6.0</version>
     <url>https://github.com/channelengine/merchant-api-client-java</url>
     <description>ChannelEngine merchant API Client for java</description>
     <scm>
