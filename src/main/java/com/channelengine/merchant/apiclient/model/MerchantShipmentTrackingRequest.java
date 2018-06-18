@@ -44,10 +44,10 @@ public class MerchantShipmentTrackingRequest {
   }
 
    /**
-   * Get method
+   * Shipment method (carrier)
    * @return method
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Shipment method (carrier)")
   public String getMethod() {
     return method;
   }
@@ -62,10 +62,10 @@ public class MerchantShipmentTrackingRequest {
   }
 
    /**
-   * Get trackTraceNo
+   * The unique shipping reference used by the Shipping carrier (track &amp;amp; trace number)
    * @return trackTraceNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique shipping reference used by the Shipping carrier (track &amp; trace number)")
   public String getTrackTraceNo() {
     return trackTraceNo;
   }
@@ -80,10 +80,10 @@ public class MerchantShipmentTrackingRequest {
   }
 
    /**
-   * Get trackTraceUrl
+   * A link to a page of the carrier where the customer can track the shipping of her package.
    * @return trackTraceUrl
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "A link to a page of the carrier where the customer can track the shipping of her package.")
   public String getTrackTraceUrl() {
     return trackTraceUrl;
   }

@@ -45,7 +45,7 @@ public class MerchantCancellationRequest {
   private String reason = null;
 
   /**
-   * Gets or Sets reasonCode
+   * Reason code for cancellation
    */
   @JsonAdapter(ReasonCodeEnum.Adapter.class)
   public enum ReasonCodeEnum {
@@ -108,10 +108,10 @@ public class MerchantCancellationRequest {
   }
 
    /**
-   * Get merchantCancellationNo
+   * The unique cancellation reference used by the Merchant (sku)
    * @return merchantCancellationNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique cancellation reference used by the Merchant (sku)")
   public String getMerchantCancellationNo() {
     return merchantCancellationNo;
   }
@@ -126,10 +126,10 @@ public class MerchantCancellationRequest {
   }
 
    /**
-   * Get merchantOrderNo
+   * The unique order reference used by the Merchant (sku)
    * @return merchantOrderNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique order reference used by the Merchant (sku)")
   public String getMerchantOrderNo() {
     return merchantOrderNo;
   }
@@ -167,10 +167,10 @@ public class MerchantCancellationRequest {
   }
 
    /**
-   * Get reason
+   * Reason for cancellation (text)
    * @return reason
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Reason for cancellation (text)")
   public String getReason() {
     return reason;
   }
@@ -185,10 +185,10 @@ public class MerchantCancellationRequest {
   }
 
    /**
-   * Get reasonCode
+   * Reason code for cancellation
    * @return reasonCode
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Reason code for cancellation")
   public ReasonCodeEnum getReasonCode() {
     return reasonCode;
   }

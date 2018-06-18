@@ -25,20 +25,20 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * MerchantStockPriceUpdateRequest
+ * MerchantReturnLineUpdateRequest
  */
 
-public class MerchantStockPriceUpdateRequest {
+public class MerchantReturnLineUpdateRequest {
   @SerializedName("MerchantProductNo")
   private String merchantProductNo = null;
 
-  @SerializedName("Stock")
-  private Integer stock = null;
+  @SerializedName("AcceptedQuantity")
+  private Integer acceptedQuantity = null;
 
-  @SerializedName("Price")
-  private Double price = null;
+  @SerializedName("RejectedQuantity")
+  private Integer rejectedQuantity = null;
 
-  public MerchantStockPriceUpdateRequest merchantProductNo(String merchantProductNo) {
+  public MerchantReturnLineUpdateRequest merchantProductNo(String merchantProductNo) {
     this.merchantProductNo = merchantProductNo;
     return this;
   }
@@ -56,40 +56,40 @@ public class MerchantStockPriceUpdateRequest {
     this.merchantProductNo = merchantProductNo;
   }
 
-  public MerchantStockPriceUpdateRequest stock(Integer stock) {
-    this.stock = stock;
+  public MerchantReturnLineUpdateRequest acceptedQuantity(Integer acceptedQuantity) {
+    this.acceptedQuantity = acceptedQuantity;
     return this;
   }
 
    /**
-   * The stock of the product. Should not be negative
-   * @return stock
+   * The amount of items that have been accepted
+   * @return acceptedQuantity
   **/
-  @ApiModelProperty(value = "The stock of the product. Should not be negative")
-  public Integer getStock() {
-    return stock;
+  @ApiModelProperty(required = true, value = "The amount of items that have been accepted")
+  public Integer getAcceptedQuantity() {
+    return acceptedQuantity;
   }
 
-  public void setStock(Integer stock) {
-    this.stock = stock;
+  public void setAcceptedQuantity(Integer acceptedQuantity) {
+    this.acceptedQuantity = acceptedQuantity;
   }
 
-  public MerchantStockPriceUpdateRequest price(Double price) {
-    this.price = price;
+  public MerchantReturnLineUpdateRequest rejectedQuantity(Integer rejectedQuantity) {
+    this.rejectedQuantity = rejectedQuantity;
     return this;
   }
 
    /**
-   * The price of the product. Should not be negative
-   * @return price
+   * The amount of items that have been rejected
+   * @return rejectedQuantity
   **/
-  @ApiModelProperty(value = "The price of the product. Should not be negative")
-  public Double getPrice() {
-    return price;
+  @ApiModelProperty(required = true, value = "The amount of items that have been rejected")
+  public Integer getRejectedQuantity() {
+    return rejectedQuantity;
   }
 
-  public void setPrice(Double price) {
-    this.price = price;
+  public void setRejectedQuantity(Integer rejectedQuantity) {
+    this.rejectedQuantity = rejectedQuantity;
   }
 
 
@@ -101,26 +101,26 @@ public class MerchantStockPriceUpdateRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MerchantStockPriceUpdateRequest merchantStockPriceUpdateRequest = (MerchantStockPriceUpdateRequest) o;
-    return Objects.equals(this.merchantProductNo, merchantStockPriceUpdateRequest.merchantProductNo) &&
-        Objects.equals(this.stock, merchantStockPriceUpdateRequest.stock) &&
-        Objects.equals(this.price, merchantStockPriceUpdateRequest.price);
+    MerchantReturnLineUpdateRequest merchantReturnLineUpdateRequest = (MerchantReturnLineUpdateRequest) o;
+    return Objects.equals(this.merchantProductNo, merchantReturnLineUpdateRequest.merchantProductNo) &&
+        Objects.equals(this.acceptedQuantity, merchantReturnLineUpdateRequest.acceptedQuantity) &&
+        Objects.equals(this.rejectedQuantity, merchantReturnLineUpdateRequest.rejectedQuantity);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantProductNo, stock, price);
+    return Objects.hash(merchantProductNo, acceptedQuantity, rejectedQuantity);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MerchantStockPriceUpdateRequest {\n");
+    sb.append("class MerchantReturnLineUpdateRequest {\n");
     
     sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
-    sb.append("    stock: ").append(toIndentedString(stock)).append("\n");
-    sb.append("    price: ").append(toIndentedString(price)).append("\n");
+    sb.append("    acceptedQuantity: ").append(toIndentedString(acceptedQuantity)).append("\n");
+    sb.append("    rejectedQuantity: ").append(toIndentedString(rejectedQuantity)).append("\n");
     sb.append("}");
     return sb.toString();
   }

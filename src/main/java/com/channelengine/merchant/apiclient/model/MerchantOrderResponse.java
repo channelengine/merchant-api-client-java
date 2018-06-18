@@ -43,7 +43,7 @@ public class MerchantOrderResponse {
   private String channelName = null;
 
   /**
-   * Gets or Sets channelOrderSupport
+   * The type of orders the channel support.
    */
   @JsonAdapter(ChannelOrderSupportEnum.Adapter.class)
   public enum ChannelOrderSupportEnum {
@@ -100,7 +100,7 @@ public class MerchantOrderResponse {
   private String channelOrderNo = null;
 
   /**
-   * Gets or Sets status
+   * The status of the order
    */
   @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
@@ -261,10 +261,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get channelName
+   * The name of the channel
    * @return channelName
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The name of the channel")
   public String getChannelName() {
     return channelName;
   }
@@ -279,10 +279,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get channelOrderSupport
+   * The type of orders the channel support.
    * @return channelOrderSupport
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The type of orders the channel support.")
   public ChannelOrderSupportEnum getChannelOrderSupport() {
     return channelOrderSupport;
   }
@@ -297,10 +297,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get channelOrderNo
+   * The unique order reference used by the channel
    * @return channelOrderNo
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique order reference used by the channel")
   public String getChannelOrderNo() {
     return channelOrderNo;
   }
@@ -315,10 +315,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get status
+   * The status of the order
    * @return status
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The status of the order")
   public StatusEnum getStatus() {
     return status;
   }
@@ -557,10 +557,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get phone
+   * The customer&#39;s telephone number
    * @return phone
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The customer's telephone number")
   public String getPhone() {
     return phone;
   }
@@ -575,10 +575,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get email
+   * The customer&#39;s email
    * @return email
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The customer's email")
   public String getEmail() {
     return email;
   }
@@ -629,10 +629,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get paymentMethod
+   * The payment method used on the order
    * @return paymentMethod
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The payment method used on the order")
   public String getPaymentMethod() {
     return paymentMethod;
   }
@@ -665,10 +665,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get currencyCode
+   * The currency code for the amounts of the order
    * @return currencyCode
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The currency code for the amounts of the order")
   public String getCurrencyCode() {
     return currencyCode;
   }
@@ -683,10 +683,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get orderDate
+   * The date the order was done
    * @return orderDate
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The date the order was done")
   public OffsetDateTime getOrderDate() {
     return orderDate;
   }
@@ -701,10 +701,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get channelCustomerNo
+   * The unique customer reference used by the channel
    * @return channelCustomerNo
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique customer reference used by the channel")
   public String getChannelCustomerNo() {
     return channelCustomerNo;
   }
@@ -719,10 +719,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get billingAddress
+   * The billing or invoice address
    * @return billingAddress
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The billing or invoice address")
   public Address getBillingAddress() {
     return billingAddress;
   }
@@ -737,10 +737,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get shippingAddress
+   * The shipping address
    * @return shippingAddress
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The shipping address")
   public Address getShippingAddress() {
     return shippingAddress;
   }
@@ -763,10 +763,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * Get extraData
+   * Extra data on the order
    * @return extraData
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Extra data on the order")
   public Map<String, String> getExtraData() {
     return extraData;
   }

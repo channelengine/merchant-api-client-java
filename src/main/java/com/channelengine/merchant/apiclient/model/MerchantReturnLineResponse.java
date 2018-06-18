@@ -41,10 +41,10 @@ public class MerchantReturnLineResponse {
   }
 
    /**
-   * Get merchantProductNo
+   * The unique product reference used by the Merchant (sku)
    * @return merchantProductNo
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique product reference used by the Merchant (sku)")
   public String getMerchantProductNo() {
     return merchantProductNo;
   }
@@ -59,10 +59,10 @@ public class MerchantReturnLineResponse {
   }
 
    /**
-   * Get quantity
+   * Number of items of the product in this return
    * @return quantity
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Number of items of the product in this return")
   public Integer getQuantity() {
     return quantity;
   }

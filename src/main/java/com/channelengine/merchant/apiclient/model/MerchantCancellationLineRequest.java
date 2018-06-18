@@ -41,10 +41,10 @@ public class MerchantCancellationLineRequest {
   }
 
    /**
-   * Get merchantProductNo
+   * The unique product reference used by the Merchant (sku)
    * @return merchantProductNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique product reference used by the Merchant (sku)")
   public String getMerchantProductNo() {
     return merchantProductNo;
   }
@@ -59,10 +59,10 @@ public class MerchantCancellationLineRequest {
   }
 
    /**
-   * Get quantity
+   * Quantity of the product to cancel
    * @return quantity
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Quantity of the product to cancel")
   public Integer getQuantity() {
     return quantity;
   }

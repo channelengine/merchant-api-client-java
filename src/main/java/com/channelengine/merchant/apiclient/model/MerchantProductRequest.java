@@ -177,10 +177,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * A unique identifier of the product.
+   * A unique identifier of the product. (sku)
    * @return merchantProductNo
   **/
-  @ApiModelProperty(value = "A unique identifier of the product.")
+  @ApiModelProperty(value = "A unique identifier of the product. (sku)")
   public String getMerchantProductNo() {
     return merchantProductNo;
   }
@@ -213,10 +213,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * If this product is a different version of another  product (for example, all fields are the same except  color) and itself is a parent with child products (e.g. of sizes),   then this field should contain the &#39;MerchantProductNo&#39; of the grandparent. The grandparent  should already exist (or be present between the products  in the content of the API call, it does not matter whether   the grandparent is behind the child in the list).    Use this field in case of three level product hierarchy,   e.g. model - color - size.   This is required for channels like Otto.
+   * If this product is a different version of another  product (for example, all fields are the same except  color) and itself is a parent with child products (e.g. of sizes),   then this field should contain the &#39;MerchantProductNo&#39; of the grandparent. The grandparent  should already exist (or be present between the products  in the content of the API call, it does not matter whether   the grandparent is behind the child in the list).  When you set this field, the ParentMerchantProductNo should be left empty.    Use this field in case of three level product hierarchy,   e.g. model - color - size.   This is required for channels like Otto.
    * @return parentMerchantProductNo2
   **/
-  @ApiModelProperty(value = "If this product is a different version of another  product (for example, all fields are the same except  color) and itself is a parent with child products (e.g. of sizes),   then this field should contain the 'MerchantProductNo' of the grandparent. The grandparent  should already exist (or be present between the products  in the content of the API call, it does not matter whether   the grandparent is behind the child in the list).    Use this field in case of three level product hierarchy,   e.g. model - color - size.   This is required for channels like Otto.")
+  @ApiModelProperty(value = "If this product is a different version of another  product (for example, all fields are the same except  color) and itself is a parent with child products (e.g. of sizes),   then this field should contain the 'MerchantProductNo' of the grandparent. The grandparent  should already exist (or be present between the products  in the content of the API call, it does not matter whether   the grandparent is behind the child in the list).  When you set this field, the ParentMerchantProductNo should be left empty.    Use this field in case of three level product hierarchy,   e.g. model - color - size.   This is required for channels like Otto.")
   public String getParentMerchantProductNo2() {
     return parentMerchantProductNo2;
   }
@@ -231,10 +231,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get name
+   * The name of the product
    * @return name
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The name of the product")
   public String getName() {
     return name;
   }
@@ -249,10 +249,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get description
+   * A description of the product
    * @return description
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "A description of the product")
   public String getDescription() {
     return description;
   }
@@ -267,10 +267,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get brand
+   * The brand of the product
    * @return brand
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The brand of the product")
   public String getBrand() {
     return brand;
   }
@@ -285,10 +285,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get size
+   * Optional. The size of the product (variant). E.g. fashion size (S-XL, 46-56, etc), width of the watch, etc..
    * @return size
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. The size of the product (variant). E.g. fashion size (S-XL, 46-56, etc), width of the watch, etc..")
   public String getSize() {
     return size;
   }
@@ -303,10 +303,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get color
+   * Optional. The color of the product (variant).
    * @return color
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. The color of the product (variant).")
   public String getColor() {
     return color;
   }
@@ -321,10 +321,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get ean
+   * The EAN of GTIN of the product
    * @return ean
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The EAN of GTIN of the product")
   public String getEan() {
     return ean;
   }
@@ -339,10 +339,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get manufacturerProductNumber
+   * The unique product reference used by the manufacturer/vendor of the product
    * @return manufacturerProductNumber
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique product reference used by the manufacturer/vendor of the product")
   public String getManufacturerProductNumber() {
     return manufacturerProductNumber;
   }
@@ -357,10 +357,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get stock
+   * The number of items in stock
    * @return stock
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The number of items in stock")
   public Integer getStock() {
     return stock;
   }
@@ -411,10 +411,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get purchasePrice
+   * Optional. The purchase price of the product. Useful for repricing.
    * @return purchasePrice
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. The purchase price of the product. Useful for repricing.")
   public Double getPurchasePrice() {
     return purchasePrice;
   }
@@ -447,10 +447,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get shippingCost
+   * Shipping cost of the product.
    * @return shippingCost
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Shipping cost of the product.")
   public Double getShippingCost() {
     return shippingCost;
   }
@@ -519,10 +519,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get extraImageUrl1
+   * Url to an additional image of product (1)
    * @return extraImageUrl1
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (1)")
   public String getExtraImageUrl1() {
     return extraImageUrl1;
   }
@@ -537,10 +537,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get extraImageUrl2
+   * Url to an additional image of product (2)
    * @return extraImageUrl2
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (2)")
   public String getExtraImageUrl2() {
     return extraImageUrl2;
   }
@@ -555,10 +555,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get extraImageUrl3
+   * Url to an additional image of product (3)
    * @return extraImageUrl3
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (3)")
   public String getExtraImageUrl3() {
     return extraImageUrl3;
   }
@@ -573,10 +573,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get extraImageUrl4
+   * Url to an additional image of product (4)
    * @return extraImageUrl4
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (4)")
   public String getExtraImageUrl4() {
     return extraImageUrl4;
   }
@@ -591,10 +591,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get extraImageUrl5
+   * Url to an additional image of product (5)
    * @return extraImageUrl5
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (5)")
   public String getExtraImageUrl5() {
     return extraImageUrl5;
   }
@@ -609,10 +609,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get extraImageUrl6
+   * Url to an additional image of product (6)
    * @return extraImageUrl6
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (6)")
   public String getExtraImageUrl6() {
     return extraImageUrl6;
   }
@@ -627,10 +627,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get extraImageUrl7
+   * Url to an additional image of product (7)
    * @return extraImageUrl7
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (7)")
   public String getExtraImageUrl7() {
     return extraImageUrl7;
   }
@@ -645,10 +645,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get extraImageUrl8
+   * Url to an additional image of product (8)
    * @return extraImageUrl8
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (8)")
   public String getExtraImageUrl8() {
     return extraImageUrl8;
   }
@@ -663,10 +663,10 @@ public class MerchantProductRequest {
   }
 
    /**
-   * Get extraImageUrl9
+   * Url to an additional image of product (9)
    * @return extraImageUrl9
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Url to an additional image of product (9)")
   public String getExtraImageUrl9() {
     return extraImageUrl9;
   }

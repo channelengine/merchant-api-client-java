@@ -30,7 +30,7 @@ import java.io.IOException;
 
 public class MerchantOrderLineResponse {
   /**
-   * Gets or Sets status
+   * The status of the order
    */
   @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
@@ -206,10 +206,10 @@ public class MerchantOrderLineResponse {
   }
 
    /**
-   * Get status
+   * The status of the order
    * @return status
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The status of the order")
   public StatusEnum getStatus() {
     return status;
   }
@@ -224,10 +224,10 @@ public class MerchantOrderLineResponse {
   }
 
    /**
-   * Get isFulfillmentByMarketplace
+   * Is the order fulfilled by the marketplace (amazon: FBA, bol: LVB, etc.)?
    * @return isFulfillmentByMarketplace
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Is the order fulfilled by the marketplace (amazon: FBA, bol: LVB, etc.)?")
   public Boolean isIsFulfillmentByMarketplace() {
     return isFulfillmentByMarketplace;
   }
@@ -242,10 +242,10 @@ public class MerchantOrderLineResponse {
   }
 
    /**
-   * Get merchantProductNo
+   * The unique product reference used by the Merchant (sku)
    * @return merchantProductNo
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique product reference used by the Merchant (sku)")
   public String getMerchantProductNo() {
     return merchantProductNo;
   }
@@ -386,10 +386,10 @@ public class MerchantOrderLineResponse {
   }
 
    /**
-   * Get channelProductNo
+   * The unique order reference used by the channel
    * @return channelProductNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique order reference used by the channel")
   public String getChannelProductNo() {
     return channelProductNo;
   }
@@ -404,10 +404,10 @@ public class MerchantOrderLineResponse {
   }
 
    /**
-   * Get quantity
+   * The number of items of the product
    * @return quantity
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The number of items of the product")
   public Integer getQuantity() {
     return quantity;
   }

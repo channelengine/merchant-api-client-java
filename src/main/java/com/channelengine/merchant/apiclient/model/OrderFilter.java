@@ -174,10 +174,10 @@ public class OrderFilter {
   }
 
    /**
-   * Get statuses
+   * Order status(es) to filter on
    * @return statuses
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Order status(es) to filter on")
   public List<StatusesEnum> getStatuses() {
     return statuses;
   }
@@ -200,10 +200,10 @@ public class OrderFilter {
   }
 
    /**
-   * Get merchantOrderNos
+   * Filter on unique order reference used by the merchant
    * @return merchantOrderNos
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Filter on unique order reference used by the merchant")
   public List<String> getMerchantOrderNos() {
     return merchantOrderNos;
   }
@@ -218,10 +218,10 @@ public class OrderFilter {
   }
 
    /**
-   * Get excludeMarketplaceFulfilledOrdersAndLines
+   * Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.)
    * @return excludeMarketplaceFulfilledOrdersAndLines
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.)")
   public Boolean isExcludeMarketplaceFulfilledOrdersAndLines() {
     return excludeMarketplaceFulfilledOrdersAndLines;
   }
@@ -254,10 +254,10 @@ public class OrderFilter {
   }
 
    /**
-   * Get page
+   * The page to filter on. Starts at 1.
    * @return page
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The page to filter on. Starts at 1.")
   public Integer getPage() {
     return page;
   }

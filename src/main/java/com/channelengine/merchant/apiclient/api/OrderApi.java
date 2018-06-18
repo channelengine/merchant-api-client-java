@@ -181,11 +181,11 @@ public class OrderApi {
     }
     /**
      * Build call for orderGetByFilter
-     * @param filterStatuses  (optional)
-     * @param filterMerchantOrderNos  (optional)
-     * @param filterExcludeMarketplaceFulfilledOrdersAndLines  (optional)
+     * @param filterStatuses Order status(es) to filter on (optional)
+     * @param filterMerchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param filterExcludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param filterFulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
-     * @param filterPage  (optional)
+     * @param filterPage The page to filter on. Starts at 1. (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -254,11 +254,11 @@ public class OrderApi {
     /**
      * Get Orders By Filter
      * Fetch orders based on the provided OrderFilter
-     * @param filterStatuses  (optional)
-     * @param filterMerchantOrderNos  (optional)
-     * @param filterExcludeMarketplaceFulfilledOrdersAndLines  (optional)
+     * @param filterStatuses Order status(es) to filter on (optional)
+     * @param filterMerchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param filterExcludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param filterFulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
-     * @param filterPage  (optional)
+     * @param filterPage The page to filter on. Starts at 1. (optional)
      * @return CollectionOfMerchantOrderResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -270,11 +270,11 @@ public class OrderApi {
     /**
      * Get Orders By Filter
      * Fetch orders based on the provided OrderFilter
-     * @param filterStatuses  (optional)
-     * @param filterMerchantOrderNos  (optional)
-     * @param filterExcludeMarketplaceFulfilledOrdersAndLines  (optional)
+     * @param filterStatuses Order status(es) to filter on (optional)
+     * @param filterMerchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param filterExcludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param filterFulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
-     * @param filterPage  (optional)
+     * @param filterPage The page to filter on. Starts at 1. (optional)
      * @return ApiResponse&lt;CollectionOfMerchantOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -287,11 +287,11 @@ public class OrderApi {
     /**
      * Get Orders By Filter (asynchronously)
      * Fetch orders based on the provided OrderFilter
-     * @param filterStatuses  (optional)
-     * @param filterMerchantOrderNos  (optional)
-     * @param filterExcludeMarketplaceFulfilledOrdersAndLines  (optional)
+     * @param filterStatuses Order status(es) to filter on (optional)
+     * @param filterMerchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param filterExcludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param filterFulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
-     * @param filterPage  (optional)
+     * @param filterPage The page to filter on. Starts at 1. (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

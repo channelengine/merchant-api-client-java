@@ -45,7 +45,7 @@ public class MerchantReturnRequest {
   private Integer id = null;
 
   /**
-   * Gets or Sets reason
+   * The reason code of the return
    */
   @JsonAdapter(ReasonEnum.Adapter.class)
   public enum ReasonEnum {
@@ -126,10 +126,10 @@ public class MerchantReturnRequest {
   }
 
    /**
-   * Get merchantOrderNo
+   * The unique order reference used by the Merchant (sku)
    * @return merchantOrderNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique order reference used by the Merchant (sku)")
   public String getMerchantOrderNo() {
     return merchantOrderNo;
   }
@@ -144,10 +144,10 @@ public class MerchantReturnRequest {
   }
 
    /**
-   * Get merchantReturnNo
+   * The unique return reference used by the Merchant (sku)
    * @return merchantReturnNo
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "The unique return reference used by the Merchant (sku)")
   public String getMerchantReturnNo() {
     return merchantReturnNo;
   }
@@ -185,10 +185,10 @@ public class MerchantReturnRequest {
   }
 
    /**
-   * Get id
+   * The unique return reference used by ChannelEngine
    * @return id
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique return reference used by ChannelEngine")
   public Integer getId() {
     return id;
   }
@@ -203,10 +203,10 @@ public class MerchantReturnRequest {
   }
 
    /**
-   * Get reason
+   * The reason code of the return
    * @return reason
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The reason code of the return")
   public ReasonEnum getReason() {
     return reason;
   }
@@ -221,10 +221,10 @@ public class MerchantReturnRequest {
   }
 
    /**
-   * Get customerComment
+   * Optional. Comment of customer on the (reason of) the return
    * @return customerComment
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. Comment of customer on the (reason of) the return")
   public String getCustomerComment() {
     return customerComment;
   }
@@ -239,10 +239,10 @@ public class MerchantReturnRequest {
   }
 
    /**
-   * Get merchantComment
+   * Optional. Comment of merchant on the return.
    * @return merchantComment
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional. Comment of merchant on the return.")
   public String getMerchantComment() {
     return merchantComment;
   }
@@ -257,10 +257,10 @@ public class MerchantReturnRequest {
   }
 
    /**
-   * Get refundInclVat
+   * Refund amount incl. VAT
    * @return refundInclVat
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Refund amount incl. VAT")
   public Double getRefundInclVat() {
     return refundInclVat;
   }
@@ -275,10 +275,10 @@ public class MerchantReturnRequest {
   }
 
    /**
-   * Get refundExclVat
+   * Refund amount excl. VAT
    * @return refundExclVat
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Refund amount excl. VAT")
   public Double getRefundExclVat() {
     return refundExclVat;
   }
