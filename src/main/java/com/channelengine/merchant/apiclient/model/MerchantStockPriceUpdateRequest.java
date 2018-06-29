@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * MerchantStockPriceUpdateRequest
@@ -36,7 +37,7 @@ public class MerchantStockPriceUpdateRequest {
   private Integer stock = null;
 
   @SerializedName("Price")
-  private Double price = null;
+  private BigDecimal price = null;
 
   public MerchantStockPriceUpdateRequest merchantProductNo(String merchantProductNo) {
     this.merchantProductNo = merchantProductNo;
@@ -74,7 +75,7 @@ public class MerchantStockPriceUpdateRequest {
     this.stock = stock;
   }
 
-  public MerchantStockPriceUpdateRequest price(Double price) {
+  public MerchantStockPriceUpdateRequest price(BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -84,11 +85,11 @@ public class MerchantStockPriceUpdateRequest {
    * @return price
   **/
   @ApiModelProperty(value = "The price of the product. Should not be negative")
-  public Double getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(Double price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 

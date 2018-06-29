@@ -24,6 +24,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,9 @@ import java.util.List;
 public class MerchantProductResponse {
   @SerializedName("IsActive")
   private Boolean isActive = null;
+
+  @SerializedName("MerchantProductNo")
+  private String merchantProductNo = null;
 
   @SerializedName("Name")
   private String name = null;
@@ -60,13 +64,13 @@ public class MerchantProductResponse {
   private Integer stock = null;
 
   @SerializedName("Price")
-  private Double price = null;
+  private BigDecimal price = null;
 
   @SerializedName("MSRP")
-  private Double MSRP = null;
+  private BigDecimal MSRP = null;
 
   @SerializedName("PurchasePrice")
-  private Double purchasePrice = null;
+  private BigDecimal purchasePrice = null;
 
   /**
    * The type of VAT which applies to this product.  See: http://ec.europa.eu/taxation_customs/taxation/vat/topics/rates_en.htm
@@ -121,7 +125,7 @@ public class MerchantProductResponse {
   private VatRateTypeEnum vatRateType = null;
 
   @SerializedName("ShippingCost")
-  private Double shippingCost = null;
+  private BigDecimal shippingCost = null;
 
   @SerializedName("ShippingTime")
   private String shippingTime = null;
@@ -181,6 +185,24 @@ public class MerchantProductResponse {
 
   public void setIsActive(Boolean isActive) {
     this.isActive = isActive;
+  }
+
+  public MerchantProductResponse merchantProductNo(String merchantProductNo) {
+    this.merchantProductNo = merchantProductNo;
+    return this;
+  }
+
+   /**
+   * A unique identifier of the product. (sku)
+   * @return merchantProductNo
+  **/
+  @ApiModelProperty(value = "A unique identifier of the product. (sku)")
+  public String getMerchantProductNo() {
+    return merchantProductNo;
+  }
+
+  public void setMerchantProductNo(String merchantProductNo) {
+    this.merchantProductNo = merchantProductNo;
   }
 
   public MerchantProductResponse name(String name) {
@@ -327,7 +349,7 @@ public class MerchantProductResponse {
     this.stock = stock;
   }
 
-  public MerchantProductResponse price(Double price) {
+  public MerchantProductResponse price(BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -337,15 +359,15 @@ public class MerchantProductResponse {
    * @return price
   **/
   @ApiModelProperty(value = "Price, including VAT.")
-  public Double getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(Double price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 
-  public MerchantProductResponse MSRP(Double MSRP) {
+  public MerchantProductResponse MSRP(BigDecimal MSRP) {
     this.MSRP = MSRP;
     return this;
   }
@@ -355,15 +377,15 @@ public class MerchantProductResponse {
    * @return MSRP
   **/
   @ApiModelProperty(value = "Manufacturer's suggested retail price")
-  public Double getMSRP() {
+  public BigDecimal getMSRP() {
     return MSRP;
   }
 
-  public void setMSRP(Double MSRP) {
+  public void setMSRP(BigDecimal MSRP) {
     this.MSRP = MSRP;
   }
 
-  public MerchantProductResponse purchasePrice(Double purchasePrice) {
+  public MerchantProductResponse purchasePrice(BigDecimal purchasePrice) {
     this.purchasePrice = purchasePrice;
     return this;
   }
@@ -373,11 +395,11 @@ public class MerchantProductResponse {
    * @return purchasePrice
   **/
   @ApiModelProperty(value = "Optional. The purchase price of the product. Useful for repricing.")
-  public Double getPurchasePrice() {
+  public BigDecimal getPurchasePrice() {
     return purchasePrice;
   }
 
-  public void setPurchasePrice(Double purchasePrice) {
+  public void setPurchasePrice(BigDecimal purchasePrice) {
     this.purchasePrice = purchasePrice;
   }
 
@@ -399,7 +421,7 @@ public class MerchantProductResponse {
     this.vatRateType = vatRateType;
   }
 
-  public MerchantProductResponse shippingCost(Double shippingCost) {
+  public MerchantProductResponse shippingCost(BigDecimal shippingCost) {
     this.shippingCost = shippingCost;
     return this;
   }
@@ -409,11 +431,11 @@ public class MerchantProductResponse {
    * @return shippingCost
   **/
   @ApiModelProperty(value = "Shipping cost of the product.")
-  public Double getShippingCost() {
+  public BigDecimal getShippingCost() {
     return shippingCost;
   }
 
-  public void setShippingCost(Double shippingCost) {
+  public void setShippingCost(BigDecimal shippingCost) {
     this.shippingCost = shippingCost;
   }
 
@@ -688,6 +710,7 @@ public class MerchantProductResponse {
     }
     MerchantProductResponse merchantProductResponse = (MerchantProductResponse) o;
     return Objects.equals(this.isActive, merchantProductResponse.isActive) &&
+        Objects.equals(this.merchantProductNo, merchantProductResponse.merchantProductNo) &&
         Objects.equals(this.name, merchantProductResponse.name) &&
         Objects.equals(this.description, merchantProductResponse.description) &&
         Objects.equals(this.brand, merchantProductResponse.brand) &&
@@ -719,7 +742,7 @@ public class MerchantProductResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(isActive, name, description, brand, size, color, ean, manufacturerProductNumber, stock, price, MSRP, purchasePrice, vatRateType, shippingCost, shippingTime, url, imageUrl, extraImageUrl1, extraImageUrl2, extraImageUrl3, extraImageUrl4, extraImageUrl5, extraImageUrl6, extraImageUrl7, extraImageUrl8, extraImageUrl9, categoryTrail, extraData);
+    return Objects.hash(isActive, merchantProductNo, name, description, brand, size, color, ean, manufacturerProductNumber, stock, price, MSRP, purchasePrice, vatRateType, shippingCost, shippingTime, url, imageUrl, extraImageUrl1, extraImageUrl2, extraImageUrl3, extraImageUrl4, extraImageUrl5, extraImageUrl6, extraImageUrl7, extraImageUrl8, extraImageUrl9, categoryTrail, extraData);
   }
 
 
@@ -729,6 +752,7 @@ public class MerchantProductResponse {
     sb.append("class MerchantProductResponse {\n");
     
     sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
+    sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    brand: ").append(toIndentedString(brand)).append("\n");

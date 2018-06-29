@@ -25,6 +25,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -166,37 +167,37 @@ public class MerchantOrderResponse {
   private StatusEnum status = null;
 
   @SerializedName("SubTotalInclVat")
-  private Double subTotalInclVat = null;
+  private BigDecimal subTotalInclVat = null;
 
   @SerializedName("SubTotalVat")
-  private Double subTotalVat = null;
+  private BigDecimal subTotalVat = null;
 
   @SerializedName("ShippingCostsVat")
-  private Double shippingCostsVat = null;
+  private BigDecimal shippingCostsVat = null;
 
   @SerializedName("TotalInclVat")
-  private Double totalInclVat = null;
+  private BigDecimal totalInclVat = null;
 
   @SerializedName("TotalVat")
-  private Double totalVat = null;
+  private BigDecimal totalVat = null;
 
   @SerializedName("OriginalSubTotalInclVat")
-  private Double originalSubTotalInclVat = null;
+  private BigDecimal originalSubTotalInclVat = null;
 
   @SerializedName("OriginalSubTotalVat")
-  private Double originalSubTotalVat = null;
+  private BigDecimal originalSubTotalVat = null;
 
   @SerializedName("OriginalShippingCostsInclVat")
-  private Double originalShippingCostsInclVat = null;
+  private BigDecimal originalShippingCostsInclVat = null;
 
   @SerializedName("OriginalShippingCostsVat")
-  private Double originalShippingCostsVat = null;
+  private BigDecimal originalShippingCostsVat = null;
 
   @SerializedName("OriginalTotalInclVat")
-  private Double originalTotalInclVat = null;
+  private BigDecimal originalTotalInclVat = null;
 
   @SerializedName("OriginalTotalVat")
-  private Double originalTotalVat = null;
+  private BigDecimal originalTotalVat = null;
 
   @SerializedName("Lines")
   private List<MerchantOrderLineResponse> lines = null;
@@ -217,7 +218,7 @@ public class MerchantOrderResponse {
   private String paymentMethod = null;
 
   @SerializedName("ShippingCostsInclVat")
-  private Double shippingCostsInclVat = null;
+  private BigDecimal shippingCostsInclVat = null;
 
   @SerializedName("CurrencyCode")
   private String currencyCode = null;
@@ -327,7 +328,7 @@ public class MerchantOrderResponse {
     this.status = status;
   }
 
-  public MerchantOrderResponse subTotalInclVat(Double subTotalInclVat) {
+  public MerchantOrderResponse subTotalInclVat(BigDecimal subTotalInclVat) {
     this.subTotalInclVat = subTotalInclVat;
     return this;
   }
@@ -337,15 +338,15 @@ public class MerchantOrderResponse {
    * @return subTotalInclVat
   **/
   @ApiModelProperty(value = "The total value of the order lines including VAT  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getSubTotalInclVat() {
+  public BigDecimal getSubTotalInclVat() {
     return subTotalInclVat;
   }
 
-  public void setSubTotalInclVat(Double subTotalInclVat) {
+  public void setSubTotalInclVat(BigDecimal subTotalInclVat) {
     this.subTotalInclVat = subTotalInclVat;
   }
 
-  public MerchantOrderResponse subTotalVat(Double subTotalVat) {
+  public MerchantOrderResponse subTotalVat(BigDecimal subTotalVat) {
     this.subTotalVat = subTotalVat;
     return this;
   }
@@ -355,15 +356,15 @@ public class MerchantOrderResponse {
    * @return subTotalVat
   **/
   @ApiModelProperty(value = "The total amount of VAT charged over the order lines  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getSubTotalVat() {
+  public BigDecimal getSubTotalVat() {
     return subTotalVat;
   }
 
-  public void setSubTotalVat(Double subTotalVat) {
+  public void setSubTotalVat(BigDecimal subTotalVat) {
     this.subTotalVat = subTotalVat;
   }
 
-  public MerchantOrderResponse shippingCostsVat(Double shippingCostsVat) {
+  public MerchantOrderResponse shippingCostsVat(BigDecimal shippingCostsVat) {
     this.shippingCostsVat = shippingCostsVat;
     return this;
   }
@@ -373,15 +374,15 @@ public class MerchantOrderResponse {
    * @return shippingCostsVat
   **/
   @ApiModelProperty(value = "The total amount of VAT charged over the shipping fee  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getShippingCostsVat() {
+  public BigDecimal getShippingCostsVat() {
     return shippingCostsVat;
   }
 
-  public void setShippingCostsVat(Double shippingCostsVat) {
+  public void setShippingCostsVat(BigDecimal shippingCostsVat) {
     this.shippingCostsVat = shippingCostsVat;
   }
 
-  public MerchantOrderResponse totalInclVat(Double totalInclVat) {
+  public MerchantOrderResponse totalInclVat(BigDecimal totalInclVat) {
     this.totalInclVat = totalInclVat;
     return this;
   }
@@ -391,15 +392,15 @@ public class MerchantOrderResponse {
    * @return totalInclVat
   **/
   @ApiModelProperty(value = "The total value of the order including VAT  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getTotalInclVat() {
+  public BigDecimal getTotalInclVat() {
     return totalInclVat;
   }
 
-  public void setTotalInclVat(Double totalInclVat) {
+  public void setTotalInclVat(BigDecimal totalInclVat) {
     this.totalInclVat = totalInclVat;
   }
 
-  public MerchantOrderResponse totalVat(Double totalVat) {
+  public MerchantOrderResponse totalVat(BigDecimal totalVat) {
     this.totalVat = totalVat;
     return this;
   }
@@ -409,15 +410,15 @@ public class MerchantOrderResponse {
    * @return totalVat
   **/
   @ApiModelProperty(value = "The total amount of VAT charged over the total value of te order  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getTotalVat() {
+  public BigDecimal getTotalVat() {
     return totalVat;
   }
 
-  public void setTotalVat(Double totalVat) {
+  public void setTotalVat(BigDecimal totalVat) {
     this.totalVat = totalVat;
   }
 
-  public MerchantOrderResponse originalSubTotalInclVat(Double originalSubTotalInclVat) {
+  public MerchantOrderResponse originalSubTotalInclVat(BigDecimal originalSubTotalInclVat) {
     this.originalSubTotalInclVat = originalSubTotalInclVat;
     return this;
   }
@@ -427,15 +428,15 @@ public class MerchantOrderResponse {
    * @return originalSubTotalInclVat
   **/
   @ApiModelProperty(value = "The total value of the order lines including VAT  (in the currency in which the order was paid for, see CurrencyCode).")
-  public Double getOriginalSubTotalInclVat() {
+  public BigDecimal getOriginalSubTotalInclVat() {
     return originalSubTotalInclVat;
   }
 
-  public void setOriginalSubTotalInclVat(Double originalSubTotalInclVat) {
+  public void setOriginalSubTotalInclVat(BigDecimal originalSubTotalInclVat) {
     this.originalSubTotalInclVat = originalSubTotalInclVat;
   }
 
-  public MerchantOrderResponse originalSubTotalVat(Double originalSubTotalVat) {
+  public MerchantOrderResponse originalSubTotalVat(BigDecimal originalSubTotalVat) {
     this.originalSubTotalVat = originalSubTotalVat;
     return this;
   }
@@ -445,15 +446,15 @@ public class MerchantOrderResponse {
    * @return originalSubTotalVat
   **/
   @ApiModelProperty(value = "The total amount of VAT charged over the order lines  (in the currency in which the order was paid for, see CurrencyCode).")
-  public Double getOriginalSubTotalVat() {
+  public BigDecimal getOriginalSubTotalVat() {
     return originalSubTotalVat;
   }
 
-  public void setOriginalSubTotalVat(Double originalSubTotalVat) {
+  public void setOriginalSubTotalVat(BigDecimal originalSubTotalVat) {
     this.originalSubTotalVat = originalSubTotalVat;
   }
 
-  public MerchantOrderResponse originalShippingCostsInclVat(Double originalShippingCostsInclVat) {
+  public MerchantOrderResponse originalShippingCostsInclVat(BigDecimal originalShippingCostsInclVat) {
     this.originalShippingCostsInclVat = originalShippingCostsInclVat;
     return this;
   }
@@ -463,15 +464,15 @@ public class MerchantOrderResponse {
    * @return originalShippingCostsInclVat
   **/
   @ApiModelProperty(value = "The shipping fee including VAT  (in the currency in which the order was paid for, see CurrencyCode).")
-  public Double getOriginalShippingCostsInclVat() {
+  public BigDecimal getOriginalShippingCostsInclVat() {
     return originalShippingCostsInclVat;
   }
 
-  public void setOriginalShippingCostsInclVat(Double originalShippingCostsInclVat) {
+  public void setOriginalShippingCostsInclVat(BigDecimal originalShippingCostsInclVat) {
     this.originalShippingCostsInclVat = originalShippingCostsInclVat;
   }
 
-  public MerchantOrderResponse originalShippingCostsVat(Double originalShippingCostsVat) {
+  public MerchantOrderResponse originalShippingCostsVat(BigDecimal originalShippingCostsVat) {
     this.originalShippingCostsVat = originalShippingCostsVat;
     return this;
   }
@@ -481,15 +482,15 @@ public class MerchantOrderResponse {
    * @return originalShippingCostsVat
   **/
   @ApiModelProperty(value = "The total amount of VAT charged over the shipping fee  (in the currency in which the order was paid for, see CurrencyCode).")
-  public Double getOriginalShippingCostsVat() {
+  public BigDecimal getOriginalShippingCostsVat() {
     return originalShippingCostsVat;
   }
 
-  public void setOriginalShippingCostsVat(Double originalShippingCostsVat) {
+  public void setOriginalShippingCostsVat(BigDecimal originalShippingCostsVat) {
     this.originalShippingCostsVat = originalShippingCostsVat;
   }
 
-  public MerchantOrderResponse originalTotalInclVat(Double originalTotalInclVat) {
+  public MerchantOrderResponse originalTotalInclVat(BigDecimal originalTotalInclVat) {
     this.originalTotalInclVat = originalTotalInclVat;
     return this;
   }
@@ -499,15 +500,15 @@ public class MerchantOrderResponse {
    * @return originalTotalInclVat
   **/
   @ApiModelProperty(value = "The total value of the order including VAT  (in the currency in which the order was paid for, see CurrencyCode).")
-  public Double getOriginalTotalInclVat() {
+  public BigDecimal getOriginalTotalInclVat() {
     return originalTotalInclVat;
   }
 
-  public void setOriginalTotalInclVat(Double originalTotalInclVat) {
+  public void setOriginalTotalInclVat(BigDecimal originalTotalInclVat) {
     this.originalTotalInclVat = originalTotalInclVat;
   }
 
-  public MerchantOrderResponse originalTotalVat(Double originalTotalVat) {
+  public MerchantOrderResponse originalTotalVat(BigDecimal originalTotalVat) {
     this.originalTotalVat = originalTotalVat;
     return this;
   }
@@ -517,11 +518,11 @@ public class MerchantOrderResponse {
    * @return originalTotalVat
   **/
   @ApiModelProperty(value = "The total amount of VAT charged over the total value of te order  (in the currency in which the order was paid for, see CurrencyCode).")
-  public Double getOriginalTotalVat() {
+  public BigDecimal getOriginalTotalVat() {
     return originalTotalVat;
   }
 
-  public void setOriginalTotalVat(Double originalTotalVat) {
+  public void setOriginalTotalVat(BigDecimal originalTotalVat) {
     this.originalTotalVat = originalTotalVat;
   }
 
@@ -641,7 +642,7 @@ public class MerchantOrderResponse {
     this.paymentMethod = paymentMethod;
   }
 
-  public MerchantOrderResponse shippingCostsInclVat(Double shippingCostsInclVat) {
+  public MerchantOrderResponse shippingCostsInclVat(BigDecimal shippingCostsInclVat) {
     this.shippingCostsInclVat = shippingCostsInclVat;
     return this;
   }
@@ -651,11 +652,11 @@ public class MerchantOrderResponse {
    * @return shippingCostsInclVat
   **/
   @ApiModelProperty(required = true, value = "The shipping fee including VAT  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getShippingCostsInclVat() {
+  public BigDecimal getShippingCostsInclVat() {
     return shippingCostsInclVat;
   }
 
-  public void setShippingCostsInclVat(Double shippingCostsInclVat) {
+  public void setShippingCostsInclVat(BigDecimal shippingCostsInclVat) {
     this.shippingCostsInclVat = shippingCostsInclVat;
   }
 

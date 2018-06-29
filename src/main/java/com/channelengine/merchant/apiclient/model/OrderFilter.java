@@ -25,6 +25,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.OffsetDateTime;
 
 /**
  * OrderFilter
@@ -99,6 +100,12 @@ public class OrderFilter {
 
   @SerializedName("MerchantOrderNos")
   private List<String> merchantOrderNos = null;
+
+  @SerializedName("FromDate")
+  private OffsetDateTime fromDate = null;
+
+  @SerializedName("ToDate")
+  private OffsetDateTime toDate = null;
 
   @SerializedName("ExcludeMarketplaceFulfilledOrdersAndLines")
   private Boolean excludeMarketplaceFulfilledOrdersAndLines = null;
@@ -212,6 +219,42 @@ public class OrderFilter {
     this.merchantOrderNos = merchantOrderNos;
   }
 
+  public OrderFilter fromDate(OffsetDateTime fromDate) {
+    this.fromDate = fromDate;
+    return this;
+  }
+
+   /**
+   * Filter on the order date, starting from this date. This date is inclusive.
+   * @return fromDate
+  **/
+  @ApiModelProperty(value = "Filter on the order date, starting from this date. This date is inclusive.")
+  public OffsetDateTime getFromDate() {
+    return fromDate;
+  }
+
+  public void setFromDate(OffsetDateTime fromDate) {
+    this.fromDate = fromDate;
+  }
+
+  public OrderFilter toDate(OffsetDateTime toDate) {
+    this.toDate = toDate;
+    return this;
+  }
+
+   /**
+   * Filter on the order date, until this date. This date is exclusive.
+   * @return toDate
+  **/
+  @ApiModelProperty(value = "Filter on the order date, until this date. This date is exclusive.")
+  public OffsetDateTime getToDate() {
+    return toDate;
+  }
+
+  public void setToDate(OffsetDateTime toDate) {
+    this.toDate = toDate;
+  }
+
   public OrderFilter excludeMarketplaceFulfilledOrdersAndLines(Boolean excludeMarketplaceFulfilledOrdersAndLines) {
     this.excludeMarketplaceFulfilledOrdersAndLines = excludeMarketplaceFulfilledOrdersAndLines;
     return this;
@@ -278,6 +321,8 @@ public class OrderFilter {
     OrderFilter orderFilter = (OrderFilter) o;
     return Objects.equals(this.statuses, orderFilter.statuses) &&
         Objects.equals(this.merchantOrderNos, orderFilter.merchantOrderNos) &&
+        Objects.equals(this.fromDate, orderFilter.fromDate) &&
+        Objects.equals(this.toDate, orderFilter.toDate) &&
         Objects.equals(this.excludeMarketplaceFulfilledOrdersAndLines, orderFilter.excludeMarketplaceFulfilledOrdersAndLines) &&
         Objects.equals(this.fulfillmentType, orderFilter.fulfillmentType) &&
         Objects.equals(this.page, orderFilter.page);
@@ -285,7 +330,7 @@ public class OrderFilter {
 
   @Override
   public int hashCode() {
-    return Objects.hash(statuses, merchantOrderNos, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, page);
+    return Objects.hash(statuses, merchantOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, page);
   }
 
 
@@ -296,6 +341,8 @@ public class OrderFilter {
     
     sb.append("    statuses: ").append(toIndentedString(statuses)).append("\n");
     sb.append("    merchantOrderNos: ").append(toIndentedString(merchantOrderNos)).append("\n");
+    sb.append("    fromDate: ").append(toIndentedString(fromDate)).append("\n");
+    sb.append("    toDate: ").append(toIndentedString(toDate)).append("\n");
     sb.append("    excludeMarketplaceFulfilledOrdersAndLines: ").append(toIndentedString(excludeMarketplaceFulfilledOrdersAndLines)).append("\n");
     sb.append("    fulfillmentType: ").append(toIndentedString(fulfillmentType)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");

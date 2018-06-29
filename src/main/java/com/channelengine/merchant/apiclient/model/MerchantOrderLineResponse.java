@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * MerchantOrderLineResponse
@@ -102,25 +103,25 @@ public class MerchantOrderLineResponse {
   private String merchantProductNo = null;
 
   @SerializedName("UnitVat")
-  private Double unitVat = null;
+  private BigDecimal unitVat = null;
 
   @SerializedName("LineTotalInclVat")
-  private Double lineTotalInclVat = null;
+  private BigDecimal lineTotalInclVat = null;
 
   @SerializedName("LineVat")
-  private Double lineVat = null;
+  private BigDecimal lineVat = null;
 
   @SerializedName("OriginalUnitPriceInclVat")
-  private Double originalUnitPriceInclVat = null;
+  private BigDecimal originalUnitPriceInclVat = null;
 
   @SerializedName("OriginalUnitVat")
-  private Double originalUnitVat = null;
+  private BigDecimal originalUnitVat = null;
 
   @SerializedName("OriginalLineTotalInclVat")
-  private Double originalLineTotalInclVat = null;
+  private BigDecimal originalLineTotalInclVat = null;
 
   @SerializedName("OriginalLineVat")
-  private Double originalLineVat = null;
+  private BigDecimal originalLineVat = null;
 
   @SerializedName("ChannelProductNo")
   private String channelProductNo = null;
@@ -132,13 +133,13 @@ public class MerchantOrderLineResponse {
   private Integer cancellationRequestedQuantity = null;
 
   @SerializedName("UnitPriceInclVat")
-  private Double unitPriceInclVat = null;
+  private BigDecimal unitPriceInclVat = null;
 
   @SerializedName("FeeFixed")
-  private Double feeFixed = null;
+  private BigDecimal feeFixed = null;
 
   @SerializedName("FeeRate")
-  private Double feeRate = null;
+  private BigDecimal feeRate = null;
 
   /**
    * The condition of the product, this can be used to indicate that a product is a second-hand product
@@ -254,7 +255,7 @@ public class MerchantOrderLineResponse {
     this.merchantProductNo = merchantProductNo;
   }
 
-  public MerchantOrderLineResponse unitVat(Double unitVat) {
+  public MerchantOrderLineResponse unitVat(BigDecimal unitVat) {
     this.unitVat = unitVat;
     return this;
   }
@@ -264,15 +265,15 @@ public class MerchantOrderLineResponse {
    * @return unitVat
   **/
   @ApiModelProperty(value = "The total amount of VAT charged over the value of a single unit of the ordered product  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getUnitVat() {
+  public BigDecimal getUnitVat() {
     return unitVat;
   }
 
-  public void setUnitVat(Double unitVat) {
+  public void setUnitVat(BigDecimal unitVat) {
     this.unitVat = unitVat;
   }
 
-  public MerchantOrderLineResponse lineTotalInclVat(Double lineTotalInclVat) {
+  public MerchantOrderLineResponse lineTotalInclVat(BigDecimal lineTotalInclVat) {
     this.lineTotalInclVat = lineTotalInclVat;
     return this;
   }
@@ -282,15 +283,15 @@ public class MerchantOrderLineResponse {
    * @return lineTotalInclVat
   **/
   @ApiModelProperty(value = "The total value of the order line (quantity * unit price) including VAT  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getLineTotalInclVat() {
+  public BigDecimal getLineTotalInclVat() {
     return lineTotalInclVat;
   }
 
-  public void setLineTotalInclVat(Double lineTotalInclVat) {
+  public void setLineTotalInclVat(BigDecimal lineTotalInclVat) {
     this.lineTotalInclVat = lineTotalInclVat;
   }
 
-  public MerchantOrderLineResponse lineVat(Double lineVat) {
+  public MerchantOrderLineResponse lineVat(BigDecimal lineVat) {
     this.lineVat = lineVat;
     return this;
   }
@@ -300,15 +301,15 @@ public class MerchantOrderLineResponse {
    * @return lineVat
   **/
   @ApiModelProperty(value = "The total amount of VAT charged over the total value of the order line (quantity * unit price)  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getLineVat() {
+  public BigDecimal getLineVat() {
     return lineVat;
   }
 
-  public void setLineVat(Double lineVat) {
+  public void setLineVat(BigDecimal lineVat) {
     this.lineVat = lineVat;
   }
 
-  public MerchantOrderLineResponse originalUnitPriceInclVat(Double originalUnitPriceInclVat) {
+  public MerchantOrderLineResponse originalUnitPriceInclVat(BigDecimal originalUnitPriceInclVat) {
     this.originalUnitPriceInclVat = originalUnitPriceInclVat;
     return this;
   }
@@ -318,15 +319,15 @@ public class MerchantOrderLineResponse {
    * @return originalUnitPriceInclVat
   **/
   @ApiModelProperty(value = "The value of a single unit of the ordered product including VAT  (in the currency in which the order was paid for, see CurrencyCode).")
-  public Double getOriginalUnitPriceInclVat() {
+  public BigDecimal getOriginalUnitPriceInclVat() {
     return originalUnitPriceInclVat;
   }
 
-  public void setOriginalUnitPriceInclVat(Double originalUnitPriceInclVat) {
+  public void setOriginalUnitPriceInclVat(BigDecimal originalUnitPriceInclVat) {
     this.originalUnitPriceInclVat = originalUnitPriceInclVat;
   }
 
-  public MerchantOrderLineResponse originalUnitVat(Double originalUnitVat) {
+  public MerchantOrderLineResponse originalUnitVat(BigDecimal originalUnitVat) {
     this.originalUnitVat = originalUnitVat;
     return this;
   }
@@ -336,15 +337,15 @@ public class MerchantOrderLineResponse {
    * @return originalUnitVat
   **/
   @ApiModelProperty(value = "The total amount of VAT charged over the value of a single unit of the ordered product  (in the currency in which the order was paid for, see CurrencyCode).")
-  public Double getOriginalUnitVat() {
+  public BigDecimal getOriginalUnitVat() {
     return originalUnitVat;
   }
 
-  public void setOriginalUnitVat(Double originalUnitVat) {
+  public void setOriginalUnitVat(BigDecimal originalUnitVat) {
     this.originalUnitVat = originalUnitVat;
   }
 
-  public MerchantOrderLineResponse originalLineTotalInclVat(Double originalLineTotalInclVat) {
+  public MerchantOrderLineResponse originalLineTotalInclVat(BigDecimal originalLineTotalInclVat) {
     this.originalLineTotalInclVat = originalLineTotalInclVat;
     return this;
   }
@@ -354,15 +355,15 @@ public class MerchantOrderLineResponse {
    * @return originalLineTotalInclVat
   **/
   @ApiModelProperty(value = "The total value of the order line (quantity * unit price) including VAT  (in the currency in which the order was paid for, see CurrencyCode).")
-  public Double getOriginalLineTotalInclVat() {
+  public BigDecimal getOriginalLineTotalInclVat() {
     return originalLineTotalInclVat;
   }
 
-  public void setOriginalLineTotalInclVat(Double originalLineTotalInclVat) {
+  public void setOriginalLineTotalInclVat(BigDecimal originalLineTotalInclVat) {
     this.originalLineTotalInclVat = originalLineTotalInclVat;
   }
 
-  public MerchantOrderLineResponse originalLineVat(Double originalLineVat) {
+  public MerchantOrderLineResponse originalLineVat(BigDecimal originalLineVat) {
     this.originalLineVat = originalLineVat;
     return this;
   }
@@ -372,11 +373,11 @@ public class MerchantOrderLineResponse {
    * @return originalLineVat
   **/
   @ApiModelProperty(value = "The total amount of VAT charged over the total value of the order line (quantity * unit price)  (in the currency in which the order was paid for, see CurrencyCode).")
-  public Double getOriginalLineVat() {
+  public BigDecimal getOriginalLineVat() {
     return originalLineVat;
   }
 
-  public void setOriginalLineVat(Double originalLineVat) {
+  public void setOriginalLineVat(BigDecimal originalLineVat) {
     this.originalLineVat = originalLineVat;
   }
 
@@ -434,7 +435,7 @@ public class MerchantOrderLineResponse {
     this.cancellationRequestedQuantity = cancellationRequestedQuantity;
   }
 
-  public MerchantOrderLineResponse unitPriceInclVat(Double unitPriceInclVat) {
+  public MerchantOrderLineResponse unitPriceInclVat(BigDecimal unitPriceInclVat) {
     this.unitPriceInclVat = unitPriceInclVat;
     return this;
   }
@@ -444,15 +445,15 @@ public class MerchantOrderLineResponse {
    * @return unitPriceInclVat
   **/
   @ApiModelProperty(required = true, value = "The value of a single unit of the ordered product including VAT  (in the shop's base currency calculated using the exchange rate at the time of ordering).")
-  public Double getUnitPriceInclVat() {
+  public BigDecimal getUnitPriceInclVat() {
     return unitPriceInclVat;
   }
 
-  public void setUnitPriceInclVat(Double unitPriceInclVat) {
+  public void setUnitPriceInclVat(BigDecimal unitPriceInclVat) {
     this.unitPriceInclVat = unitPriceInclVat;
   }
 
-  public MerchantOrderLineResponse feeFixed(Double feeFixed) {
+  public MerchantOrderLineResponse feeFixed(BigDecimal feeFixed) {
     this.feeFixed = feeFixed;
     return this;
   }
@@ -462,15 +463,15 @@ public class MerchantOrderLineResponse {
    * @return feeFixed
   **/
   @ApiModelProperty(value = "A fixed fee that is charged by the Channel for this orderline.  This field is optional, send 0 if not applicable.")
-  public Double getFeeFixed() {
+  public BigDecimal getFeeFixed() {
     return feeFixed;
   }
 
-  public void setFeeFixed(Double feeFixed) {
+  public void setFeeFixed(BigDecimal feeFixed) {
     this.feeFixed = feeFixed;
   }
 
-  public MerchantOrderLineResponse feeRate(Double feeRate) {
+  public MerchantOrderLineResponse feeRate(BigDecimal feeRate) {
     this.feeRate = feeRate;
     return this;
   }
@@ -480,11 +481,11 @@ public class MerchantOrderLineResponse {
    * @return feeRate
   **/
   @ApiModelProperty(value = "A percentage fee that is charged by the Channel for this orderline.  This field is optional, send 0 if not applicable.")
-  public Double getFeeRate() {
+  public BigDecimal getFeeRate() {
     return feeRate;
   }
 
-  public void setFeeRate(Double feeRate) {
+  public void setFeeRate(BigDecimal feeRate) {
     this.feeRate = feeRate;
   }
 

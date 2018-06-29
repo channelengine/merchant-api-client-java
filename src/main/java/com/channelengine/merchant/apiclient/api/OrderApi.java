@@ -30,6 +30,7 @@ import java.io.IOException;
 import com.channelengine.merchant.apiclient.model.CollectionOfMerchantOrderResponse;
 import java.io.File;
 import com.channelengine.merchant.apiclient.model.ModelApiResponse;
+import org.threeten.bp.OffsetDateTime;
 import com.channelengine.merchant.apiclient.model.OrderAcknowledgement;
 
 import java.lang.reflect.Type;
@@ -183,6 +184,8 @@ public class OrderApi {
      * Build call for orderGetByFilter
      * @param filterStatuses Order status(es) to filter on (optional)
      * @param filterMerchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param filterFromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
+     * @param filterToDate Filter on the order date, until this date. This date is exclusive. (optional)
      * @param filterExcludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param filterFulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
      * @param filterPage The page to filter on. Starts at 1. (optional)
@@ -191,7 +194,7 @@ public class OrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call orderGetByFilterCall(List<String> filterStatuses, List<String> filterMerchantOrderNos, Boolean filterExcludeMarketplaceFulfilledOrdersAndLines, String filterFulfillmentType, Integer filterPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call orderGetByFilterCall(List<String> filterStatuses, List<String> filterMerchantOrderNos, OffsetDateTime filterFromDate, OffsetDateTime filterToDate, Boolean filterExcludeMarketplaceFulfilledOrdersAndLines, String filterFulfillmentType, Integer filterPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -203,6 +206,10 @@ public class OrderApi {
         localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "filter.statuses", filterStatuses));
         if (filterMerchantOrderNos != null)
         localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "filter.merchantOrderNos", filterMerchantOrderNos));
+        if (filterFromDate != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter.fromDate", filterFromDate));
+        if (filterToDate != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("filter.toDate", filterToDate));
         if (filterExcludeMarketplaceFulfilledOrdersAndLines != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("filter.excludeMarketplaceFulfilledOrdersAndLines", filterExcludeMarketplaceFulfilledOrdersAndLines));
         if (filterFulfillmentType != null)
@@ -243,10 +250,10 @@ public class OrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call orderGetByFilterValidateBeforeCall(List<String> filterStatuses, List<String> filterMerchantOrderNos, Boolean filterExcludeMarketplaceFulfilledOrdersAndLines, String filterFulfillmentType, Integer filterPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call orderGetByFilterValidateBeforeCall(List<String> filterStatuses, List<String> filterMerchantOrderNos, OffsetDateTime filterFromDate, OffsetDateTime filterToDate, Boolean filterExcludeMarketplaceFulfilledOrdersAndLines, String filterFulfillmentType, Integer filterPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
 
-        com.squareup.okhttp.Call call = orderGetByFilterCall(filterStatuses, filterMerchantOrderNos, filterExcludeMarketplaceFulfilledOrdersAndLines, filterFulfillmentType, filterPage, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = orderGetByFilterCall(filterStatuses, filterMerchantOrderNos, filterFromDate, filterToDate, filterExcludeMarketplaceFulfilledOrdersAndLines, filterFulfillmentType, filterPage, progressListener, progressRequestListener);
         return call;
 
     }
@@ -256,14 +263,16 @@ public class OrderApi {
      * Fetch orders based on the provided OrderFilter
      * @param filterStatuses Order status(es) to filter on (optional)
      * @param filterMerchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param filterFromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
+     * @param filterToDate Filter on the order date, until this date. This date is exclusive. (optional)
      * @param filterExcludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param filterFulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
      * @param filterPage The page to filter on. Starts at 1. (optional)
      * @return CollectionOfMerchantOrderResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionOfMerchantOrderResponse orderGetByFilter(List<String> filterStatuses, List<String> filterMerchantOrderNos, Boolean filterExcludeMarketplaceFulfilledOrdersAndLines, String filterFulfillmentType, Integer filterPage) throws ApiException {
-        ApiResponse<CollectionOfMerchantOrderResponse> resp = orderGetByFilterWithHttpInfo(filterStatuses, filterMerchantOrderNos, filterExcludeMarketplaceFulfilledOrdersAndLines, filterFulfillmentType, filterPage);
+    public CollectionOfMerchantOrderResponse orderGetByFilter(List<String> filterStatuses, List<String> filterMerchantOrderNos, OffsetDateTime filterFromDate, OffsetDateTime filterToDate, Boolean filterExcludeMarketplaceFulfilledOrdersAndLines, String filterFulfillmentType, Integer filterPage) throws ApiException {
+        ApiResponse<CollectionOfMerchantOrderResponse> resp = orderGetByFilterWithHttpInfo(filterStatuses, filterMerchantOrderNos, filterFromDate, filterToDate, filterExcludeMarketplaceFulfilledOrdersAndLines, filterFulfillmentType, filterPage);
         return resp.getData();
     }
 
@@ -272,14 +281,16 @@ public class OrderApi {
      * Fetch orders based on the provided OrderFilter
      * @param filterStatuses Order status(es) to filter on (optional)
      * @param filterMerchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param filterFromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
+     * @param filterToDate Filter on the order date, until this date. This date is exclusive. (optional)
      * @param filterExcludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param filterFulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
      * @param filterPage The page to filter on. Starts at 1. (optional)
      * @return ApiResponse&lt;CollectionOfMerchantOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CollectionOfMerchantOrderResponse> orderGetByFilterWithHttpInfo(List<String> filterStatuses, List<String> filterMerchantOrderNos, Boolean filterExcludeMarketplaceFulfilledOrdersAndLines, String filterFulfillmentType, Integer filterPage) throws ApiException {
-        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(filterStatuses, filterMerchantOrderNos, filterExcludeMarketplaceFulfilledOrdersAndLines, filterFulfillmentType, filterPage, null, null);
+    public ApiResponse<CollectionOfMerchantOrderResponse> orderGetByFilterWithHttpInfo(List<String> filterStatuses, List<String> filterMerchantOrderNos, OffsetDateTime filterFromDate, OffsetDateTime filterToDate, Boolean filterExcludeMarketplaceFulfilledOrdersAndLines, String filterFulfillmentType, Integer filterPage) throws ApiException {
+        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(filterStatuses, filterMerchantOrderNos, filterFromDate, filterToDate, filterExcludeMarketplaceFulfilledOrdersAndLines, filterFulfillmentType, filterPage, null, null);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantOrderResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -289,6 +300,8 @@ public class OrderApi {
      * Fetch orders based on the provided OrderFilter
      * @param filterStatuses Order status(es) to filter on (optional)
      * @param filterMerchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param filterFromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
+     * @param filterToDate Filter on the order date, until this date. This date is exclusive. (optional)
      * @param filterExcludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param filterFulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
      * @param filterPage The page to filter on. Starts at 1. (optional)
@@ -296,7 +309,7 @@ public class OrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call orderGetByFilterAsync(List<String> filterStatuses, List<String> filterMerchantOrderNos, Boolean filterExcludeMarketplaceFulfilledOrdersAndLines, String filterFulfillmentType, Integer filterPage, final ApiCallback<CollectionOfMerchantOrderResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call orderGetByFilterAsync(List<String> filterStatuses, List<String> filterMerchantOrderNos, OffsetDateTime filterFromDate, OffsetDateTime filterToDate, Boolean filterExcludeMarketplaceFulfilledOrdersAndLines, String filterFulfillmentType, Integer filterPage, final ApiCallback<CollectionOfMerchantOrderResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -317,7 +330,7 @@ public class OrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(filterStatuses, filterMerchantOrderNos, filterExcludeMarketplaceFulfilledOrdersAndLines, filterFulfillmentType, filterPage, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(filterStatuses, filterMerchantOrderNos, filterFromDate, filterToDate, filterExcludeMarketplaceFulfilledOrdersAndLines, filterFulfillmentType, filterPage, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantOrderResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
