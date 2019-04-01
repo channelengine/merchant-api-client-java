@@ -15,7 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.merchant.apiclient.model.MerchantOrderResponse;
+import com.channelengine.merchant.apiclient.model.MerchantStockLocationResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -30,12 +30,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * CollectionOfMerchantOrderResponse
+ * CollectionOfMerchantStockLocationResponse
  */
 
-public class CollectionOfMerchantOrderResponse {
+public class CollectionOfMerchantStockLocationResponse {
   @SerializedName("Content")
-  private List<MerchantOrderResponse> content = null;
+  private List<MerchantStockLocationResponse> content = null;
 
   @SerializedName("Count")
   private Integer count = null;
@@ -61,14 +61,14 @@ public class CollectionOfMerchantOrderResponse {
   @SerializedName("ValidationErrors")
   private Map<String, List<String>> validationErrors = null;
 
-  public CollectionOfMerchantOrderResponse content(List<MerchantOrderResponse> content) {
+  public CollectionOfMerchantStockLocationResponse content(List<MerchantStockLocationResponse> content) {
     this.content = content;
     return this;
   }
 
-  public CollectionOfMerchantOrderResponse addContentItem(MerchantOrderResponse contentItem) {
+  public CollectionOfMerchantStockLocationResponse addContentItem(MerchantStockLocationResponse contentItem) {
     if (this.content == null) {
-      this.content = new ArrayList<MerchantOrderResponse>();
+      this.content = new ArrayList<MerchantStockLocationResponse>();
     }
     this.content.add(contentItem);
     return this;
@@ -79,15 +79,15 @@ public class CollectionOfMerchantOrderResponse {
    * @return content
   **/
   @ApiModelProperty(value = "")
-  public List<MerchantOrderResponse> getContent() {
+  public List<MerchantStockLocationResponse> getContent() {
     return content;
   }
 
-  public void setContent(List<MerchantOrderResponse> content) {
+  public void setContent(List<MerchantStockLocationResponse> content) {
     this.content = content;
   }
 
-  public CollectionOfMerchantOrderResponse count(Integer count) {
+  public CollectionOfMerchantStockLocationResponse count(Integer count) {
     this.count = count;
     return this;
   }
@@ -105,7 +105,7 @@ public class CollectionOfMerchantOrderResponse {
     this.count = count;
   }
 
-  public CollectionOfMerchantOrderResponse totalCount(Integer totalCount) {
+  public CollectionOfMerchantStockLocationResponse totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
   }
@@ -123,7 +123,7 @@ public class CollectionOfMerchantOrderResponse {
     this.totalCount = totalCount;
   }
 
-  public CollectionOfMerchantOrderResponse itemsPerPage(Integer itemsPerPage) {
+  public CollectionOfMerchantStockLocationResponse itemsPerPage(Integer itemsPerPage) {
     this.itemsPerPage = itemsPerPage;
     return this;
   }
@@ -141,7 +141,7 @@ public class CollectionOfMerchantOrderResponse {
     this.itemsPerPage = itemsPerPage;
   }
 
-  public CollectionOfMerchantOrderResponse statusCode(Integer statusCode) {
+  public CollectionOfMerchantStockLocationResponse statusCode(Integer statusCode) {
     this.statusCode = statusCode;
     return this;
   }
@@ -159,7 +159,7 @@ public class CollectionOfMerchantOrderResponse {
     this.statusCode = statusCode;
   }
 
-  public CollectionOfMerchantOrderResponse logId(Integer logId) {
+  public CollectionOfMerchantStockLocationResponse logId(Integer logId) {
     this.logId = logId;
     return this;
   }
@@ -177,7 +177,7 @@ public class CollectionOfMerchantOrderResponse {
     this.logId = logId;
   }
 
-  public CollectionOfMerchantOrderResponse success(Boolean success) {
+  public CollectionOfMerchantStockLocationResponse success(Boolean success) {
     this.success = success;
     return this;
   }
@@ -195,7 +195,7 @@ public class CollectionOfMerchantOrderResponse {
     this.success = success;
   }
 
-  public CollectionOfMerchantOrderResponse message(String message) {
+  public CollectionOfMerchantStockLocationResponse message(String message) {
     this.message = message;
     return this;
   }
@@ -213,12 +213,12 @@ public class CollectionOfMerchantOrderResponse {
     this.message = message;
   }
 
-  public CollectionOfMerchantOrderResponse validationErrors(Map<String, List<String>> validationErrors) {
+  public CollectionOfMerchantStockLocationResponse validationErrors(Map<String, List<String>> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
-  public CollectionOfMerchantOrderResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
+  public CollectionOfMerchantStockLocationResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new HashMap<String, List<String>>();
     }
@@ -248,16 +248,16 @@ public class CollectionOfMerchantOrderResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CollectionOfMerchantOrderResponse collectionOfMerchantOrderResponse = (CollectionOfMerchantOrderResponse) o;
-    return Objects.equals(this.content, collectionOfMerchantOrderResponse.content) &&
-        Objects.equals(this.count, collectionOfMerchantOrderResponse.count) &&
-        Objects.equals(this.totalCount, collectionOfMerchantOrderResponse.totalCount) &&
-        Objects.equals(this.itemsPerPage, collectionOfMerchantOrderResponse.itemsPerPage) &&
-        Objects.equals(this.statusCode, collectionOfMerchantOrderResponse.statusCode) &&
-        Objects.equals(this.logId, collectionOfMerchantOrderResponse.logId) &&
-        Objects.equals(this.success, collectionOfMerchantOrderResponse.success) &&
-        Objects.equals(this.message, collectionOfMerchantOrderResponse.message) &&
-        Objects.equals(this.validationErrors, collectionOfMerchantOrderResponse.validationErrors);
+    CollectionOfMerchantStockLocationResponse collectionOfMerchantStockLocationResponse = (CollectionOfMerchantStockLocationResponse) o;
+    return Objects.equals(this.content, collectionOfMerchantStockLocationResponse.content) &&
+        Objects.equals(this.count, collectionOfMerchantStockLocationResponse.count) &&
+        Objects.equals(this.totalCount, collectionOfMerchantStockLocationResponse.totalCount) &&
+        Objects.equals(this.itemsPerPage, collectionOfMerchantStockLocationResponse.itemsPerPage) &&
+        Objects.equals(this.statusCode, collectionOfMerchantStockLocationResponse.statusCode) &&
+        Objects.equals(this.logId, collectionOfMerchantStockLocationResponse.logId) &&
+        Objects.equals(this.success, collectionOfMerchantStockLocationResponse.success) &&
+        Objects.equals(this.message, collectionOfMerchantStockLocationResponse.message) &&
+        Objects.equals(this.validationErrors, collectionOfMerchantStockLocationResponse.validationErrors);
   }
 
   @Override
@@ -269,7 +269,7 @@ public class CollectionOfMerchantOrderResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CollectionOfMerchantOrderResponse {\n");
+    sb.append("class CollectionOfMerchantStockLocationResponse {\n");
     
     sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");

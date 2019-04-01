@@ -80,13 +80,13 @@ public class ProductApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json", "text/json", "application/x-www-form-urlencoded"
+            "application/json-patch+json", "application/json", "text/json", "application/_*+json"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -203,7 +203,7 @@ public class ProductApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -305,14 +305,16 @@ public class ProductApi {
     }
     /**
      * Build call for productGetByFilter
-     * @param filterSearch Search products by Name, MerchantProductNo, Ean or Brand (optional)
+     * @param filterSearch Search product(s) by Name, MerchantProductNo, Ean or Brand      This search is applied to the result after applying the other filters. (optional)
+     * @param filterEanList Search products by submitting a list of EAN&#39;s (optional)
+     * @param filterMerchantProductNoList Search products by submitting a list of MerchantProductNo&#39;s (optional)
      * @param filterPage The page to filter on. Starts at 1. (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call productGetByFilterCall(String filterSearch, Integer filterPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call productGetByFilterCall(String filterSearch, List<String> filterEanList, List<String> filterMerchantProductNoList, Integer filterPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -322,6 +324,10 @@ public class ProductApi {
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         if (filterSearch != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("filter.search", filterSearch));
+        if (filterEanList != null)
+        localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "filter.eanList", filterEanList));
+        if (filterMerchantProductNoList != null)
+        localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "filter.merchantProductNoList", filterMerchantProductNoList));
         if (filterPage != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("filter.page", filterPage));
 
@@ -330,7 +336,7 @@ public class ProductApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -358,10 +364,10 @@ public class ProductApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call productGetByFilterValidateBeforeCall(String filterSearch, Integer filterPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call productGetByFilterValidateBeforeCall(String filterSearch, List<String> filterEanList, List<String> filterMerchantProductNoList, Integer filterPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
 
-        com.squareup.okhttp.Call call = productGetByFilterCall(filterSearch, filterPage, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = productGetByFilterCall(filterSearch, filterEanList, filterMerchantProductNoList, filterPage, progressListener, progressRequestListener);
         return call;
 
     }
@@ -369,26 +375,30 @@ public class ProductApi {
     /**
      * Get Products
      * Retrieve all products
-     * @param filterSearch Search products by Name, MerchantProductNo, Ean or Brand (optional)
+     * @param filterSearch Search product(s) by Name, MerchantProductNo, Ean or Brand      This search is applied to the result after applying the other filters. (optional)
+     * @param filterEanList Search products by submitting a list of EAN&#39;s (optional)
+     * @param filterMerchantProductNoList Search products by submitting a list of MerchantProductNo&#39;s (optional)
      * @param filterPage The page to filter on. Starts at 1. (optional)
      * @return CollectionOfMerchantProductResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionOfMerchantProductResponse productGetByFilter(String filterSearch, Integer filterPage) throws ApiException {
-        ApiResponse<CollectionOfMerchantProductResponse> resp = productGetByFilterWithHttpInfo(filterSearch, filterPage);
+    public CollectionOfMerchantProductResponse productGetByFilter(String filterSearch, List<String> filterEanList, List<String> filterMerchantProductNoList, Integer filterPage) throws ApiException {
+        ApiResponse<CollectionOfMerchantProductResponse> resp = productGetByFilterWithHttpInfo(filterSearch, filterEanList, filterMerchantProductNoList, filterPage);
         return resp.getData();
     }
 
     /**
      * Get Products
      * Retrieve all products
-     * @param filterSearch Search products by Name, MerchantProductNo, Ean or Brand (optional)
+     * @param filterSearch Search product(s) by Name, MerchantProductNo, Ean or Brand      This search is applied to the result after applying the other filters. (optional)
+     * @param filterEanList Search products by submitting a list of EAN&#39;s (optional)
+     * @param filterMerchantProductNoList Search products by submitting a list of MerchantProductNo&#39;s (optional)
      * @param filterPage The page to filter on. Starts at 1. (optional)
      * @return ApiResponse&lt;CollectionOfMerchantProductResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CollectionOfMerchantProductResponse> productGetByFilterWithHttpInfo(String filterSearch, Integer filterPage) throws ApiException {
-        com.squareup.okhttp.Call call = productGetByFilterValidateBeforeCall(filterSearch, filterPage, null, null);
+    public ApiResponse<CollectionOfMerchantProductResponse> productGetByFilterWithHttpInfo(String filterSearch, List<String> filterEanList, List<String> filterMerchantProductNoList, Integer filterPage) throws ApiException {
+        com.squareup.okhttp.Call call = productGetByFilterValidateBeforeCall(filterSearch, filterEanList, filterMerchantProductNoList, filterPage, null, null);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantProductResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -396,13 +406,15 @@ public class ProductApi {
     /**
      * Get Products (asynchronously)
      * Retrieve all products
-     * @param filterSearch Search products by Name, MerchantProductNo, Ean or Brand (optional)
+     * @param filterSearch Search product(s) by Name, MerchantProductNo, Ean or Brand      This search is applied to the result after applying the other filters. (optional)
+     * @param filterEanList Search products by submitting a list of EAN&#39;s (optional)
+     * @param filterMerchantProductNoList Search products by submitting a list of MerchantProductNo&#39;s (optional)
      * @param filterPage The page to filter on. Starts at 1. (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call productGetByFilterAsync(String filterSearch, Integer filterPage, final ApiCallback<CollectionOfMerchantProductResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call productGetByFilterAsync(String filterSearch, List<String> filterEanList, List<String> filterMerchantProductNoList, Integer filterPage, final ApiCallback<CollectionOfMerchantProductResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -423,7 +435,7 @@ public class ProductApi {
             };
         }
 
-        com.squareup.okhttp.Call call = productGetByFilterValidateBeforeCall(filterSearch, filterPage, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = productGetByFilterValidateBeforeCall(filterSearch, filterEanList, filterMerchantProductNoList, filterPage, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantProductResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
@@ -451,7 +463,7 @@ public class ProductApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);

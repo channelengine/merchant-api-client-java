@@ -111,8 +111,6 @@ public class MerchantOrderResponse {
     
     IN_BACKORDER("IN_BACKORDER"),
     
-    CANCELED("CANCELED"),
-    
     MANCO("MANCO"),
     
     IN_COMBI("IN_COMBI"),

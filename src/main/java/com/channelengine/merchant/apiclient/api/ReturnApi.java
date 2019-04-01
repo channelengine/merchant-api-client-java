@@ -80,13 +80,13 @@ public class ReturnApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json", "text/json", "application/x-www-form-urlencoded"
+            "application/json-patch+json", "application/json", "text/json", "application/_*+json"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -182,7 +182,7 @@ public class ReturnApi {
     }
     /**
      * Build call for returnGetDeclaredByChannel
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -204,7 +204,7 @@ public class ReturnApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -234,11 +234,6 @@ public class ReturnApi {
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call returnGetDeclaredByChannelValidateBeforeCall(OffsetDateTime createdSince, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
-        // verify the required parameter 'createdSince' is set
-        if (createdSince == null) {
-            throw new ApiException("Missing the required parameter 'createdSince' when calling returnGetDeclaredByChannel(Async)");
-        }
-        
 
         com.squareup.okhttp.Call call = returnGetDeclaredByChannelCall(createdSince, progressListener, progressRequestListener);
         return call;
@@ -248,7 +243,7 @@ public class ReturnApi {
     /**
      * Get Returns
      * Get all returns created by the channel. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @return CollectionOfMerchantReturnResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -260,7 +255,7 @@ public class ReturnApi {
     /**
      * Get Returns
      * Get all returns created by the channel. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @return ApiResponse&lt;CollectionOfMerchantReturnResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -273,7 +268,7 @@ public class ReturnApi {
     /**
      * Get Returns (asynchronously)
      * Get all returns created by the channel. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
-     * @param createdSince  (required)
+     * @param createdSince  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -305,6 +300,119 @@ public class ReturnApi {
         return call;
     }
     /**
+     * Build call for returnGetUnhandled
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call returnGetUnhandledCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/v2/returns/merchant/new";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "text/plain", "application/json", "text/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "apikey" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call returnGetUnhandledValidateBeforeCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+
+        com.squareup.okhttp.Call call = returnGetUnhandledCall(progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Get Unhandled Returns
+     * Get all new / unhandled returns created by channels. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
+     * @return CollectionOfMerchantReturnResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public CollectionOfMerchantReturnResponse returnGetUnhandled() throws ApiException {
+        ApiResponse<CollectionOfMerchantReturnResponse> resp = returnGetUnhandledWithHttpInfo();
+        return resp.getData();
+    }
+
+    /**
+     * Get Unhandled Returns
+     * Get all new / unhandled returns created by channels. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
+     * @return ApiResponse&lt;CollectionOfMerchantReturnResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<CollectionOfMerchantReturnResponse> returnGetUnhandledWithHttpInfo() throws ApiException {
+        com.squareup.okhttp.Call call = returnGetUnhandledValidateBeforeCall(null, null);
+        Type localVarReturnType = new TypeToken<CollectionOfMerchantReturnResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get Unhandled Returns (asynchronously)
+     * Get all new / unhandled returns created by channels. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call returnGetUnhandledAsync(final ApiCallback<CollectionOfMerchantReturnResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = returnGetUnhandledValidateBeforeCall(progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<CollectionOfMerchantReturnResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for returnUpdateForMerchant
      * @param model  (required)
      * @param progressListener Progress listener
@@ -326,13 +434,13 @@ public class ReturnApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json", "text/json", "application/xml", "text/xml", "application/x-www-form-urlencoded"
+            "application/json-patch+json", "application/json", "text/json", "application/_*+json"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);

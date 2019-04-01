@@ -27,8 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.channelengine.merchant.apiclient.model.MerchantCancellationRequest;
-import com.channelengine.merchant.apiclient.model.ModelApiResponse;
+import com.channelengine.merchant.apiclient.model.CollectionOfMerchantStockLocationResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -36,14 +35,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CancellationApi {
+public class StockLocationApi {
     private ApiClient apiClient;
 
-    public CancellationApi() {
+    public StockLocationApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public CancellationApi(ApiClient apiClient) {
+    public StockLocationApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -56,18 +55,17 @@ public class CancellationApi {
     }
 
     /**
-     * Build call for cancellationCreate
-     * @param cancellation  (required)
+     * Build call for stockLocationIndex
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call cancellationCreateCall(MerchantCancellationRequest cancellation, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = cancellation;
+    public com.squareup.okhttp.Call stockLocationIndexCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/v2/cancellations";
+        String localVarPath = "/v2/stocklocations";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -83,7 +81,7 @@ public class CancellationApi {
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json-patch+json", "application/json", "text/json", "application/_*+json"
+            
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -101,57 +99,49 @@ public class CancellationApi {
         }
 
         String[] localVarAuthNames = new String[] { "apikey" };
-        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call cancellationCreateValidateBeforeCall(MerchantCancellationRequest cancellation, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'cancellation' is set
-        if (cancellation == null) {
-            throw new ApiException("Missing the required parameter 'cancellation' when calling cancellationCreate(Async)");
-        }
+    private com.squareup.okhttp.Call stockLocationIndexValidateBeforeCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
 
-        com.squareup.okhttp.Call call = cancellationCreateCall(cancellation, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = stockLocationIndexCall(progressListener, progressRequestListener);
         return call;
 
     }
 
     /**
-     * Create Cancellation
-     * Mark (part of) an order as cancelled.
-     * @param cancellation  (required)
-     * @return ModelApiResponse
+     * Get the stock locations (or virtual warehouses)
+     * Get the different stock locations (or virtual warehouses) that are in use.  This may include stock locations for &#39;fulfillment by ... (Amazon/bol/CDiscount)&#39; (FBA/LVB/FBC) solutions.  You can use the id&#39;s to get to stock of products in specific stock location, e.g. the FBA stock for the products.
+     * @return CollectionOfMerchantStockLocationResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelApiResponse cancellationCreate(MerchantCancellationRequest cancellation) throws ApiException {
-        ApiResponse<ModelApiResponse> resp = cancellationCreateWithHttpInfo(cancellation);
+    public CollectionOfMerchantStockLocationResponse stockLocationIndex() throws ApiException {
+        ApiResponse<CollectionOfMerchantStockLocationResponse> resp = stockLocationIndexWithHttpInfo();
         return resp.getData();
     }
 
     /**
-     * Create Cancellation
-     * Mark (part of) an order as cancelled.
-     * @param cancellation  (required)
-     * @return ApiResponse&lt;ModelApiResponse&gt;
+     * Get the stock locations (or virtual warehouses)
+     * Get the different stock locations (or virtual warehouses) that are in use.  This may include stock locations for &#39;fulfillment by ... (Amazon/bol/CDiscount)&#39; (FBA/LVB/FBC) solutions.  You can use the id&#39;s to get to stock of products in specific stock location, e.g. the FBA stock for the products.
+     * @return ApiResponse&lt;CollectionOfMerchantStockLocationResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModelApiResponse> cancellationCreateWithHttpInfo(MerchantCancellationRequest cancellation) throws ApiException {
-        com.squareup.okhttp.Call call = cancellationCreateValidateBeforeCall(cancellation, null, null);
-        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
+    public ApiResponse<CollectionOfMerchantStockLocationResponse> stockLocationIndexWithHttpInfo() throws ApiException {
+        com.squareup.okhttp.Call call = stockLocationIndexValidateBeforeCall(null, null);
+        Type localVarReturnType = new TypeToken<CollectionOfMerchantStockLocationResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Create Cancellation (asynchronously)
-     * Mark (part of) an order as cancelled.
-     * @param cancellation  (required)
+     * Get the stock locations (or virtual warehouses) (asynchronously)
+     * Get the different stock locations (or virtual warehouses) that are in use.  This may include stock locations for &#39;fulfillment by ... (Amazon/bol/CDiscount)&#39; (FBA/LVB/FBC) solutions.  You can use the id&#39;s to get to stock of products in specific stock location, e.g. the FBA stock for the products.
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call cancellationCreateAsync(MerchantCancellationRequest cancellation, final ApiCallback<ModelApiResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call stockLocationIndexAsync(final ApiCallback<CollectionOfMerchantStockLocationResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -172,8 +162,8 @@ public class CancellationApi {
             };
         }
 
-        com.squareup.okhttp.Call call = cancellationCreateValidateBeforeCall(cancellation, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
+        com.squareup.okhttp.Call call = stockLocationIndexValidateBeforeCall(progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<CollectionOfMerchantStockLocationResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

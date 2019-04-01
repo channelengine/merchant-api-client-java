@@ -80,13 +80,13 @@ public class OrderApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json", "text/json", "application/xml", "text/xml", "application/x-www-form-urlencoded"
+            "application/json-patch+json", "application/json", "text/json", "application/_*+json"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -222,7 +222,7 @@ public class OrderApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -356,7 +356,7 @@ public class OrderApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/json"
+            "text/plain", "application/json", "text/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -451,7 +451,7 @@ public class OrderApi {
     /**
      * Build call for orderInvoice
      * @param merchantOrderNo The unique order reference as used by the merchant (required)
-     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -519,7 +519,7 @@ public class OrderApi {
      * Download Invoice
      * Generates the ChannelEngine VAT invoice for this order in PDF
      * @param merchantOrderNo The unique order reference as used by the merchant (required)
-     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
      * @return File
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -532,7 +532,7 @@ public class OrderApi {
      * Download Invoice
      * Generates the ChannelEngine VAT invoice for this order in PDF
      * @param merchantOrderNo The unique order reference as used by the merchant (required)
-     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
      * @return ApiResponse&lt;File&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -546,7 +546,7 @@ public class OrderApi {
      * Download Invoice (asynchronously)
      * Generates the ChannelEngine VAT invoice for this order in PDF
      * @param merchantOrderNo The unique order reference as used by the merchant (required)
-     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -580,7 +580,7 @@ public class OrderApi {
     /**
      * Build call for orderPackingSlip
      * @param merchantOrderNo The unique order reference as used by the merchant (required)
-     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -648,7 +648,7 @@ public class OrderApi {
      * Download Packing Slip
      * Generates the ChannelEngine packing slip for this order in PDF
      * @param merchantOrderNo The unique order reference as used by the merchant (required)
-     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
      * @return File
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -661,7 +661,7 @@ public class OrderApi {
      * Download Packing Slip
      * Generates the ChannelEngine packing slip for this order in PDF
      * @param merchantOrderNo The unique order reference as used by the merchant (required)
-     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
      * @return ApiResponse&lt;File&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -675,7 +675,7 @@ public class OrderApi {
      * Download Packing Slip (asynchronously)
      * Generates the ChannelEngine packing slip for this order in PDF
      * @param merchantOrderNo The unique order reference as used by the merchant (required)
-     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     * @param useCustomerCulture Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

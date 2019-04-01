@@ -41,8 +41,6 @@ public class MerchantOrderLineResponse {
     
     IN_BACKORDER("IN_BACKORDER"),
     
-    CANCELED("CANCELED"),
-    
     MANCO("MANCO"),
     
     IN_COMBI("IN_COMBI"),
@@ -102,6 +100,9 @@ public class MerchantOrderLineResponse {
   @SerializedName("MerchantProductNo")
   private String merchantProductNo = null;
 
+  @SerializedName("Gtin")
+  private String gtin = null;
+
   @SerializedName("UnitVat")
   private BigDecimal unitVat = null;
 
@@ -158,7 +159,9 @@ public class MerchantOrderLineResponse {
     
     USED_MEDIOCRE("USED_MEDIOCRE"),
     
-    UNKNOWN("UNKNOWN");
+    UNKNOWN("UNKNOWN"),
+    
+    USED_VERY_GOOD("USED_VERY_GOOD");
 
     private String value;
 
@@ -253,6 +256,24 @@ public class MerchantOrderLineResponse {
 
   public void setMerchantProductNo(String merchantProductNo) {
     this.merchantProductNo = merchantProductNo;
+  }
+
+  public MerchantOrderLineResponse gtin(String gtin) {
+    this.gtin = gtin;
+    return this;
+  }
+
+   /**
+   * Either the GTIN (EAN, ISBN, UPC etc) provided by the channel, or the the GTIN belonging to the MerchantProductNo in ChannelEngine
+   * @return gtin
+  **/
+  @ApiModelProperty(value = "Either the GTIN (EAN, ISBN, UPC etc) provided by the channel, or the the GTIN belonging to the MerchantProductNo in ChannelEngine")
+  public String getGtin() {
+    return gtin;
+  }
+
+  public void setGtin(String gtin) {
+    this.gtin = gtin;
   }
 
   public MerchantOrderLineResponse unitVat(BigDecimal unitVat) {
@@ -426,7 +447,7 @@ public class MerchantOrderLineResponse {
    * The number of items for which cancellation was requested by the customer.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.  Use this field to check whether it is still possible to cancel the order. If this is the case, submit a cancellation to ChannelEngine
    * @return cancellationRequestedQuantity
   **/
-  @ApiModelProperty(required = true, value = "The number of items for which cancellation was requested by the customer.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.  Use this field to check whether it is still possible to cancel the order. If this is the case, submit a cancellation to ChannelEngine")
+  @ApiModelProperty(value = "The number of items for which cancellation was requested by the customer.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.  Use this field to check whether it is still possible to cancel the order. If this is the case, submit a cancellation to ChannelEngine")
   public Integer getCancellationRequestedQuantity() {
     return cancellationRequestedQuantity;
   }
@@ -520,6 +541,7 @@ public class MerchantOrderLineResponse {
     return Objects.equals(this.status, merchantOrderLineResponse.status) &&
         Objects.equals(this.isFulfillmentByMarketplace, merchantOrderLineResponse.isFulfillmentByMarketplace) &&
         Objects.equals(this.merchantProductNo, merchantOrderLineResponse.merchantProductNo) &&
+        Objects.equals(this.gtin, merchantOrderLineResponse.gtin) &&
         Objects.equals(this.unitVat, merchantOrderLineResponse.unitVat) &&
         Objects.equals(this.lineTotalInclVat, merchantOrderLineResponse.lineTotalInclVat) &&
         Objects.equals(this.lineVat, merchantOrderLineResponse.lineVat) &&
@@ -538,7 +560,7 @@ public class MerchantOrderLineResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, isFulfillmentByMarketplace, merchantProductNo, unitVat, lineTotalInclVat, lineVat, originalUnitPriceInclVat, originalUnitVat, originalLineTotalInclVat, originalLineVat, channelProductNo, quantity, cancellationRequestedQuantity, unitPriceInclVat, feeFixed, feeRate, condition);
+    return Objects.hash(status, isFulfillmentByMarketplace, merchantProductNo, gtin, unitVat, lineTotalInclVat, lineVat, originalUnitPriceInclVat, originalUnitVat, originalLineTotalInclVat, originalLineVat, channelProductNo, quantity, cancellationRequestedQuantity, unitPriceInclVat, feeFixed, feeRate, condition);
   }
 
 
@@ -550,6 +572,7 @@ public class MerchantOrderLineResponse {
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    isFulfillmentByMarketplace: ").append(toIndentedString(isFulfillmentByMarketplace)).append("\n");
     sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
+    sb.append("    gtin: ").append(toIndentedString(gtin)).append("\n");
     sb.append("    unitVat: ").append(toIndentedString(unitVat)).append("\n");
     sb.append("    lineTotalInclVat: ").append(toIndentedString(lineTotalInclVat)).append("\n");
     sb.append("    lineVat: ").append(toIndentedString(lineVat)).append("\n");

@@ -151,10 +151,10 @@ public class MerchantShipmentRequest {
   }
 
    /**
-   * Shipment method (carrier)
+   * Shipment method: the carrier used for shipping the package. E.g. DHL, postNL
    * @return method
   **/
-  @ApiModelProperty(value = "Shipment method (carrier)")
+  @ApiModelProperty(value = "Shipment method: the carrier used for shipping the package. E.g. DHL, postNL")
   public String getMethod() {
     return method;
   }

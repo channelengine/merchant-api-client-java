@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.OffsetDateTime;
 
 /**
  * MerchantReturnResponse
@@ -38,6 +39,12 @@ public class MerchantReturnResponse {
 
   @SerializedName("Lines")
   private List<MerchantReturnLineResponse> lines = null;
+
+  @SerializedName("CreatedAt")
+  private OffsetDateTime createdAt = null;
+
+  @SerializedName("UpdatedAt")
+  private OffsetDateTime updatedAt = null;
 
   @SerializedName("Id")
   private Integer id = null;
@@ -62,6 +69,8 @@ public class MerchantReturnResponse {
     WRONG_ADDRESS("WRONG_ADDRESS"),
     
     NOT_COLLECTED("NOT_COLLECTED"),
+    
+    WRONG_SIZE("WRONG_SIZE"),
     
     OTHER("OTHER");
 
@@ -160,6 +169,42 @@ public class MerchantReturnResponse {
 
   public void setLines(List<MerchantReturnLineResponse> lines) {
     this.lines = lines;
+  }
+
+  public MerchantReturnResponse createdAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * The date at which the return was created in ChannelEngine
+   * @return createdAt
+  **/
+  @ApiModelProperty(value = "The date at which the return was created in ChannelEngine")
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public MerchantReturnResponse updatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * The date at which the return was last modified in ChannelEngine
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "The date at which the return was last modified in ChannelEngine")
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
   public MerchantReturnResponse id(Integer id) {
@@ -282,6 +327,8 @@ public class MerchantReturnResponse {
     MerchantReturnResponse merchantReturnResponse = (MerchantReturnResponse) o;
     return Objects.equals(this.merchantOrderNo, merchantReturnResponse.merchantOrderNo) &&
         Objects.equals(this.lines, merchantReturnResponse.lines) &&
+        Objects.equals(this.createdAt, merchantReturnResponse.createdAt) &&
+        Objects.equals(this.updatedAt, merchantReturnResponse.updatedAt) &&
         Objects.equals(this.id, merchantReturnResponse.id) &&
         Objects.equals(this.reason, merchantReturnResponse.reason) &&
         Objects.equals(this.customerComment, merchantReturnResponse.customerComment) &&
@@ -292,7 +339,7 @@ public class MerchantReturnResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantOrderNo, lines, id, reason, customerComment, merchantComment, refundInclVat, refundExclVat);
+    return Objects.hash(merchantOrderNo, lines, createdAt, updatedAt, id, reason, customerComment, merchantComment, refundInclVat, refundExclVat);
   }
 
 
@@ -303,6 +350,8 @@ public class MerchantReturnResponse {
     
     sb.append("    merchantOrderNo: ").append(toIndentedString(merchantOrderNo)).append("\n");
     sb.append("    lines: ").append(toIndentedString(lines)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("    customerComment: ").append(toIndentedString(customerComment)).append("\n");

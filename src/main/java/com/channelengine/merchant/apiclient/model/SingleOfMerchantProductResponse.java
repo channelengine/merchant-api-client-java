@@ -39,6 +39,9 @@ public class SingleOfMerchantProductResponse {
   @SerializedName("StatusCode")
   private Integer statusCode = null;
 
+  @SerializedName("LogId")
+  private Integer logId = null;
+
   @SerializedName("Success")
   private Boolean success = null;
 
@@ -82,6 +85,24 @@ public class SingleOfMerchantProductResponse {
 
   public void setStatusCode(Integer statusCode) {
     this.statusCode = statusCode;
+  }
+
+  public SingleOfMerchantProductResponse logId(Integer logId) {
+    this.logId = logId;
+    return this;
+  }
+
+   /**
+   * Get logId
+   * @return logId
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getLogId() {
+    return logId;
+  }
+
+  public void setLogId(Integer logId) {
+    this.logId = logId;
   }
 
   public SingleOfMerchantProductResponse success(Boolean success) {
@@ -158,6 +179,7 @@ public class SingleOfMerchantProductResponse {
     SingleOfMerchantProductResponse singleOfMerchantProductResponse = (SingleOfMerchantProductResponse) o;
     return Objects.equals(this.content, singleOfMerchantProductResponse.content) &&
         Objects.equals(this.statusCode, singleOfMerchantProductResponse.statusCode) &&
+        Objects.equals(this.logId, singleOfMerchantProductResponse.logId) &&
         Objects.equals(this.success, singleOfMerchantProductResponse.success) &&
         Objects.equals(this.message, singleOfMerchantProductResponse.message) &&
         Objects.equals(this.validationErrors, singleOfMerchantProductResponse.validationErrors);
@@ -165,7 +187,7 @@ public class SingleOfMerchantProductResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(content, statusCode, success, message, validationErrors);
+    return Objects.hash(content, statusCode, logId, success, message, validationErrors);
   }
 
 
@@ -176,6 +198,7 @@ public class SingleOfMerchantProductResponse {
     
     sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");
+    sb.append("    logId: ").append(toIndentedString(logId)).append("\n");
     sb.append("    success: ").append(toIndentedString(success)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
