@@ -124,6 +124,9 @@ public class MerchantOrderLineResponse {
   @SerializedName("OriginalLineVat")
   private BigDecimal originalLineVat = null;
 
+  @SerializedName("BundleProductMerchantProductNo")
+  private String bundleProductMerchantProductNo = null;
+
   @SerializedName("ChannelProductNo")
   private String channelProductNo = null;
 
@@ -402,6 +405,24 @@ public class MerchantOrderLineResponse {
     this.originalLineVat = originalLineVat;
   }
 
+  public MerchantOrderLineResponse bundleProductMerchantProductNo(String bundleProductMerchantProductNo) {
+    this.bundleProductMerchantProductNo = bundleProductMerchantProductNo;
+    return this;
+  }
+
+   /**
+   * If the product is ordered part of a bundle, this field contains the MerchantProductNo of  the product bundle.
+   * @return bundleProductMerchantProductNo
+  **/
+  @ApiModelProperty(value = "If the product is ordered part of a bundle, this field contains the MerchantProductNo of  the product bundle.")
+  public String getBundleProductMerchantProductNo() {
+    return bundleProductMerchantProductNo;
+  }
+
+  public void setBundleProductMerchantProductNo(String bundleProductMerchantProductNo) {
+    this.bundleProductMerchantProductNo = bundleProductMerchantProductNo;
+  }
+
   public MerchantOrderLineResponse channelProductNo(String channelProductNo) {
     this.channelProductNo = channelProductNo;
     return this;
@@ -549,6 +570,7 @@ public class MerchantOrderLineResponse {
         Objects.equals(this.originalUnitVat, merchantOrderLineResponse.originalUnitVat) &&
         Objects.equals(this.originalLineTotalInclVat, merchantOrderLineResponse.originalLineTotalInclVat) &&
         Objects.equals(this.originalLineVat, merchantOrderLineResponse.originalLineVat) &&
+        Objects.equals(this.bundleProductMerchantProductNo, merchantOrderLineResponse.bundleProductMerchantProductNo) &&
         Objects.equals(this.channelProductNo, merchantOrderLineResponse.channelProductNo) &&
         Objects.equals(this.quantity, merchantOrderLineResponse.quantity) &&
         Objects.equals(this.cancellationRequestedQuantity, merchantOrderLineResponse.cancellationRequestedQuantity) &&
@@ -560,7 +582,7 @@ public class MerchantOrderLineResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, isFulfillmentByMarketplace, merchantProductNo, gtin, unitVat, lineTotalInclVat, lineVat, originalUnitPriceInclVat, originalUnitVat, originalLineTotalInclVat, originalLineVat, channelProductNo, quantity, cancellationRequestedQuantity, unitPriceInclVat, feeFixed, feeRate, condition);
+    return Objects.hash(status, isFulfillmentByMarketplace, merchantProductNo, gtin, unitVat, lineTotalInclVat, lineVat, originalUnitPriceInclVat, originalUnitVat, originalLineTotalInclVat, originalLineVat, bundleProductMerchantProductNo, channelProductNo, quantity, cancellationRequestedQuantity, unitPriceInclVat, feeFixed, feeRate, condition);
   }
 
 
@@ -580,6 +602,7 @@ public class MerchantOrderLineResponse {
     sb.append("    originalUnitVat: ").append(toIndentedString(originalUnitVat)).append("\n");
     sb.append("    originalLineTotalInclVat: ").append(toIndentedString(originalLineTotalInclVat)).append("\n");
     sb.append("    originalLineVat: ").append(toIndentedString(originalLineVat)).append("\n");
+    sb.append("    bundleProductMerchantProductNo: ").append(toIndentedString(bundleProductMerchantProductNo)).append("\n");
     sb.append("    channelProductNo: ").append(toIndentedString(channelProductNo)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
     sb.append("    cancellationRequestedQuantity: ").append(toIndentedString(cancellationRequestedQuantity)).append("\n");

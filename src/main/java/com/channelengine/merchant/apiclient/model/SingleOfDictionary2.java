@@ -28,10 +28,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * SingleOfCollectionsDictionary2Generic
+ * SingleOfDictionary2
  */
 
-public class SingleOfCollectionsDictionary2Generic {
+public class SingleOfDictionary2 {
   @SerializedName("Content")
   private Map<String, List<String>> content = null;
 
@@ -50,12 +50,12 @@ public class SingleOfCollectionsDictionary2Generic {
   @SerializedName("ValidationErrors")
   private Map<String, List<String>> validationErrors = null;
 
-  public SingleOfCollectionsDictionary2Generic content(Map<String, List<String>> content) {
+  public SingleOfDictionary2 content(Map<String, List<String>> content) {
     this.content = content;
     return this;
   }
 
-  public SingleOfCollectionsDictionary2Generic putContentItem(String key, List<String> contentItem) {
+  public SingleOfDictionary2 putContentItem(String key, List<String> contentItem) {
     if (this.content == null) {
       this.content = new HashMap<String, List<String>>();
     }
@@ -76,7 +76,7 @@ public class SingleOfCollectionsDictionary2Generic {
     this.content = content;
   }
 
-  public SingleOfCollectionsDictionary2Generic statusCode(Integer statusCode) {
+  public SingleOfDictionary2 statusCode(Integer statusCode) {
     this.statusCode = statusCode;
     return this;
   }
@@ -94,7 +94,7 @@ public class SingleOfCollectionsDictionary2Generic {
     this.statusCode = statusCode;
   }
 
-  public SingleOfCollectionsDictionary2Generic logId(Integer logId) {
+  public SingleOfDictionary2 logId(Integer logId) {
     this.logId = logId;
     return this;
   }
@@ -112,7 +112,7 @@ public class SingleOfCollectionsDictionary2Generic {
     this.logId = logId;
   }
 
-  public SingleOfCollectionsDictionary2Generic success(Boolean success) {
+  public SingleOfDictionary2 success(Boolean success) {
     this.success = success;
     return this;
   }
@@ -130,7 +130,7 @@ public class SingleOfCollectionsDictionary2Generic {
     this.success = success;
   }
 
-  public SingleOfCollectionsDictionary2Generic message(String message) {
+  public SingleOfDictionary2 message(String message) {
     this.message = message;
     return this;
   }
@@ -148,12 +148,12 @@ public class SingleOfCollectionsDictionary2Generic {
     this.message = message;
   }
 
-  public SingleOfCollectionsDictionary2Generic validationErrors(Map<String, List<String>> validationErrors) {
+  public SingleOfDictionary2 validationErrors(Map<String, List<String>> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
-  public SingleOfCollectionsDictionary2Generic putValidationErrorsItem(String key, List<String> validationErrorsItem) {
+  public SingleOfDictionary2 putValidationErrorsItem(String key, List<String> validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new HashMap<String, List<String>>();
     }
@@ -183,13 +183,13 @@ public class SingleOfCollectionsDictionary2Generic {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SingleOfCollectionsDictionary2Generic singleOfCollectionsDictionary2Generic = (SingleOfCollectionsDictionary2Generic) o;
-    return Objects.equals(this.content, singleOfCollectionsDictionary2Generic.content) &&
-        Objects.equals(this.statusCode, singleOfCollectionsDictionary2Generic.statusCode) &&
-        Objects.equals(this.logId, singleOfCollectionsDictionary2Generic.logId) &&
-        Objects.equals(this.success, singleOfCollectionsDictionary2Generic.success) &&
-        Objects.equals(this.message, singleOfCollectionsDictionary2Generic.message) &&
-        Objects.equals(this.validationErrors, singleOfCollectionsDictionary2Generic.validationErrors);
+    SingleOfDictionary2 singleOfDictionary2 = (SingleOfDictionary2) o;
+    return Objects.equals(this.content, singleOfDictionary2.content) &&
+        Objects.equals(this.statusCode, singleOfDictionary2.statusCode) &&
+        Objects.equals(this.logId, singleOfDictionary2.logId) &&
+        Objects.equals(this.success, singleOfDictionary2.success) &&
+        Objects.equals(this.message, singleOfDictionary2.message) &&
+        Objects.equals(this.validationErrors, singleOfDictionary2.validationErrors);
   }
 
   @Override
@@ -201,7 +201,7 @@ public class SingleOfCollectionsDictionary2Generic {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SingleOfCollectionsDictionary2Generic {\n");
+    sb.append("class SingleOfDictionary2 {\n");
     
     sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");

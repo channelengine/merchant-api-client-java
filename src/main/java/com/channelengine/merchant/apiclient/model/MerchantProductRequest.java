@@ -15,7 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.merchant.apiclient.model.ExtraDataItem;
+import com.channelengine.merchant.apiclient.model.MerchantProductExtraDataItemRequest;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -41,6 +41,9 @@ public class MerchantProductRequest {
 
   @SerializedName("ParentMerchantProductNo2")
   private String parentMerchantProductNo2 = null;
+
+  @SerializedName("ExtraData")
+  private List<MerchantProductExtraDataItemRequest> extraData = null;
 
   @SerializedName("Name")
   private String name = null;
@@ -169,9 +172,6 @@ public class MerchantProductRequest {
   @SerializedName("CategoryTrail")
   private String categoryTrail = null;
 
-  @SerializedName("ExtraData")
-  private List<ExtraDataItem> extraData = null;
-
   public MerchantProductRequest merchantProductNo(String merchantProductNo) {
     this.merchantProductNo = merchantProductNo;
     return this;
@@ -224,6 +224,32 @@ public class MerchantProductRequest {
 
   public void setParentMerchantProductNo2(String parentMerchantProductNo2) {
     this.parentMerchantProductNo2 = parentMerchantProductNo2;
+  }
+
+  public MerchantProductRequest extraData(List<MerchantProductExtraDataItemRequest> extraData) {
+    this.extraData = extraData;
+    return this;
+  }
+
+  public MerchantProductRequest addExtraDataItem(MerchantProductExtraDataItemRequest extraDataItem) {
+    if (this.extraData == null) {
+      this.extraData = new ArrayList<MerchantProductExtraDataItemRequest>();
+    }
+    this.extraData.add(extraDataItem);
+    return this;
+  }
+
+   /**
+   * An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.
+   * @return extraData
+  **/
+  @ApiModelProperty(value = "An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.")
+  public List<MerchantProductExtraDataItemRequest> getExtraData() {
+    return extraData;
+  }
+
+  public void setExtraData(List<MerchantProductExtraDataItemRequest> extraData) {
+    this.extraData = extraData;
   }
 
   public MerchantProductRequest name(String name) {
@@ -694,32 +720,6 @@ public class MerchantProductRequest {
     this.categoryTrail = categoryTrail;
   }
 
-  public MerchantProductRequest extraData(List<ExtraDataItem> extraData) {
-    this.extraData = extraData;
-    return this;
-  }
-
-  public MerchantProductRequest addExtraDataItem(ExtraDataItem extraDataItem) {
-    if (this.extraData == null) {
-      this.extraData = new ArrayList<ExtraDataItem>();
-    }
-    this.extraData.add(extraDataItem);
-    return this;
-  }
-
-   /**
-   * An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.
-   * @return extraData
-  **/
-  @ApiModelProperty(value = "An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.")
-  public List<ExtraDataItem> getExtraData() {
-    return extraData;
-  }
-
-  public void setExtraData(List<ExtraDataItem> extraData) {
-    this.extraData = extraData;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -733,6 +733,7 @@ public class MerchantProductRequest {
     return Objects.equals(this.merchantProductNo, merchantProductRequest.merchantProductNo) &&
         Objects.equals(this.parentMerchantProductNo, merchantProductRequest.parentMerchantProductNo) &&
         Objects.equals(this.parentMerchantProductNo2, merchantProductRequest.parentMerchantProductNo2) &&
+        Objects.equals(this.extraData, merchantProductRequest.extraData) &&
         Objects.equals(this.name, merchantProductRequest.name) &&
         Objects.equals(this.description, merchantProductRequest.description) &&
         Objects.equals(this.brand, merchantProductRequest.brand) &&
@@ -758,13 +759,12 @@ public class MerchantProductRequest {
         Objects.equals(this.extraImageUrl7, merchantProductRequest.extraImageUrl7) &&
         Objects.equals(this.extraImageUrl8, merchantProductRequest.extraImageUrl8) &&
         Objects.equals(this.extraImageUrl9, merchantProductRequest.extraImageUrl9) &&
-        Objects.equals(this.categoryTrail, merchantProductRequest.categoryTrail) &&
-        Objects.equals(this.extraData, merchantProductRequest.extraData);
+        Objects.equals(this.categoryTrail, merchantProductRequest.categoryTrail);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantProductNo, parentMerchantProductNo, parentMerchantProductNo2, name, description, brand, size, color, ean, manufacturerProductNumber, stock, price, MSRP, purchasePrice, vatRateType, shippingCost, shippingTime, url, imageUrl, extraImageUrl1, extraImageUrl2, extraImageUrl3, extraImageUrl4, extraImageUrl5, extraImageUrl6, extraImageUrl7, extraImageUrl8, extraImageUrl9, categoryTrail, extraData);
+    return Objects.hash(merchantProductNo, parentMerchantProductNo, parentMerchantProductNo2, extraData, name, description, brand, size, color, ean, manufacturerProductNumber, stock, price, MSRP, purchasePrice, vatRateType, shippingCost, shippingTime, url, imageUrl, extraImageUrl1, extraImageUrl2, extraImageUrl3, extraImageUrl4, extraImageUrl5, extraImageUrl6, extraImageUrl7, extraImageUrl8, extraImageUrl9, categoryTrail);
   }
 
 
@@ -776,6 +776,7 @@ public class MerchantProductRequest {
     sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
     sb.append("    parentMerchantProductNo: ").append(toIndentedString(parentMerchantProductNo)).append("\n");
     sb.append("    parentMerchantProductNo2: ").append(toIndentedString(parentMerchantProductNo2)).append("\n");
+    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    brand: ").append(toIndentedString(brand)).append("\n");
@@ -802,7 +803,6 @@ public class MerchantProductRequest {
     sb.append("    extraImageUrl8: ").append(toIndentedString(extraImageUrl8)).append("\n");
     sb.append("    extraImageUrl9: ").append(toIndentedString(extraImageUrl9)).append("\n");
     sb.append("    categoryTrail: ").append(toIndentedString(categoryTrail)).append("\n");
-    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -15,7 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.merchant.apiclient.model.Address;
+import com.channelengine.merchant.apiclient.model.MerchantAddressResponse;
 import com.channelengine.merchant.apiclient.model.MerchantOrderLineResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -164,6 +164,15 @@ public class MerchantOrderResponse {
   @SerializedName("Status")
   private StatusEnum status = null;
 
+  @SerializedName("IsBusinessOrder")
+  private Boolean isBusinessOrder = null;
+
+  @SerializedName("BillingAddress")
+  private MerchantAddressResponse billingAddress = null;
+
+  @SerializedName("ShippingAddress")
+  private MerchantAddressResponse shippingAddress = null;
+
   @SerializedName("SubTotalInclVat")
   private BigDecimal subTotalInclVat = null;
 
@@ -226,12 +235,6 @@ public class MerchantOrderResponse {
 
   @SerializedName("ChannelCustomerNo")
   private String channelCustomerNo = null;
-
-  @SerializedName("BillingAddress")
-  private Address billingAddress = null;
-
-  @SerializedName("ShippingAddress")
-  private Address shippingAddress = null;
 
   @SerializedName("ExtraData")
   private Map<String, String> extraData = null;
@@ -324,6 +327,60 @@ public class MerchantOrderResponse {
 
   public void setStatus(StatusEnum status) {
     this.status = status;
+  }
+
+  public MerchantOrderResponse isBusinessOrder(Boolean isBusinessOrder) {
+    this.isBusinessOrder = isBusinessOrder;
+    return this;
+  }
+
+   /**
+   * Indicating whether the order is a business order
+   * @return isBusinessOrder
+  **/
+  @ApiModelProperty(value = "Indicating whether the order is a business order")
+  public Boolean isIsBusinessOrder() {
+    return isBusinessOrder;
+  }
+
+  public void setIsBusinessOrder(Boolean isBusinessOrder) {
+    this.isBusinessOrder = isBusinessOrder;
+  }
+
+  public MerchantOrderResponse billingAddress(MerchantAddressResponse billingAddress) {
+    this.billingAddress = billingAddress;
+    return this;
+  }
+
+   /**
+   * The billing or invoice address
+   * @return billingAddress
+  **/
+  @ApiModelProperty(value = "The billing or invoice address")
+  public MerchantAddressResponse getBillingAddress() {
+    return billingAddress;
+  }
+
+  public void setBillingAddress(MerchantAddressResponse billingAddress) {
+    this.billingAddress = billingAddress;
+  }
+
+  public MerchantOrderResponse shippingAddress(MerchantAddressResponse shippingAddress) {
+    this.shippingAddress = shippingAddress;
+    return this;
+  }
+
+   /**
+   * The shipping address
+   * @return shippingAddress
+  **/
+  @ApiModelProperty(value = "The shipping address")
+  public MerchantAddressResponse getShippingAddress() {
+    return shippingAddress;
+  }
+
+  public void setShippingAddress(MerchantAddressResponse shippingAddress) {
+    this.shippingAddress = shippingAddress;
   }
 
   public MerchantOrderResponse subTotalInclVat(BigDecimal subTotalInclVat) {
@@ -712,42 +769,6 @@ public class MerchantOrderResponse {
     this.channelCustomerNo = channelCustomerNo;
   }
 
-  public MerchantOrderResponse billingAddress(Address billingAddress) {
-    this.billingAddress = billingAddress;
-    return this;
-  }
-
-   /**
-   * The billing or invoice address
-   * @return billingAddress
-  **/
-  @ApiModelProperty(required = true, value = "The billing or invoice address")
-  public Address getBillingAddress() {
-    return billingAddress;
-  }
-
-  public void setBillingAddress(Address billingAddress) {
-    this.billingAddress = billingAddress;
-  }
-
-  public MerchantOrderResponse shippingAddress(Address shippingAddress) {
-    this.shippingAddress = shippingAddress;
-    return this;
-  }
-
-   /**
-   * The shipping address
-   * @return shippingAddress
-  **/
-  @ApiModelProperty(required = true, value = "The shipping address")
-  public Address getShippingAddress() {
-    return shippingAddress;
-  }
-
-  public void setShippingAddress(Address shippingAddress) {
-    this.shippingAddress = shippingAddress;
-  }
-
   public MerchantOrderResponse extraData(Map<String, String> extraData) {
     this.extraData = extraData;
     return this;
@@ -789,6 +810,9 @@ public class MerchantOrderResponse {
         Objects.equals(this.channelOrderSupport, merchantOrderResponse.channelOrderSupport) &&
         Objects.equals(this.channelOrderNo, merchantOrderResponse.channelOrderNo) &&
         Objects.equals(this.status, merchantOrderResponse.status) &&
+        Objects.equals(this.isBusinessOrder, merchantOrderResponse.isBusinessOrder) &&
+        Objects.equals(this.billingAddress, merchantOrderResponse.billingAddress) &&
+        Objects.equals(this.shippingAddress, merchantOrderResponse.shippingAddress) &&
         Objects.equals(this.subTotalInclVat, merchantOrderResponse.subTotalInclVat) &&
         Objects.equals(this.subTotalVat, merchantOrderResponse.subTotalVat) &&
         Objects.equals(this.shippingCostsVat, merchantOrderResponse.shippingCostsVat) &&
@@ -810,14 +834,12 @@ public class MerchantOrderResponse {
         Objects.equals(this.currencyCode, merchantOrderResponse.currencyCode) &&
         Objects.equals(this.orderDate, merchantOrderResponse.orderDate) &&
         Objects.equals(this.channelCustomerNo, merchantOrderResponse.channelCustomerNo) &&
-        Objects.equals(this.billingAddress, merchantOrderResponse.billingAddress) &&
-        Objects.equals(this.shippingAddress, merchantOrderResponse.shippingAddress) &&
         Objects.equals(this.extraData, merchantOrderResponse.extraData);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, channelName, channelOrderSupport, channelOrderNo, status, subTotalInclVat, subTotalVat, shippingCostsVat, totalInclVat, totalVat, originalSubTotalInclVat, originalSubTotalVat, originalShippingCostsInclVat, originalShippingCostsVat, originalTotalInclVat, originalTotalVat, lines, phone, email, companyRegistrationNo, vatNo, paymentMethod, shippingCostsInclVat, currencyCode, orderDate, channelCustomerNo, billingAddress, shippingAddress, extraData);
+    return Objects.hash(id, channelName, channelOrderSupport, channelOrderNo, status, isBusinessOrder, billingAddress, shippingAddress, subTotalInclVat, subTotalVat, shippingCostsVat, totalInclVat, totalVat, originalSubTotalInclVat, originalSubTotalVat, originalShippingCostsInclVat, originalShippingCostsVat, originalTotalInclVat, originalTotalVat, lines, phone, email, companyRegistrationNo, vatNo, paymentMethod, shippingCostsInclVat, currencyCode, orderDate, channelCustomerNo, extraData);
   }
 
 
@@ -831,6 +853,9 @@ public class MerchantOrderResponse {
     sb.append("    channelOrderSupport: ").append(toIndentedString(channelOrderSupport)).append("\n");
     sb.append("    channelOrderNo: ").append(toIndentedString(channelOrderNo)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    isBusinessOrder: ").append(toIndentedString(isBusinessOrder)).append("\n");
+    sb.append("    billingAddress: ").append(toIndentedString(billingAddress)).append("\n");
+    sb.append("    shippingAddress: ").append(toIndentedString(shippingAddress)).append("\n");
     sb.append("    subTotalInclVat: ").append(toIndentedString(subTotalInclVat)).append("\n");
     sb.append("    subTotalVat: ").append(toIndentedString(subTotalVat)).append("\n");
     sb.append("    shippingCostsVat: ").append(toIndentedString(shippingCostsVat)).append("\n");
@@ -852,8 +877,6 @@ public class MerchantOrderResponse {
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
     sb.append("    orderDate: ").append(toIndentedString(orderDate)).append("\n");
     sb.append("    channelCustomerNo: ").append(toIndentedString(channelCustomerNo)).append("\n");
-    sb.append("    billingAddress: ").append(toIndentedString(billingAddress)).append("\n");
-    sb.append("    shippingAddress: ").append(toIndentedString(shippingAddress)).append("\n");
     sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("}");
     return sb.toString();

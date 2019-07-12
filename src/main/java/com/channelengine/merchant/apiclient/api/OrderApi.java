@@ -29,9 +29,9 @@ import java.io.IOException;
 
 import com.channelengine.merchant.apiclient.model.CollectionOfMerchantOrderResponse;
 import java.io.File;
+import com.channelengine.merchant.apiclient.model.MerchantOrderAcknowledgementRequest;
 import com.channelengine.merchant.apiclient.model.ModelApiResponse;
 import org.threeten.bp.OffsetDateTime;
-import com.channelengine.merchant.apiclient.model.OrderAcknowledgement;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class OrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call orderAcknowledgeCall(OrderAcknowledgement model, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call orderAcknowledgeCall(MerchantOrderAcknowledgementRequest model, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = model;
 
         // create path and map variables
@@ -108,7 +108,7 @@ public class OrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call orderAcknowledgeValidateBeforeCall(OrderAcknowledgement model, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call orderAcknowledgeValidateBeforeCall(MerchantOrderAcknowledgementRequest model, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'model' is set
         if (model == null) {
@@ -128,7 +128,7 @@ public class OrderApi {
      * @return ModelApiResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelApiResponse orderAcknowledge(OrderAcknowledgement model) throws ApiException {
+    public ModelApiResponse orderAcknowledge(MerchantOrderAcknowledgementRequest model) throws ApiException {
         ApiResponse<ModelApiResponse> resp = orderAcknowledgeWithHttpInfo(model);
         return resp.getData();
     }
@@ -140,7 +140,7 @@ public class OrderApi {
      * @return ApiResponse&lt;ModelApiResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModelApiResponse> orderAcknowledgeWithHttpInfo(OrderAcknowledgement model) throws ApiException {
+    public ApiResponse<ModelApiResponse> orderAcknowledgeWithHttpInfo(MerchantOrderAcknowledgementRequest model) throws ApiException {
         com.squareup.okhttp.Call call = orderAcknowledgeValidateBeforeCall(model, null, null);
         Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -154,7 +154,7 @@ public class OrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call orderAcknowledgeAsync(OrderAcknowledgement model, final ApiCallback<ModelApiResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call orderAcknowledgeAsync(MerchantOrderAcknowledgementRequest model, final ApiCallback<ModelApiResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -184,17 +184,19 @@ public class OrderApi {
      * Build call for orderGetByFilter
      * @param statuses Order status(es) to filter on (optional)
      * @param merchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param channelOrderNos Filter on unique order reference used by the channel (optional)
      * @param fromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the order date, until this date. This date is exclusive. (optional)
      * @param excludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param fulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
+     * @param onlyWithCancellationRequests Filter on orders containing cancellation requests.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation. (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call orderGetByFilterCall(List<String> statuses, List<String> merchantOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call orderGetByFilterCall(List<String> statuses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -206,6 +208,8 @@ public class OrderApi {
         localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "statuses", statuses));
         if (merchantOrderNos != null)
         localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "merchantOrderNos", merchantOrderNos));
+        if (channelOrderNos != null)
+        localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "channelOrderNos", channelOrderNos));
         if (fromDate != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("fromDate", fromDate));
         if (toDate != null)
@@ -214,6 +218,8 @@ public class OrderApi {
         localVarQueryParams.addAll(apiClient.parameterToPair("excludeMarketplaceFulfilledOrdersAndLines", excludeMarketplaceFulfilledOrdersAndLines));
         if (fulfillmentType != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("fulfillmentType", fulfillmentType));
+        if (onlyWithCancellationRequests != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("onlyWithCancellationRequests", onlyWithCancellationRequests));
         if (page != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
 
@@ -250,10 +256,10 @@ public class OrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call orderGetByFilterValidateBeforeCall(List<String> statuses, List<String> merchantOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call orderGetByFilterValidateBeforeCall(List<String> statuses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
 
-        com.squareup.okhttp.Call call = orderGetByFilterCall(statuses, merchantOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, page, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = orderGetByFilterCall(statuses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page, progressListener, progressRequestListener);
         return call;
 
     }
@@ -263,16 +269,18 @@ public class OrderApi {
      * Fetch orders based on the provided OrderFilter
      * @param statuses Order status(es) to filter on (optional)
      * @param merchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param channelOrderNos Filter on unique order reference used by the channel (optional)
      * @param fromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the order date, until this date. This date is exclusive. (optional)
      * @param excludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param fulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
+     * @param onlyWithCancellationRequests Filter on orders containing cancellation requests.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation. (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @return CollectionOfMerchantOrderResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionOfMerchantOrderResponse orderGetByFilter(List<String> statuses, List<String> merchantOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Integer page) throws ApiException {
-        ApiResponse<CollectionOfMerchantOrderResponse> resp = orderGetByFilterWithHttpInfo(statuses, merchantOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, page);
+    public CollectionOfMerchantOrderResponse orderGetByFilter(List<String> statuses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page) throws ApiException {
+        ApiResponse<CollectionOfMerchantOrderResponse> resp = orderGetByFilterWithHttpInfo(statuses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page);
         return resp.getData();
     }
 
@@ -281,16 +289,18 @@ public class OrderApi {
      * Fetch orders based on the provided OrderFilter
      * @param statuses Order status(es) to filter on (optional)
      * @param merchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param channelOrderNos Filter on unique order reference used by the channel (optional)
      * @param fromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the order date, until this date. This date is exclusive. (optional)
      * @param excludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param fulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
+     * @param onlyWithCancellationRequests Filter on orders containing cancellation requests.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation. (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @return ApiResponse&lt;CollectionOfMerchantOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CollectionOfMerchantOrderResponse> orderGetByFilterWithHttpInfo(List<String> statuses, List<String> merchantOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Integer page) throws ApiException {
-        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(statuses, merchantOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, page, null, null);
+    public ApiResponse<CollectionOfMerchantOrderResponse> orderGetByFilterWithHttpInfo(List<String> statuses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page) throws ApiException {
+        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(statuses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page, null, null);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantOrderResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -300,16 +310,18 @@ public class OrderApi {
      * Fetch orders based on the provided OrderFilter
      * @param statuses Order status(es) to filter on (optional)
      * @param merchantOrderNos Filter on unique order reference used by the merchant (optional)
+     * @param channelOrderNos Filter on unique order reference used by the channel (optional)
      * @param fromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the order date, until this date. This date is exclusive. (optional)
      * @param excludeMarketplaceFulfilledOrdersAndLines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.) (optional)
      * @param fulfillmentType Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true. (optional)
+     * @param onlyWithCancellationRequests Filter on orders containing cancellation requests.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation. (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call orderGetByFilterAsync(List<String> statuses, List<String> merchantOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Integer page, final ApiCallback<CollectionOfMerchantOrderResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call orderGetByFilterAsync(List<String> statuses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page, final ApiCallback<CollectionOfMerchantOrderResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -330,7 +342,7 @@ public class OrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(statuses, merchantOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, page, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(statuses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantOrderResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

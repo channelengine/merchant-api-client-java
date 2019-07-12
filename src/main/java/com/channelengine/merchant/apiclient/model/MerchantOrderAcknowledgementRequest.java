@@ -25,17 +25,17 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * OrderAcknowledgement
+ * MerchantOrderAcknowledgementRequest
  */
 
-public class OrderAcknowledgement {
+public class MerchantOrderAcknowledgementRequest {
   @SerializedName("MerchantOrderNo")
   private String merchantOrderNo = null;
 
   @SerializedName("OrderId")
   private Integer orderId = null;
 
-  public OrderAcknowledgement merchantOrderNo(String merchantOrderNo) {
+  public MerchantOrderAcknowledgementRequest merchantOrderNo(String merchantOrderNo) {
     this.merchantOrderNo = merchantOrderNo;
     return this;
   }
@@ -53,7 +53,7 @@ public class OrderAcknowledgement {
     this.merchantOrderNo = merchantOrderNo;
   }
 
-  public OrderAcknowledgement orderId(Integer orderId) {
+  public MerchantOrderAcknowledgementRequest orderId(Integer orderId) {
     this.orderId = orderId;
     return this;
   }
@@ -80,9 +80,9 @@ public class OrderAcknowledgement {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    OrderAcknowledgement orderAcknowledgement = (OrderAcknowledgement) o;
-    return Objects.equals(this.merchantOrderNo, orderAcknowledgement.merchantOrderNo) &&
-        Objects.equals(this.orderId, orderAcknowledgement.orderId);
+    MerchantOrderAcknowledgementRequest merchantOrderAcknowledgementRequest = (MerchantOrderAcknowledgementRequest) o;
+    return Objects.equals(this.merchantOrderNo, merchantOrderAcknowledgementRequest.merchantOrderNo) &&
+        Objects.equals(this.orderId, merchantOrderAcknowledgementRequest.orderId);
   }
 
   @Override
@@ -94,7 +94,7 @@ public class OrderAcknowledgement {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class OrderAcknowledgement {\n");
+    sb.append("class MerchantOrderAcknowledgementRequest {\n");
     
     sb.append("    merchantOrderNo: ").append(toIndentedString(merchantOrderNo)).append("\n");
     sb.append("    orderId: ").append(toIndentedString(orderId)).append("\n");

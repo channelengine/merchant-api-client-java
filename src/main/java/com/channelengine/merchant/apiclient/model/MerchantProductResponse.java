@@ -15,7 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.merchant.apiclient.model.ExtraDataItem;
+import com.channelengine.merchant.apiclient.model.MerchantProductExtraDataItemResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -38,6 +38,9 @@ public class MerchantProductResponse {
 
   @SerializedName("MerchantProductNo")
   private String merchantProductNo = null;
+
+  @SerializedName("ExtraData")
+  private List<MerchantProductExtraDataItemResponse> extraData = null;
 
   @SerializedName("Name")
   private String name = null;
@@ -166,9 +169,6 @@ public class MerchantProductResponse {
   @SerializedName("CategoryTrail")
   private String categoryTrail = null;
 
-  @SerializedName("ExtraData")
-  private List<ExtraDataItem> extraData = null;
-
   public MerchantProductResponse isActive(Boolean isActive) {
     this.isActive = isActive;
     return this;
@@ -203,6 +203,32 @@ public class MerchantProductResponse {
 
   public void setMerchantProductNo(String merchantProductNo) {
     this.merchantProductNo = merchantProductNo;
+  }
+
+  public MerchantProductResponse extraData(List<MerchantProductExtraDataItemResponse> extraData) {
+    this.extraData = extraData;
+    return this;
+  }
+
+  public MerchantProductResponse addExtraDataItem(MerchantProductExtraDataItemResponse extraDataItem) {
+    if (this.extraData == null) {
+      this.extraData = new ArrayList<MerchantProductExtraDataItemResponse>();
+    }
+    this.extraData.add(extraDataItem);
+    return this;
+  }
+
+   /**
+   * Get extraData
+   * @return extraData
+  **/
+  @ApiModelProperty(value = "")
+  public List<MerchantProductExtraDataItemResponse> getExtraData() {
+    return extraData;
+  }
+
+  public void setExtraData(List<MerchantProductExtraDataItemResponse> extraData) {
+    this.extraData = extraData;
   }
 
   public MerchantProductResponse name(String name) {
@@ -673,32 +699,6 @@ public class MerchantProductResponse {
     this.categoryTrail = categoryTrail;
   }
 
-  public MerchantProductResponse extraData(List<ExtraDataItem> extraData) {
-    this.extraData = extraData;
-    return this;
-  }
-
-  public MerchantProductResponse addExtraDataItem(ExtraDataItem extraDataItem) {
-    if (this.extraData == null) {
-      this.extraData = new ArrayList<ExtraDataItem>();
-    }
-    this.extraData.add(extraDataItem);
-    return this;
-  }
-
-   /**
-   * An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.
-   * @return extraData
-  **/
-  @ApiModelProperty(value = "An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.")
-  public List<ExtraDataItem> getExtraData() {
-    return extraData;
-  }
-
-  public void setExtraData(List<ExtraDataItem> extraData) {
-    this.extraData = extraData;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -711,6 +711,7 @@ public class MerchantProductResponse {
     MerchantProductResponse merchantProductResponse = (MerchantProductResponse) o;
     return Objects.equals(this.isActive, merchantProductResponse.isActive) &&
         Objects.equals(this.merchantProductNo, merchantProductResponse.merchantProductNo) &&
+        Objects.equals(this.extraData, merchantProductResponse.extraData) &&
         Objects.equals(this.name, merchantProductResponse.name) &&
         Objects.equals(this.description, merchantProductResponse.description) &&
         Objects.equals(this.brand, merchantProductResponse.brand) &&
@@ -736,13 +737,12 @@ public class MerchantProductResponse {
         Objects.equals(this.extraImageUrl7, merchantProductResponse.extraImageUrl7) &&
         Objects.equals(this.extraImageUrl8, merchantProductResponse.extraImageUrl8) &&
         Objects.equals(this.extraImageUrl9, merchantProductResponse.extraImageUrl9) &&
-        Objects.equals(this.categoryTrail, merchantProductResponse.categoryTrail) &&
-        Objects.equals(this.extraData, merchantProductResponse.extraData);
+        Objects.equals(this.categoryTrail, merchantProductResponse.categoryTrail);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(isActive, merchantProductNo, name, description, brand, size, color, ean, manufacturerProductNumber, stock, price, MSRP, purchasePrice, vatRateType, shippingCost, shippingTime, url, imageUrl, extraImageUrl1, extraImageUrl2, extraImageUrl3, extraImageUrl4, extraImageUrl5, extraImageUrl6, extraImageUrl7, extraImageUrl8, extraImageUrl9, categoryTrail, extraData);
+    return Objects.hash(isActive, merchantProductNo, extraData, name, description, brand, size, color, ean, manufacturerProductNumber, stock, price, MSRP, purchasePrice, vatRateType, shippingCost, shippingTime, url, imageUrl, extraImageUrl1, extraImageUrl2, extraImageUrl3, extraImageUrl4, extraImageUrl5, extraImageUrl6, extraImageUrl7, extraImageUrl8, extraImageUrl9, categoryTrail);
   }
 
 
@@ -753,6 +753,7 @@ public class MerchantProductResponse {
     
     sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
     sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
+    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    brand: ").append(toIndentedString(brand)).append("\n");
@@ -779,7 +780,6 @@ public class MerchantProductResponse {
     sb.append("    extraImageUrl8: ").append(toIndentedString(extraImageUrl8)).append("\n");
     sb.append("    extraImageUrl9: ").append(toIndentedString(extraImageUrl9)).append("\n");
     sb.append("    categoryTrail: ").append(toIndentedString(categoryTrail)).append("\n");
-    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("}");
     return sb.toString();
   }

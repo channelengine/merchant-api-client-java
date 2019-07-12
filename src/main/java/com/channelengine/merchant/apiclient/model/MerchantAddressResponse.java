@@ -25,10 +25,19 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * Address
+ * MerchantAddressResponse
  */
 
-public class Address {
+public class MerchantAddressResponse {
+  @SerializedName("Line1")
+  private String line1 = null;
+
+  @SerializedName("Line2")
+  private String line2 = null;
+
+  @SerializedName("Line3")
+  private String line3 = null;
+
   /**
    * Optional. The customer&#39;s gender
    */
@@ -114,7 +123,61 @@ public class Address {
   @SerializedName("Original")
   private String original = null;
 
-  public Address gender(GenderEnum gender) {
+  public MerchantAddressResponse line1(String line1) {
+    this.line1 = line1;
+    return this;
+  }
+
+   /**
+   * The first address line, use this field if address validation is disabled in ChannelEngine.
+   * @return line1
+  **/
+  @ApiModelProperty(value = "The first address line, use this field if address validation is disabled in ChannelEngine.")
+  public String getLine1() {
+    return line1;
+  }
+
+  public void setLine1(String line1) {
+    this.line1 = line1;
+  }
+
+  public MerchantAddressResponse line2(String line2) {
+    this.line2 = line2;
+    return this;
+  }
+
+   /**
+   * The second address line, use this field if address validation is disabled in ChannelEngine.
+   * @return line2
+  **/
+  @ApiModelProperty(value = "The second address line, use this field if address validation is disabled in ChannelEngine.")
+  public String getLine2() {
+    return line2;
+  }
+
+  public void setLine2(String line2) {
+    this.line2 = line2;
+  }
+
+  public MerchantAddressResponse line3(String line3) {
+    this.line3 = line3;
+    return this;
+  }
+
+   /**
+   * The third address line, use this field if address validation is disabled in ChannelEngine.
+   * @return line3
+  **/
+  @ApiModelProperty(value = "The third address line, use this field if address validation is disabled in ChannelEngine.")
+  public String getLine3() {
+    return line3;
+  }
+
+  public void setLine3(String line3) {
+    this.line3 = line3;
+  }
+
+  public MerchantAddressResponse gender(GenderEnum gender) {
     this.gender = gender;
     return this;
   }
@@ -132,7 +195,7 @@ public class Address {
     this.gender = gender;
   }
 
-  public Address companyName(String companyName) {
+  public MerchantAddressResponse companyName(String companyName) {
     this.companyName = companyName;
     return this;
   }
@@ -150,7 +213,7 @@ public class Address {
     this.companyName = companyName;
   }
 
-  public Address firstName(String firstName) {
+  public MerchantAddressResponse firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -168,7 +231,7 @@ public class Address {
     this.firstName = firstName;
   }
 
-  public Address lastName(String lastName) {
+  public MerchantAddressResponse lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -186,7 +249,7 @@ public class Address {
     this.lastName = lastName;
   }
 
-  public Address streetName(String streetName) {
+  public MerchantAddressResponse streetName(String streetName) {
     this.streetName = streetName;
     return this;
   }
@@ -204,7 +267,7 @@ public class Address {
     this.streetName = streetName;
   }
 
-  public Address houseNr(String houseNr) {
+  public MerchantAddressResponse houseNr(String houseNr) {
     this.houseNr = houseNr;
     return this;
   }
@@ -222,7 +285,7 @@ public class Address {
     this.houseNr = houseNr;
   }
 
-  public Address houseNrAddition(String houseNrAddition) {
+  public MerchantAddressResponse houseNrAddition(String houseNrAddition) {
     this.houseNrAddition = houseNrAddition;
     return this;
   }
@@ -240,7 +303,7 @@ public class Address {
     this.houseNrAddition = houseNrAddition;
   }
 
-  public Address zipCode(String zipCode) {
+  public MerchantAddressResponse zipCode(String zipCode) {
     this.zipCode = zipCode;
     return this;
   }
@@ -258,7 +321,7 @@ public class Address {
     this.zipCode = zipCode;
   }
 
-  public Address city(String city) {
+  public MerchantAddressResponse city(String city) {
     this.city = city;
     return this;
   }
@@ -276,7 +339,7 @@ public class Address {
     this.city = city;
   }
 
-  public Address region(String region) {
+  public MerchantAddressResponse region(String region) {
     this.region = region;
     return this;
   }
@@ -294,7 +357,7 @@ public class Address {
     this.region = region;
   }
 
-  public Address countryIso(String countryIso) {
+  public MerchantAddressResponse countryIso(String countryIso) {
     this.countryIso = countryIso;
     return this;
   }
@@ -312,7 +375,7 @@ public class Address {
     this.countryIso = countryIso;
   }
 
-  public Address original(String original) {
+  public MerchantAddressResponse original(String original) {
     this.original = original;
     return this;
   }
@@ -339,32 +402,38 @@ public class Address {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Address address = (Address) o;
-    return Objects.equals(this.gender, address.gender) &&
-        Objects.equals(this.companyName, address.companyName) &&
-        Objects.equals(this.firstName, address.firstName) &&
-        Objects.equals(this.lastName, address.lastName) &&
-        Objects.equals(this.streetName, address.streetName) &&
-        Objects.equals(this.houseNr, address.houseNr) &&
-        Objects.equals(this.houseNrAddition, address.houseNrAddition) &&
-        Objects.equals(this.zipCode, address.zipCode) &&
-        Objects.equals(this.city, address.city) &&
-        Objects.equals(this.region, address.region) &&
-        Objects.equals(this.countryIso, address.countryIso) &&
-        Objects.equals(this.original, address.original);
+    MerchantAddressResponse merchantAddressResponse = (MerchantAddressResponse) o;
+    return Objects.equals(this.line1, merchantAddressResponse.line1) &&
+        Objects.equals(this.line2, merchantAddressResponse.line2) &&
+        Objects.equals(this.line3, merchantAddressResponse.line3) &&
+        Objects.equals(this.gender, merchantAddressResponse.gender) &&
+        Objects.equals(this.companyName, merchantAddressResponse.companyName) &&
+        Objects.equals(this.firstName, merchantAddressResponse.firstName) &&
+        Objects.equals(this.lastName, merchantAddressResponse.lastName) &&
+        Objects.equals(this.streetName, merchantAddressResponse.streetName) &&
+        Objects.equals(this.houseNr, merchantAddressResponse.houseNr) &&
+        Objects.equals(this.houseNrAddition, merchantAddressResponse.houseNrAddition) &&
+        Objects.equals(this.zipCode, merchantAddressResponse.zipCode) &&
+        Objects.equals(this.city, merchantAddressResponse.city) &&
+        Objects.equals(this.region, merchantAddressResponse.region) &&
+        Objects.equals(this.countryIso, merchantAddressResponse.countryIso) &&
+        Objects.equals(this.original, merchantAddressResponse.original);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(gender, companyName, firstName, lastName, streetName, houseNr, houseNrAddition, zipCode, city, region, countryIso, original);
+    return Objects.hash(line1, line2, line3, gender, companyName, firstName, lastName, streetName, houseNr, houseNrAddition, zipCode, city, region, countryIso, original);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Address {\n");
+    sb.append("class MerchantAddressResponse {\n");
     
+    sb.append("    line1: ").append(toIndentedString(line1)).append("\n");
+    sb.append("    line2: ").append(toIndentedString(line2)).append("\n");
+    sb.append("    line3: ").append(toIndentedString(line3)).append("\n");
     sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
     sb.append("    companyName: ").append(toIndentedString(companyName)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");

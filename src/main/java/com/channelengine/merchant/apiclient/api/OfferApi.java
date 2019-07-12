@@ -29,7 +29,7 @@ import java.io.IOException;
 
 import com.channelengine.merchant.apiclient.model.CollectionOfMerchantOfferGetStockResponse;
 import com.channelengine.merchant.apiclient.model.MerchantStockPriceUpdateRequest;
-import com.channelengine.merchant.apiclient.model.SingleOfCollectionsDictionary2Generic;
+import com.channelengine.merchant.apiclient.model.SingleOfDictionary2;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -258,11 +258,11 @@ public class OfferApi {
      * Update stock or price.
      * 
      * @param updates References to the products that should be updated, and the new values  for the stock or price fields. It is possible to supply only one of the two fields  or both. (required)
-     * @return SingleOfCollectionsDictionary2Generic
+     * @return SingleOfDictionary2
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public SingleOfCollectionsDictionary2Generic offerStockPriceUpdate(List<MerchantStockPriceUpdateRequest> updates) throws ApiException {
-        ApiResponse<SingleOfCollectionsDictionary2Generic> resp = offerStockPriceUpdateWithHttpInfo(updates);
+    public SingleOfDictionary2 offerStockPriceUpdate(List<MerchantStockPriceUpdateRequest> updates) throws ApiException {
+        ApiResponse<SingleOfDictionary2> resp = offerStockPriceUpdateWithHttpInfo(updates);
         return resp.getData();
     }
 
@@ -270,12 +270,12 @@ public class OfferApi {
      * Update stock or price.
      * 
      * @param updates References to the products that should be updated, and the new values  for the stock or price fields. It is possible to supply only one of the two fields  or both. (required)
-     * @return ApiResponse&lt;SingleOfCollectionsDictionary2Generic&gt;
+     * @return ApiResponse&lt;SingleOfDictionary2&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<SingleOfCollectionsDictionary2Generic> offerStockPriceUpdateWithHttpInfo(List<MerchantStockPriceUpdateRequest> updates) throws ApiException {
+    public ApiResponse<SingleOfDictionary2> offerStockPriceUpdateWithHttpInfo(List<MerchantStockPriceUpdateRequest> updates) throws ApiException {
         com.squareup.okhttp.Call call = offerStockPriceUpdateValidateBeforeCall(updates, null, null);
-        Type localVarReturnType = new TypeToken<SingleOfCollectionsDictionary2Generic>(){}.getType();
+        Type localVarReturnType = new TypeToken<SingleOfDictionary2>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -287,7 +287,7 @@ public class OfferApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call offerStockPriceUpdateAsync(List<MerchantStockPriceUpdateRequest> updates, final ApiCallback<SingleOfCollectionsDictionary2Generic> callback) throws ApiException {
+    public com.squareup.okhttp.Call offerStockPriceUpdateAsync(List<MerchantStockPriceUpdateRequest> updates, final ApiCallback<SingleOfDictionary2> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -309,7 +309,7 @@ public class OfferApi {
         }
 
         com.squareup.okhttp.Call call = offerStockPriceUpdateValidateBeforeCall(updates, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<SingleOfCollectionsDictionary2Generic>(){}.getType();
+        Type localVarReturnType = new TypeToken<SingleOfDictionary2>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

@@ -46,6 +46,12 @@ public class MerchantReturnResponse {
   @SerializedName("UpdatedAt")
   private OffsetDateTime updatedAt = null;
 
+  @SerializedName("MerchantReturnNo")
+  private String merchantReturnNo = null;
+
+  @SerializedName("ChannelReturnNo")
+  private String channelReturnNo = null;
+
   @SerializedName("Id")
   private Integer id = null;
 
@@ -207,6 +213,42 @@ public class MerchantReturnResponse {
     this.updatedAt = updatedAt;
   }
 
+  public MerchantReturnResponse merchantReturnNo(String merchantReturnNo) {
+    this.merchantReturnNo = merchantReturnNo;
+    return this;
+  }
+
+   /**
+   * The unique return reference used by the Merchant, will be empty in case of a channel or unacknowledged return
+   * @return merchantReturnNo
+  **/
+  @ApiModelProperty(value = "The unique return reference used by the Merchant, will be empty in case of a channel or unacknowledged return")
+  public String getMerchantReturnNo() {
+    return merchantReturnNo;
+  }
+
+  public void setMerchantReturnNo(String merchantReturnNo) {
+    this.merchantReturnNo = merchantReturnNo;
+  }
+
+  public MerchantReturnResponse channelReturnNo(String channelReturnNo) {
+    this.channelReturnNo = channelReturnNo;
+    return this;
+  }
+
+   /**
+   * The unique return reference used by the Channel, will be empty in case of a merchant return
+   * @return channelReturnNo
+  **/
+  @ApiModelProperty(value = "The unique return reference used by the Channel, will be empty in case of a merchant return")
+  public String getChannelReturnNo() {
+    return channelReturnNo;
+  }
+
+  public void setChannelReturnNo(String channelReturnNo) {
+    this.channelReturnNo = channelReturnNo;
+  }
+
   public MerchantReturnResponse id(Integer id) {
     this.id = id;
     return this;
@@ -329,6 +371,8 @@ public class MerchantReturnResponse {
         Objects.equals(this.lines, merchantReturnResponse.lines) &&
         Objects.equals(this.createdAt, merchantReturnResponse.createdAt) &&
         Objects.equals(this.updatedAt, merchantReturnResponse.updatedAt) &&
+        Objects.equals(this.merchantReturnNo, merchantReturnResponse.merchantReturnNo) &&
+        Objects.equals(this.channelReturnNo, merchantReturnResponse.channelReturnNo) &&
         Objects.equals(this.id, merchantReturnResponse.id) &&
         Objects.equals(this.reason, merchantReturnResponse.reason) &&
         Objects.equals(this.customerComment, merchantReturnResponse.customerComment) &&
@@ -339,7 +383,7 @@ public class MerchantReturnResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantOrderNo, lines, createdAt, updatedAt, id, reason, customerComment, merchantComment, refundInclVat, refundExclVat);
+    return Objects.hash(merchantOrderNo, lines, createdAt, updatedAt, merchantReturnNo, channelReturnNo, id, reason, customerComment, merchantComment, refundInclVat, refundExclVat);
   }
 
 
@@ -352,6 +396,8 @@ public class MerchantReturnResponse {
     sb.append("    lines: ").append(toIndentedString(lines)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    merchantReturnNo: ").append(toIndentedString(merchantReturnNo)).append("\n");
+    sb.append("    channelReturnNo: ").append(toIndentedString(channelReturnNo)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("    customerComment: ").append(toIndentedString(customerComment)).append("\n");
