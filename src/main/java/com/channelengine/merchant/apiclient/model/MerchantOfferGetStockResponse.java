@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.threeten.bp.OffsetDateTime;
 
 /**
  * MerchantOfferGetStockResponse
@@ -37,6 +38,9 @@ public class MerchantOfferGetStockResponse {
 
   @SerializedName("Stock")
   private Integer stock = null;
+
+  @SerializedName("UpdatedAt")
+  private OffsetDateTime updatedAt = null;
 
   public MerchantOfferGetStockResponse merchantProductNo(String merchantProductNo) {
     this.merchantProductNo = merchantProductNo;
@@ -92,6 +96,24 @@ public class MerchantOfferGetStockResponse {
     this.stock = stock;
   }
 
+  public MerchantOfferGetStockResponse updatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * The timestamp of the last stock update for the stock location
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "The timestamp of the last stock update for the stock location")
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -104,12 +126,13 @@ public class MerchantOfferGetStockResponse {
     MerchantOfferGetStockResponse merchantOfferGetStockResponse = (MerchantOfferGetStockResponse) o;
     return Objects.equals(this.merchantProductNo, merchantOfferGetStockResponse.merchantProductNo) &&
         Objects.equals(this.stockLocationId, merchantOfferGetStockResponse.stockLocationId) &&
-        Objects.equals(this.stock, merchantOfferGetStockResponse.stock);
+        Objects.equals(this.stock, merchantOfferGetStockResponse.stock) &&
+        Objects.equals(this.updatedAt, merchantOfferGetStockResponse.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantProductNo, stockLocationId, stock);
+    return Objects.hash(merchantProductNo, stockLocationId, stock, updatedAt);
   }
 
 
@@ -121,6 +144,7 @@ public class MerchantOfferGetStockResponse {
     sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
     sb.append("    stockLocationId: ").append(toIndentedString(stockLocationId)).append("\n");
     sb.append("    stock: ").append(toIndentedString(stock)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

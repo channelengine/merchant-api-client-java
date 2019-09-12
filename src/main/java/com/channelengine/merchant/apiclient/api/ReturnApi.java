@@ -28,6 +28,7 @@ import java.io.IOException;
 
 
 import com.channelengine.merchant.apiclient.model.CollectionOfMerchantReturnResponse;
+import com.channelengine.merchant.apiclient.model.CollectionOfMerchantSingleOrderReturnResponse;
 import com.channelengine.merchant.apiclient.model.MerchantReturnRequest;
 import com.channelengine.merchant.apiclient.model.MerchantReturnUpdateRequest;
 import com.channelengine.merchant.apiclient.model.ModelApiResponse;
@@ -246,38 +247,38 @@ public class ReturnApi {
 
     /**
      * Get Return
-     * Retrieve a return based on the supplied merchant order number. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
+     * Retrieve returns based on the supplied merchant order number. May return more than 1 result.  This call is supposed to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
      * @param merchantOrderNo  (required)
-     * @return CollectionOfMerchantReturnResponse
+     * @return CollectionOfMerchantSingleOrderReturnResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionOfMerchantReturnResponse returnGetByMerchantOrderNo(String merchantOrderNo) throws ApiException {
-        ApiResponse<CollectionOfMerchantReturnResponse> resp = returnGetByMerchantOrderNoWithHttpInfo(merchantOrderNo);
+    public CollectionOfMerchantSingleOrderReturnResponse returnGetByMerchantOrderNo(String merchantOrderNo) throws ApiException {
+        ApiResponse<CollectionOfMerchantSingleOrderReturnResponse> resp = returnGetByMerchantOrderNoWithHttpInfo(merchantOrderNo);
         return resp.getData();
     }
 
     /**
      * Get Return
-     * Retrieve a return based on the supplied merchant order number. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
+     * Retrieve returns based on the supplied merchant order number. May return more than 1 result.  This call is supposed to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
      * @param merchantOrderNo  (required)
-     * @return ApiResponse&lt;CollectionOfMerchantReturnResponse&gt;
+     * @return ApiResponse&lt;CollectionOfMerchantSingleOrderReturnResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CollectionOfMerchantReturnResponse> returnGetByMerchantOrderNoWithHttpInfo(String merchantOrderNo) throws ApiException {
+    public ApiResponse<CollectionOfMerchantSingleOrderReturnResponse> returnGetByMerchantOrderNoWithHttpInfo(String merchantOrderNo) throws ApiException {
         com.squareup.okhttp.Call call = returnGetByMerchantOrderNoValidateBeforeCall(merchantOrderNo, null, null);
-        Type localVarReturnType = new TypeToken<CollectionOfMerchantReturnResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CollectionOfMerchantSingleOrderReturnResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
      * Get Return (asynchronously)
-     * Retrieve a return based on the supplied merchant order number. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
+     * Retrieve returns based on the supplied merchant order number. May return more than 1 result.  This call is supposed to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
      * @param merchantOrderNo  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call returnGetByMerchantOrderNoAsync(String merchantOrderNo, final ApiCallback<CollectionOfMerchantReturnResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call returnGetByMerchantOrderNoAsync(String merchantOrderNo, final ApiCallback<CollectionOfMerchantSingleOrderReturnResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -299,7 +300,7 @@ public class ReturnApi {
         }
 
         com.squareup.okhttp.Call call = returnGetByMerchantOrderNoValidateBeforeCall(merchantOrderNo, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<CollectionOfMerchantReturnResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CollectionOfMerchantSingleOrderReturnResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
