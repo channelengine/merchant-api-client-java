@@ -43,6 +43,15 @@ public class MerchantOrderResponse {
   @SerializedName("ChannelName")
   private String channelName = null;
 
+  @SerializedName("ChannelId")
+  private Integer channelId = null;
+
+  @SerializedName("GlobalChannelName")
+  private String globalChannelName = null;
+
+  @SerializedName("GlobalChannelId")
+  private Integer globalChannelId = null;
+
   /**
    * The type of orders the channel support.
    */
@@ -167,6 +176,15 @@ public class MerchantOrderResponse {
   @SerializedName("IsBusinessOrder")
   private Boolean isBusinessOrder = null;
 
+  @SerializedName("CreatedAt")
+  private OffsetDateTime createdAt = null;
+
+  @SerializedName("UpdatedAt")
+  private OffsetDateTime updatedAt = null;
+
+  @SerializedName("MerchantComment")
+  private String merchantComment = null;
+
   @SerializedName("BillingAddress")
   private MerchantAddressResponse billingAddress = null;
 
@@ -263,16 +281,70 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * The name of the channel
+   * The name of the channel for this specific environment/account
    * @return channelName
   **/
-  @ApiModelProperty(value = "The name of the channel")
+  @ApiModelProperty(value = "The name of the channel for this specific environment/account")
   public String getChannelName() {
     return channelName;
   }
 
   public void setChannelName(String channelName) {
     this.channelName = channelName;
+  }
+
+  public MerchantOrderResponse channelId(Integer channelId) {
+    this.channelId = channelId;
+    return this;
+  }
+
+   /**
+   * The unique ID of the channel for this specific environment/account
+   * @return channelId
+  **/
+  @ApiModelProperty(value = "The unique ID of the channel for this specific environment/account")
+  public Integer getChannelId() {
+    return channelId;
+  }
+
+  public void setChannelId(Integer channelId) {
+    this.channelId = channelId;
+  }
+
+  public MerchantOrderResponse globalChannelName(String globalChannelName) {
+    this.globalChannelName = globalChannelName;
+    return this;
+  }
+
+   /**
+   * The name of the channel across all of ChannelEngine
+   * @return globalChannelName
+  **/
+  @ApiModelProperty(value = "The name of the channel across all of ChannelEngine")
+  public String getGlobalChannelName() {
+    return globalChannelName;
+  }
+
+  public void setGlobalChannelName(String globalChannelName) {
+    this.globalChannelName = globalChannelName;
+  }
+
+  public MerchantOrderResponse globalChannelId(Integer globalChannelId) {
+    this.globalChannelId = globalChannelId;
+    return this;
+  }
+
+   /**
+   * The unique ID of the channel across all of ChannelEngine
+   * @return globalChannelId
+  **/
+  @ApiModelProperty(value = "The unique ID of the channel across all of ChannelEngine")
+  public Integer getGlobalChannelId() {
+    return globalChannelId;
+  }
+
+  public void setGlobalChannelId(Integer globalChannelId) {
+    this.globalChannelId = globalChannelId;
   }
 
   public MerchantOrderResponse channelOrderSupport(ChannelOrderSupportEnum channelOrderSupport) {
@@ -299,10 +371,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * The unique order reference used by the channel
+   * The order reference used by the channel.   This number is not guaranteed to be unique accross all orders,  because different channels can use the same order number format.
    * @return channelOrderNo
   **/
-  @ApiModelProperty(value = "The unique order reference used by the channel")
+  @ApiModelProperty(value = "The order reference used by the channel.   This number is not guaranteed to be unique accross all orders,  because different channels can use the same order number format.")
   public String getChannelOrderNo() {
     return channelOrderNo;
   }
@@ -345,6 +417,60 @@ public class MerchantOrderResponse {
 
   public void setIsBusinessOrder(Boolean isBusinessOrder) {
     this.isBusinessOrder = isBusinessOrder;
+  }
+
+  public MerchantOrderResponse createdAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * The date the order was created in ChannelEngine
+   * @return createdAt
+  **/
+  @ApiModelProperty(value = "The date the order was created in ChannelEngine")
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public MerchantOrderResponse updatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * The date the order was last updated in ChannelEngine
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "The date the order was last updated in ChannelEngine")
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  public MerchantOrderResponse merchantComment(String merchantComment) {
+    this.merchantComment = merchantComment;
+    return this;
+  }
+
+   /**
+   * The optional comment a merchant can add to an order
+   * @return merchantComment
+  **/
+  @ApiModelProperty(value = "The optional comment a merchant can add to an order")
+  public String getMerchantComment() {
+    return merchantComment;
+  }
+
+  public void setMerchantComment(String merchantComment) {
+    this.merchantComment = merchantComment;
   }
 
   public MerchantOrderResponse billingAddress(MerchantAddressResponse billingAddress) {
@@ -739,10 +865,10 @@ public class MerchantOrderResponse {
   }
 
    /**
-   * The date the order was done
+   * The date the order was created at the channel
    * @return orderDate
   **/
-  @ApiModelProperty(required = true, value = "The date the order was done")
+  @ApiModelProperty(required = true, value = "The date the order was created at the channel")
   public OffsetDateTime getOrderDate() {
     return orderDate;
   }
@@ -807,10 +933,16 @@ public class MerchantOrderResponse {
     MerchantOrderResponse merchantOrderResponse = (MerchantOrderResponse) o;
     return Objects.equals(this.id, merchantOrderResponse.id) &&
         Objects.equals(this.channelName, merchantOrderResponse.channelName) &&
+        Objects.equals(this.channelId, merchantOrderResponse.channelId) &&
+        Objects.equals(this.globalChannelName, merchantOrderResponse.globalChannelName) &&
+        Objects.equals(this.globalChannelId, merchantOrderResponse.globalChannelId) &&
         Objects.equals(this.channelOrderSupport, merchantOrderResponse.channelOrderSupport) &&
         Objects.equals(this.channelOrderNo, merchantOrderResponse.channelOrderNo) &&
         Objects.equals(this.status, merchantOrderResponse.status) &&
         Objects.equals(this.isBusinessOrder, merchantOrderResponse.isBusinessOrder) &&
+        Objects.equals(this.createdAt, merchantOrderResponse.createdAt) &&
+        Objects.equals(this.updatedAt, merchantOrderResponse.updatedAt) &&
+        Objects.equals(this.merchantComment, merchantOrderResponse.merchantComment) &&
         Objects.equals(this.billingAddress, merchantOrderResponse.billingAddress) &&
         Objects.equals(this.shippingAddress, merchantOrderResponse.shippingAddress) &&
         Objects.equals(this.subTotalInclVat, merchantOrderResponse.subTotalInclVat) &&
@@ -839,7 +971,7 @@ public class MerchantOrderResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, channelName, channelOrderSupport, channelOrderNo, status, isBusinessOrder, billingAddress, shippingAddress, subTotalInclVat, subTotalVat, shippingCostsVat, totalInclVat, totalVat, originalSubTotalInclVat, originalSubTotalVat, originalShippingCostsInclVat, originalShippingCostsVat, originalTotalInclVat, originalTotalVat, lines, phone, email, companyRegistrationNo, vatNo, paymentMethod, shippingCostsInclVat, currencyCode, orderDate, channelCustomerNo, extraData);
+    return Objects.hash(id, channelName, channelId, globalChannelName, globalChannelId, channelOrderSupport, channelOrderNo, status, isBusinessOrder, createdAt, updatedAt, merchantComment, billingAddress, shippingAddress, subTotalInclVat, subTotalVat, shippingCostsVat, totalInclVat, totalVat, originalSubTotalInclVat, originalSubTotalVat, originalShippingCostsInclVat, originalShippingCostsVat, originalTotalInclVat, originalTotalVat, lines, phone, email, companyRegistrationNo, vatNo, paymentMethod, shippingCostsInclVat, currencyCode, orderDate, channelCustomerNo, extraData);
   }
 
 
@@ -850,10 +982,16 @@ public class MerchantOrderResponse {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    channelName: ").append(toIndentedString(channelName)).append("\n");
+    sb.append("    channelId: ").append(toIndentedString(channelId)).append("\n");
+    sb.append("    globalChannelName: ").append(toIndentedString(globalChannelName)).append("\n");
+    sb.append("    globalChannelId: ").append(toIndentedString(globalChannelId)).append("\n");
     sb.append("    channelOrderSupport: ").append(toIndentedString(channelOrderSupport)).append("\n");
     sb.append("    channelOrderNo: ").append(toIndentedString(channelOrderNo)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    isBusinessOrder: ").append(toIndentedString(isBusinessOrder)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    merchantComment: ").append(toIndentedString(merchantComment)).append("\n");
     sb.append("    billingAddress: ").append(toIndentedString(billingAddress)).append("\n");
     sb.append("    shippingAddress: ").append(toIndentedString(shippingAddress)).append("\n");
     sb.append("    subTotalInclVat: ").append(toIndentedString(subTotalInclVat)).append("\n");

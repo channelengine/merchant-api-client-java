@@ -30,6 +30,7 @@ import java.io.IOException;
 import com.channelengine.merchant.apiclient.model.CollectionOfMerchantOrderResponse;
 import java.io.File;
 import com.channelengine.merchant.apiclient.model.MerchantOrderAcknowledgementRequest;
+import com.channelengine.merchant.apiclient.model.MerchantOrderCommentUpdateRequest;
 import com.channelengine.merchant.apiclient.model.ModelApiResponse;
 import org.threeten.bp.OffsetDateTime;
 
@@ -183,6 +184,7 @@ public class OrderApi {
     /**
      * Build call for orderGetByFilter
      * @param statuses Order status(es) to filter on (optional)
+     * @param emailAddresses Client emailaddresses to filter on (optional)
      * @param merchantOrderNos Filter on unique order reference used by the merchant (optional)
      * @param channelOrderNos Filter on unique order reference used by the channel (optional)
      * @param fromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
@@ -196,7 +198,7 @@ public class OrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call orderGetByFilterCall(List<String> statuses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call orderGetByFilterCall(List<String> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -206,6 +208,8 @@ public class OrderApi {
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         if (statuses != null)
         localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "statuses", statuses));
+        if (emailAddresses != null)
+        localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "emailAddresses", emailAddresses));
         if (merchantOrderNos != null)
         localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "merchantOrderNos", merchantOrderNos));
         if (channelOrderNos != null)
@@ -256,10 +260,10 @@ public class OrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call orderGetByFilterValidateBeforeCall(List<String> statuses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call orderGetByFilterValidateBeforeCall(List<String> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
 
-        com.squareup.okhttp.Call call = orderGetByFilterCall(statuses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = orderGetByFilterCall(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page, progressListener, progressRequestListener);
         return call;
 
     }
@@ -268,6 +272,7 @@ public class OrderApi {
      * Get Orders By Filter
      * Fetch orders based on the provided OrderFilter
      * @param statuses Order status(es) to filter on (optional)
+     * @param emailAddresses Client emailaddresses to filter on (optional)
      * @param merchantOrderNos Filter on unique order reference used by the merchant (optional)
      * @param channelOrderNos Filter on unique order reference used by the channel (optional)
      * @param fromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
@@ -279,8 +284,8 @@ public class OrderApi {
      * @return CollectionOfMerchantOrderResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionOfMerchantOrderResponse orderGetByFilter(List<String> statuses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page) throws ApiException {
-        ApiResponse<CollectionOfMerchantOrderResponse> resp = orderGetByFilterWithHttpInfo(statuses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page);
+    public CollectionOfMerchantOrderResponse orderGetByFilter(List<String> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page) throws ApiException {
+        ApiResponse<CollectionOfMerchantOrderResponse> resp = orderGetByFilterWithHttpInfo(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page);
         return resp.getData();
     }
 
@@ -288,6 +293,7 @@ public class OrderApi {
      * Get Orders By Filter
      * Fetch orders based on the provided OrderFilter
      * @param statuses Order status(es) to filter on (optional)
+     * @param emailAddresses Client emailaddresses to filter on (optional)
      * @param merchantOrderNos Filter on unique order reference used by the merchant (optional)
      * @param channelOrderNos Filter on unique order reference used by the channel (optional)
      * @param fromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
@@ -299,8 +305,8 @@ public class OrderApi {
      * @return ApiResponse&lt;CollectionOfMerchantOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CollectionOfMerchantOrderResponse> orderGetByFilterWithHttpInfo(List<String> statuses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page) throws ApiException {
-        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(statuses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page, null, null);
+    public ApiResponse<CollectionOfMerchantOrderResponse> orderGetByFilterWithHttpInfo(List<String> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page) throws ApiException {
+        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page, null, null);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantOrderResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -309,6 +315,7 @@ public class OrderApi {
      * Get Orders By Filter (asynchronously)
      * Fetch orders based on the provided OrderFilter
      * @param statuses Order status(es) to filter on (optional)
+     * @param emailAddresses Client emailaddresses to filter on (optional)
      * @param merchantOrderNos Filter on unique order reference used by the merchant (optional)
      * @param channelOrderNos Filter on unique order reference used by the channel (optional)
      * @param fromDate Filter on the order date, starting from this date. This date is inclusive. (optional)
@@ -321,7 +328,7 @@ public class OrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call orderGetByFilterAsync(List<String> statuses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page, final ApiCallback<CollectionOfMerchantOrderResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call orderGetByFilterAsync(List<String> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, String fulfillmentType, Boolean onlyWithCancellationRequests, Integer page, final ApiCallback<CollectionOfMerchantOrderResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -342,7 +349,7 @@ public class OrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(statuses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = orderGetByFilterValidateBeforeCall(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, page, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantOrderResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
@@ -715,6 +722,128 @@ public class OrderApi {
 
         com.squareup.okhttp.Call call = orderPackingSlipValidateBeforeCall(merchantOrderNo, useCustomerCulture, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<File>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for orderUpdate
+     * @param model  (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call orderUpdateCall(MerchantOrderCommentUpdateRequest model, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = model;
+
+        // create path and map variables
+        String localVarPath = "/v2/orders/comment";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "text/plain", "application/json", "text/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json-patch+json", "application/json", "text/json", "application/_*+json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "apikey" };
+        return apiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call orderUpdateValidateBeforeCall(MerchantOrderCommentUpdateRequest model, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'model' is set
+        if (model == null) {
+            throw new ApiException("Missing the required parameter 'model' when calling orderUpdate(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = orderUpdateCall(model, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Update Comment
+     * Update the merchant comment for an order. Both the ChannelEngine order id as the   merchant order number can be used for updating a comment.
+     * @param model  (required)
+     * @return ModelApiResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ModelApiResponse orderUpdate(MerchantOrderCommentUpdateRequest model) throws ApiException {
+        ApiResponse<ModelApiResponse> resp = orderUpdateWithHttpInfo(model);
+        return resp.getData();
+    }
+
+    /**
+     * Update Comment
+     * Update the merchant comment for an order. Both the ChannelEngine order id as the   merchant order number can be used for updating a comment.
+     * @param model  (required)
+     * @return ApiResponse&lt;ModelApiResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<ModelApiResponse> orderUpdateWithHttpInfo(MerchantOrderCommentUpdateRequest model) throws ApiException {
+        com.squareup.okhttp.Call call = orderUpdateValidateBeforeCall(model, null, null);
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Update Comment (asynchronously)
+     * Update the merchant comment for an order. Both the ChannelEngine order id as the   merchant order number can be used for updating a comment.
+     * @param model  (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call orderUpdateAsync(MerchantOrderCommentUpdateRequest model, final ApiCallback<ModelApiResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = orderUpdateValidateBeforeCall(model, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

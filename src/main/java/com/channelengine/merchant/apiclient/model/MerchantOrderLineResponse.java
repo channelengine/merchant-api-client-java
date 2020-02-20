@@ -15,6 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.channelengine.merchant.apiclient.model.MerchantOrderLineExtraDataResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -24,6 +25,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MerchantOrderLineResponse
@@ -126,6 +129,9 @@ public class MerchantOrderLineResponse {
 
   @SerializedName("BundleProductMerchantProductNo")
   private String bundleProductMerchantProductNo = null;
+
+  @SerializedName("ExtraData")
+  private List<MerchantOrderLineExtraDataResponse> extraData = null;
 
   @SerializedName("ChannelProductNo")
   private String channelProductNo = null;
@@ -423,16 +429,42 @@ public class MerchantOrderLineResponse {
     this.bundleProductMerchantProductNo = bundleProductMerchantProductNo;
   }
 
+  public MerchantOrderLineResponse extraData(List<MerchantOrderLineExtraDataResponse> extraData) {
+    this.extraData = extraData;
+    return this;
+  }
+
+  public MerchantOrderLineResponse addExtraDataItem(MerchantOrderLineExtraDataResponse extraDataItem) {
+    if (this.extraData == null) {
+      this.extraData = new ArrayList<MerchantOrderLineExtraDataResponse>();
+    }
+    this.extraData.add(extraDataItem);
+    return this;
+  }
+
+   /**
+   * Get extraData
+   * @return extraData
+  **/
+  @ApiModelProperty(value = "")
+  public List<MerchantOrderLineExtraDataResponse> getExtraData() {
+    return extraData;
+  }
+
+  public void setExtraData(List<MerchantOrderLineExtraDataResponse> extraData) {
+    this.extraData = extraData;
+  }
+
   public MerchantOrderLineResponse channelProductNo(String channelProductNo) {
     this.channelProductNo = channelProductNo;
     return this;
   }
 
    /**
-   * The unique order reference used by the channel
+   * The unique product reference used by the channel
    * @return channelProductNo
   **/
-  @ApiModelProperty(required = true, value = "The unique order reference used by the channel")
+  @ApiModelProperty(required = true, value = "The unique product reference used by the channel")
   public String getChannelProductNo() {
     return channelProductNo;
   }
@@ -571,6 +603,7 @@ public class MerchantOrderLineResponse {
         Objects.equals(this.originalLineTotalInclVat, merchantOrderLineResponse.originalLineTotalInclVat) &&
         Objects.equals(this.originalLineVat, merchantOrderLineResponse.originalLineVat) &&
         Objects.equals(this.bundleProductMerchantProductNo, merchantOrderLineResponse.bundleProductMerchantProductNo) &&
+        Objects.equals(this.extraData, merchantOrderLineResponse.extraData) &&
         Objects.equals(this.channelProductNo, merchantOrderLineResponse.channelProductNo) &&
         Objects.equals(this.quantity, merchantOrderLineResponse.quantity) &&
         Objects.equals(this.cancellationRequestedQuantity, merchantOrderLineResponse.cancellationRequestedQuantity) &&
@@ -582,7 +615,7 @@ public class MerchantOrderLineResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, isFulfillmentByMarketplace, merchantProductNo, gtin, unitVat, lineTotalInclVat, lineVat, originalUnitPriceInclVat, originalUnitVat, originalLineTotalInclVat, originalLineVat, bundleProductMerchantProductNo, channelProductNo, quantity, cancellationRequestedQuantity, unitPriceInclVat, feeFixed, feeRate, condition);
+    return Objects.hash(status, isFulfillmentByMarketplace, merchantProductNo, gtin, unitVat, lineTotalInclVat, lineVat, originalUnitPriceInclVat, originalUnitVat, originalLineTotalInclVat, originalLineVat, bundleProductMerchantProductNo, extraData, channelProductNo, quantity, cancellationRequestedQuantity, unitPriceInclVat, feeFixed, feeRate, condition);
   }
 
 
@@ -603,6 +636,7 @@ public class MerchantOrderLineResponse {
     sb.append("    originalLineTotalInclVat: ").append(toIndentedString(originalLineTotalInclVat)).append("\n");
     sb.append("    originalLineVat: ").append(toIndentedString(originalLineVat)).append("\n");
     sb.append("    bundleProductMerchantProductNo: ").append(toIndentedString(bundleProductMerchantProductNo)).append("\n");
+    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("    channelProductNo: ").append(toIndentedString(channelProductNo)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
     sb.append("    cancellationRequestedQuantity: ").append(toIndentedString(cancellationRequestedQuantity)).append("\n");
