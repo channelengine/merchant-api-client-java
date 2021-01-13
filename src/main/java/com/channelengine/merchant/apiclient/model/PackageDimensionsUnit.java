@@ -24,22 +24,18 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets VatRateType
+ * Gets or Sets PackageDimensionsUnit
  */
-@JsonAdapter(VatRateType.Adapter.class)
-public enum VatRateType {
+@JsonAdapter(PackageDimensionsUnit.Adapter.class)
+public enum PackageDimensionsUnit {
   
-  STANDARD("STANDARD"),
+  CM("CM"),
   
-  REDUCED("REDUCED"),
-  
-  SUPER_REDUCED("SUPER_REDUCED"),
-  
-  EXEMPT("EXEMPT");
+  INCH("INCH");
 
   private String value;
 
-  VatRateType(String value) {
+  PackageDimensionsUnit(String value) {
     this.value = value;
   }
 
@@ -52,8 +48,8 @@ public enum VatRateType {
     return String.valueOf(value);
   }
 
-  public static VatRateType fromValue(String value) {
-    for (VatRateType b : VatRateType.values()) {
+  public static PackageDimensionsUnit fromValue(String value) {
+    for (PackageDimensionsUnit b : PackageDimensionsUnit.values()) {
       if (b.value.equals(value)) {
         return b;
       }
@@ -61,16 +57,16 @@ public enum VatRateType {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 
-  public static class Adapter extends TypeAdapter<VatRateType> {
+  public static class Adapter extends TypeAdapter<PackageDimensionsUnit> {
     @Override
-    public void write(final JsonWriter jsonWriter, final VatRateType enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final PackageDimensionsUnit enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public VatRateType read(final JsonReader jsonReader) throws IOException {
+    public PackageDimensionsUnit read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return VatRateType.fromValue(value);
+      return PackageDimensionsUnit.fromValue(value);
     }
   }
 }

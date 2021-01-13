@@ -15,6 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.channelengine.merchant.apiclient.model.PackageWeightUnit;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -23,64 +24,65 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
- * MerchantStockLocationResponse
+ * MerchantShipmentPackageWeightRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class MerchantStockLocationResponse {
-  public static final String SERIALIZED_NAME_ID = "Id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Integer id;
+public class MerchantShipmentPackageWeightRequest {
+  public static final String SERIALIZED_NAME_VALUE = "Value";
+  @SerializedName(SERIALIZED_NAME_VALUE)
+  private BigDecimal value;
 
-  public static final String SERIALIZED_NAME_NAME = "Name";
-  @SerializedName(SERIALIZED_NAME_NAME)
-  private String name;
+  public static final String SERIALIZED_NAME_UNIT = "Unit";
+  @SerializedName(SERIALIZED_NAME_UNIT)
+  private PackageWeightUnit unit;
 
 
-  public MerchantStockLocationResponse id(Integer id) {
+  public MerchantShipmentPackageWeightRequest value(BigDecimal value) {
     
-    this.id = id;
+    this.value = value;
     return this;
   }
 
    /**
-   * The ChannelEngine id of the stock location.
-   * @return id
+   * Get value
+   * @return value
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The ChannelEngine id of the stock location.")
+  @ApiModelProperty(value = "")
 
-  public Integer getId() {
-    return id;
+  public BigDecimal getValue() {
+    return value;
   }
 
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setValue(BigDecimal value) {
+    this.value = value;
   }
 
 
-  public MerchantStockLocationResponse name(String name) {
+  public MerchantShipmentPackageWeightRequest unit(PackageWeightUnit unit) {
     
-    this.name = name;
+    this.unit = unit;
     return this;
   }
 
    /**
-   * The ChannelEngine name of the stock location.
-   * @return name
+   * Get unit
+   * @return unit
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The ChannelEngine name of the stock location.")
+  @ApiModelProperty(value = "")
 
-  public String getName() {
-    return name;
+  public PackageWeightUnit getUnit() {
+    return unit;
   }
 
 
-  public void setName(String name) {
-    this.name = name;
+  public void setUnit(PackageWeightUnit unit) {
+    this.unit = unit;
   }
 
 
@@ -92,23 +94,23 @@ public class MerchantStockLocationResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MerchantStockLocationResponse merchantStockLocationResponse = (MerchantStockLocationResponse) o;
-    return Objects.equals(this.id, merchantStockLocationResponse.id) &&
-        Objects.equals(this.name, merchantStockLocationResponse.name);
+    MerchantShipmentPackageWeightRequest merchantShipmentPackageWeightRequest = (MerchantShipmentPackageWeightRequest) o;
+    return Objects.equals(this.value, merchantShipmentPackageWeightRequest.value) &&
+        Objects.equals(this.unit, merchantShipmentPackageWeightRequest.unit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name);
+    return Objects.hash(value, unit);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MerchantStockLocationResponse {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("class MerchantShipmentPackageWeightRequest {\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
     sb.append("}");
     return sb.toString();
   }

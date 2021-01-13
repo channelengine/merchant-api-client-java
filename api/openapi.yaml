@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for merchants
   title: ChannelEngine Merchant API
-  version: 2.9.3
+  version: 2.9.4
 servers:
 - url: https://demo.channelengine.net/api
 security:
@@ -373,25 +373,42 @@ paths:
           type: array
         style: form
       - description: Filter on the order date, starting from this date. This date
-          is inclusive.
+          is inclusive.<br />The order date is based on the data we got from a channel.
         explode: true
         in: query
         name: fromDate
         required: false
         schema:
-          description: Filter on the order date, starting from this date. This date
-            is inclusive.
+          description: "Filter on the order date, starting from this date. This date\
+            \ is inclusive.\r\nThe order date is based on the data we got from a channel."
           format: date-time
           nullable: true
           type: string
         style: form
-      - description: Filter on the order date, until this date. This date is exclusive.
+      - description: Filter on the order date, until this date. This date is exclusive.<br
+          />The order date is based on the data we got from a channel.
         explode: true
         in: query
         name: toDate
         required: false
         schema:
-          description: Filter on the order date, until this date. This date is exclusive.
+          description: "Filter on the order date, until this date. This date is exclusive.\r\
+            \nThe order date is based on the data we got from a channel."
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: Filter on the created at date in ChannelEngine, starting from
+          this date. This date is inclusive.<br />The created date is set on the date
+          and time when the order is created.
+        explode: true
+        in: query
+        name: fromCreatedAtDate
+        required: false
+        schema:
+          description: "Filter on the created at date in ChannelEngine, starting from\
+            \ this date. This date is inclusive.\r\nThe created date is set on the\
+            \ date and time when the order is created."
           format: date-time
           nullable: true
           type: string
@@ -990,6 +1007,26 @@ paths:
           nullable: true
           type: array
         style: form
+      - description: Filter on unique order reference used by the channel.
+        explode: true
+        in: query
+        name: channelOrderNos
+        required: false
+        schema:
+          description: Filter on unique order reference used by the channel.
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: Filter on the fulfillment type of the order.
+        explode: true
+        in: query
+        name: fulfillmentType
+        required: false
+        schema:
+          $ref: '#/components/schemas/FulfillmentType'
+        style: form
       - description: Deprecated, please use FromDate instead.
         explode: true
         in: query
@@ -1313,6 +1350,131 @@ paths:
       - Shipment
       x-contentType: application/json-patch+json
       x-accepts: application/json
+  /v2/carriers/{merchantOrderNo}:
+    post:
+      description: Get the carriers for buying a shipping label from the channel
+      operationId: ShipmentGetShipmentLabelCarriers
+      parameters:
+      - description: The merchant's order reference.
+        explode: false
+        in: path
+        name: merchantOrderNo
+        required: true
+        schema:
+          description: The merchant's order reference.
+          nullable: true
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MerchantShipmentLabelCarrierRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantShipmentLabelCarrierRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MerchantShipmentLabelCarrierRequest'
+        description: The parcel information
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Get carriers for channel provided shipping labels
+      tags:
+      - Shipment
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
+  /v2/shipments/channelmethod:
+    post:
+      description: Create a shipment, which will request a shipping label from the
+        channel
+      operationId: ShipmentCreateForChannelMethod
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MerchantChannelLabelShipmentRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantChannelLabelShipmentRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MerchantChannelLabelShipmentRequest'
+        description: The shipment to create
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Create shipment for channel provided shipping labels
+      tags:
+      - Shipment
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
+  /v2/orders/{merchantShipmentNo}/shippinglabel:
+    get:
+      description: Downloads the shipping label for the shipment
+      operationId: ShipmentShippingLabel
+      parameters:
+      - description: The unique shipment reference as used by the merchant.
+        explode: false
+        in: path
+        name: merchantShipmentNo
+        required: true
+        schema:
+          description: The unique shipment reference as used by the merchant.
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/vnd.shippingLabel:
+              schema:
+                format: byte
+                type: file
+          description: shippingLabel
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Download shipping label.
+      tags:
+      - Shipment
+      x-accepts: application/json
   /v2/stocklocations:
     get:
       description: Get the different stock locations (or virtual warehouses) that
@@ -1528,15 +1690,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -1622,15 +1781,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -1688,6 +1844,11 @@ components:
       - PLUGIN_INVALID_SETTING
       - PLUGIN_DEACTIVATED
       - PRODUCT_BUNDLE_IMPORT_FAILED
+      - CHANNEL_REFUND_LINE_ITEMS_ERROR
+      - CHANNEL_CANCELLATION_EXPORT_FAILED
+      - MERCHANT_ORDER_EXPORT_LINES_CANCELLED
+      - OAUTH_REFRESH_TOKEN_EXPIRATION
+      - MERCHANT_CANCELLATION_IMPORT_FAILED
       type: string
     MerchantNotificationResponse:
       additionalProperties: false
@@ -1755,15 +1916,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -1907,15 +2065,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -1957,6 +2112,7 @@ components:
       - ONLY_MERCHANT
       - ONLY_CHANNEL
       - MIXED
+      - INCLUDES_MERCHANT
       type: string
     OrderSupport:
       enum:
@@ -2138,10 +2294,6 @@ components:
           description: 'Is the order fulfilled by the marketplace (amazon: FBA, bol:
             LVB, etc.)?.'
           type: boolean
-        MerchantProductNo:
-          description: The unique product reference used by the Merchant (sku).
-          nullable: true
-          type: string
         Gtin:
           description: Either the GTIN (EAN, ISBN, UPC etc) provided by the channel,
             or the the GTIN belonging to the MerchantProductNo in ChannelEngine.
@@ -2219,6 +2371,12 @@ components:
           description: The unique product reference used by the channel.
           maxLength: 50
           minLength: 0
+          type: string
+        MerchantProductNo:
+          description: The unique product reference used by the merchant.
+          maxLength: 50
+          minLength: 0
+          nullable: true
           type: string
         Quantity:
           description: The number of items of the product.
@@ -2817,15 +2975,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -3514,15 +3669,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -3750,15 +3902,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -3820,15 +3969,16 @@ components:
     MerchantReturnResponse:
       additionalProperties: false
       example:
+        ChannelOrderNo: ChannelOrderNo
         MerchantComment: MerchantComment
         RefundExclVat: 5.962133916683182
-        CustomerComment: CustomerComment
         CreatedAt: 2000-01-23T04:56:07.000+00:00
         MerchantReturnNo: MerchantReturnNo
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        CustomerComment: CustomerComment
         ChannelReturnNo: ChannelReturnNo
         MerchantOrderNo: MerchantOrderNo
         Id: 6
-        UpdatedAt: 2000-01-23T04:56:07.000+00:00
         Lines:
         - Quantity: 0
           MerchantProductNo: MerchantProductNo
@@ -3838,6 +3988,10 @@ components:
       properties:
         MerchantOrderNo:
           description: The unique order reference used by the Merchant.
+          nullable: true
+          type: string
+        ChannelOrderNo:
+          description: The unique order reference used by the Channel.
           nullable: true
           type: string
         Lines:
@@ -3900,30 +4054,32 @@ components:
           - ValidationErrors
           - ValidationErrors
         Content:
-        - MerchantComment: MerchantComment
+        - ChannelOrderNo: ChannelOrderNo
+          MerchantComment: MerchantComment
           RefundExclVat: 5.962133916683182
-          CustomerComment: CustomerComment
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           MerchantReturnNo: MerchantReturnNo
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          CustomerComment: CustomerComment
           ChannelReturnNo: ChannelReturnNo
           MerchantOrderNo: MerchantOrderNo
           Id: 6
-          UpdatedAt: 2000-01-23T04:56:07.000+00:00
           Lines:
           - Quantity: 0
             MerchantProductNo: MerchantProductNo
           - Quantity: 0
             MerchantProductNo: MerchantProductNo
           RefundInclVat: 1.4658129805029452
-        - MerchantComment: MerchantComment
+        - ChannelOrderNo: ChannelOrderNo
+          MerchantComment: MerchantComment
           RefundExclVat: 5.962133916683182
-          CustomerComment: CustomerComment
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           MerchantReturnNo: MerchantReturnNo
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          CustomerComment: CustomerComment
           ChannelReturnNo: ChannelReturnNo
           MerchantOrderNo: MerchantOrderNo
           Id: 6
-          UpdatedAt: 2000-01-23T04:56:07.000+00:00
           Lines:
           - Quantity: 0
             MerchantProductNo: MerchantProductNo
@@ -3942,15 +4098,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -4215,15 +4368,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -4406,6 +4556,116 @@ components:
       - Method
       - TrackTraceNo
       type: object
+    PackageDimensionsUnit:
+      enum:
+      - CM
+      - INCH
+      type: string
+    MerchantShipmentPackageDimensionsRequest:
+      additionalProperties: false
+      example:
+        Length: 1.4658129805029452
+        Height: 0.8008281904610115
+        Width: 6.027456183070403
+      properties:
+        Height:
+          format: decimal
+          type: number
+        Width:
+          format: decimal
+          type: number
+        Length:
+          format: decimal
+          type: number
+        Unit:
+          $ref: '#/components/schemas/PackageDimensionsUnit'
+      type: object
+    PackageWeightUnit:
+      enum:
+      - GRAM
+      - OUNCE
+      type: string
+    MerchantShipmentPackageWeightRequest:
+      additionalProperties: false
+      example:
+        Value: 5.962133916683182
+      properties:
+        Value:
+          format: decimal
+          type: number
+        Unit:
+          $ref: '#/components/schemas/PackageWeightUnit'
+      type: object
+    MerchantShipmentLabelCarrierRequest:
+      additionalProperties: false
+      example:
+        Dimensions:
+          Length: 1.4658129805029452
+          Height: 0.8008281904610115
+          Width: 6.027456183070403
+        Weight:
+          Value: 5.962133916683182
+        Lines:
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+      properties:
+        Lines:
+          items:
+            $ref: '#/components/schemas/MerchantShipmentLineRequest'
+          type: array
+        Dimensions:
+          $ref: '#/components/schemas/MerchantShipmentPackageDimensionsRequest'
+        Weight:
+          $ref: '#/components/schemas/MerchantShipmentPackageWeightRequest'
+      required:
+      - Dimensions
+      - Lines
+      - Weight
+      type: object
+    MerchantChannelLabelShipmentRequest:
+      additionalProperties: false
+      example:
+        Dimensions:
+          Length: 1.4658129805029452
+          Height: 0.8008281904610115
+          Width: 6.027456183070403
+        ChannelMethodCode: ChannelMethodCode
+        MerchantOrderNo: MerchantOrderNo
+        MerchantShipmentNo: MerchantShipmentNo
+        Weight:
+          Value: 5.962133916683182
+        Lines:
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+      properties:
+        Dimensions:
+          $ref: '#/components/schemas/MerchantShipmentPackageDimensionsRequest'
+        Weight:
+          $ref: '#/components/schemas/MerchantShipmentPackageWeightRequest'
+        ChannelMethodCode:
+          type: string
+        MerchantShipmentNo:
+          description: The unique shipment reference used by the Merchant.
+          type: string
+        MerchantOrderNo:
+          description: The unique order reference used by the Merchant.
+          type: string
+        Lines:
+          items:
+            $ref: '#/components/schemas/MerchantShipmentLineRequest'
+          type: array
+      required:
+      - ChannelMethodCode
+      - Dimensions
+      - Lines
+      - MerchantOrderNo
+      - MerchantShipmentNo
+      - Weight
+      type: object
     MerchantStockLocationResponse:
       additionalProperties: false
       example:
@@ -4447,15 +4707,12 @@ components:
           nullable: true
           type: array
         Count:
-          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
-          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
-          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -4484,5 +4741,5 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.9.3
+x-version: 2.9.4
 

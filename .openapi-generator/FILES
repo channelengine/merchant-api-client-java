@@ -63,6 +63,7 @@ src\main\java\com\channelengine\merchant\apiclient\model\MancoReason.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantAddressResponse.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantCancellationLineRequest.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantCancellationRequest.java
+src\main\java\com\channelengine\merchant\apiclient\model\MerchantChannelLabelShipmentRequest.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantNotificationResponse.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantOfferGetStockResponse.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantOrderAcknowledgementRequest.java
@@ -82,7 +83,10 @@ src\main\java\com\channelengine\merchant\apiclient\model\MerchantReturnLineUpdat
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantReturnRequest.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantReturnResponse.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantReturnUpdateRequest.java
+src\main\java\com\channelengine\merchant\apiclient\model\MerchantShipmentLabelCarrierRequest.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantShipmentLineRequest.java
+src\main\java\com\channelengine\merchant\apiclient\model\MerchantShipmentPackageDimensionsRequest.java
+src\main\java\com\channelengine\merchant\apiclient\model\MerchantShipmentPackageWeightRequest.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantShipmentRequest.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantShipmentTrackingRequest.java
 src\main\java\com\channelengine\merchant\apiclient\model\MerchantSingleOrderReturnLineResponse.java
@@ -94,6 +98,8 @@ src\main\java\com\channelengine\merchant\apiclient\model\NotificationType.java
 src\main\java\com\channelengine\merchant\apiclient\model\Operation.java
 src\main\java\com\channelengine\merchant\apiclient\model\OrderStatusView.java
 src\main\java\com\channelengine\merchant\apiclient\model\OrderSupport.java
+src\main\java\com\channelengine\merchant\apiclient\model\PackageDimensionsUnit.java
+src\main\java\com\channelengine\merchant\apiclient\model\PackageWeightUnit.java
 src\main\java\com\channelengine\merchant\apiclient\model\ProductCreationResult.java
 src\main\java\com\channelengine\merchant\apiclient\model\ProductMessage.java
 src\main\java\com\channelengine\merchant\apiclient\model\ReturnReason.java
