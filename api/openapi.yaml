@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for merchants
   title: ChannelEngine Merchant API
-  version: 2.9.4
+  version: 2.9.7
 servers:
 - url: https://demo.channelengine.net/api
 security:
@@ -324,13 +324,15 @@ paths:
       description: Fetch orders based on the provided OrderFilter.
       operationId: OrderGetByFilter
       parameters:
-      - description: Order status(es) to filter on.
+      - description: Order status(es) to filter on. AWAITING_PAYMENT orders will be
+          excluded if it is not included in this Statuses filter.
         explode: true
         in: query
         name: statuses
         required: false
         schema:
-          description: Order status(es) to filter on.
+          description: Order status(es) to filter on. AWAITING_PAYMENT orders will
+            be excluded if it is not included in this Statuses filter.
           items:
             $ref: '#/components/schemas/OrderStatusView'
           nullable: true
@@ -720,6 +722,43 @@ paths:
       tags:
       - Product
       x-accepts: application/json
+    patch:
+      description: 'This endpoint allows you to update multiple fields on a multiple
+        products.<br />Products sent in a request can only be updated for the fields
+        listed in object ''PropertiesToUpdate''. <br />In other words, you specify
+        which products you want to update and which fields should be updated for all
+        products.<br /><br />Sample request:<br /><br /> PATCH /v2/products<br />
+        {<br /> "PropertiesToUpdate": [<br /> "name",<br /> "description"<br /> ],<br
+        /> "MerchantProductRequestModels": [<br /> {<br /> "MerchantProductNo": "testMerchantProductNo",<br
+        /> "Name": "testName",<br /> "Description": "testDescription",<br /> },<br
+        /> {<br /> "MerchantProductNo": "testMerchantProductNo2",<br /> "Name": "testName3",<br
+        /> "Description": "testDescription1",<br /> }<br /> ]<br /> }'
+      operationId: ProductBulkPatch
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/PatchMerchantProductDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchMerchantProductDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PatchMerchantProductDto'
+        description: '1) PropertiesToUpdate: Fields to update<br />2) MerchantProductRequestModels:
+          Products to be updated'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleOfProductCreationResult'
+          description: Success
+      summary: Bulk Patch Products
+      tags:
+      - Product
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
     post:
       description: Upsert (update or create) products. The parent serves as the 'base'
         product of the children.<br />For example, the children could be different
@@ -920,7 +959,53 @@ paths:
               schema:
                 $ref: '#/components/schemas/SingleOfProductCreationResult'
           description: Success
-      summary: Patch products
+      summary: Patch product
+      tags:
+      - Product
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
+  /v2/products/bulkdelete:
+    post:
+      description: Delete the products based on the merchant references.<br />Note
+        that we do not really delete a products, as the products<br />might still
+        be referenced by orders etc. Therefore, the references<br />used for these
+        products cannot be reused. We do however deactivate the products<br />which
+        means that they will not be sent to channels.
+      operationId: ProductBulkDelete
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              items:
+                type: string
+              nullable: true
+              type: array
+          application/json:
+            schema:
+              items:
+                type: string
+              nullable: true
+              type: array
+          application/*+json:
+            schema:
+              items:
+                type: string
+              nullable: true
+              type: array
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Delete multiple Products.
       tags:
       - Product
       x-contentType: application/json-patch+json
@@ -1154,6 +1239,181 @@ paths:
       - Return
       x-contentType: application/json-patch+json
       x-accepts: application/json
+  /v2/returns:
+    get:
+      description: Get all returns created by the merchant. This call is supposed<br
+        />to be used by merchants. To get returns created by channels, the 'GET /v2/returns/merchant'
+        endpoint should be used.<br />Channels should use the 'GET /v2/returns/channel'
+        call.
+      operationId: ReturnGetReturns
+      parameters:
+      - description: Filter on the return's creator. Default is MIXED.
+        explode: true
+        in: query
+        name: creatorType
+        required: false
+        schema:
+          $ref: '#/components/schemas/CreatorFilter'
+        style: form
+      - description: Filter on unique order reference used by the merchant.
+        explode: true
+        in: query
+        name: merchantOrderNos
+        required: false
+        schema:
+          description: Filter on unique order reference used by the merchant.
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: Filter on unique order reference used by the channel.
+        explode: true
+        in: query
+        name: channelOrderNos
+        required: false
+        schema:
+          description: Filter on unique order reference used by the channel.
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: Filter on the fulfillment type of the order.
+        explode: true
+        in: query
+        name: fulfillmentType
+        required: false
+        schema:
+          $ref: '#/components/schemas/FulfillmentType'
+        style: form
+      - description: Deprecated, please use FromDate instead.
+        explode: true
+        in: query
+        name: createdSince
+        required: false
+        schema:
+          deprecated: true
+          description: Deprecated, please use FromDate instead.
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: Return status(es) to filter on.
+        explode: true
+        in: query
+        name: statuses
+        required: false
+        schema:
+          description: Return status(es) to filter on.
+          items:
+            $ref: '#/components/schemas/ReturnStatus'
+          nullable: true
+          type: array
+        style: form
+      - description: Return reason(s) to filter on.
+        explode: true
+        in: query
+        name: reasons
+        required: false
+        schema:
+          description: Return reason(s) to filter on.
+          items:
+            $ref: '#/components/schemas/ReturnReason'
+          nullable: true
+          type: array
+        style: form
+      - description: Filter on the creation date, starting from this date. This date
+          is inclusive.
+        explode: true
+        in: query
+        name: fromDate
+        required: false
+        schema:
+          description: Filter on the creation date, starting from this date. This
+            date is inclusive.
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: Filter on the creation date, until this date. This date is exclusive.
+        explode: true
+        in: query
+        name: toDate
+        required: false
+        schema:
+          description: Filter on the creation date, until this date. This date is
+            exclusive.
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: The page to filter on. Starts at 1.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          description: The page to filter on. Starts at 1.
+          format: int32
+          nullable: true
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfMerchantReturnResponse'
+          description: Success
+      summary: Get Returns.
+      tags:
+      - Return
+      x-accepts: application/json
+    put:
+      description: Mark a return as received.
+      operationId: ReturnUpdateForMerchant
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MerchantReturnUpdateRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantReturnUpdateRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MerchantReturnUpdateRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Mark a return as received.
+      tags:
+      - Return
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
   /v2/returns/merchant/new:
     get:
       description: Get all new / unhandled returns created by channels. This call
@@ -1208,51 +1468,6 @@ paths:
       summary: Get Return.
       tags:
       - Return
-      x-accepts: application/json
-  /v2/returns:
-    put:
-      description: Mark a return as received.
-      operationId: ReturnUpdateForMerchant
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/MerchantReturnUpdateRequest'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MerchantReturnUpdateRequest'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/MerchantReturnUpdateRequest'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Success
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Bad Request
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Not Found
-        "409":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Conflict
-      summary: Mark a return as received.
-      tags:
-      - Return
-      x-contentType: application/json-patch+json
       x-accepts: application/json
   /v2/shipments:
     post:
@@ -1738,7 +1953,9 @@ components:
       additionalProperties: false
       example:
         Ean: Ean
+        LastExportedPrice: 0.8008281904610115
         MerchantProductNo: MerchantProductNo
+        LastExportedStock: 6
       properties:
         ChannelStatus:
           $ref: '#/components/schemas/ListedProductChannelStatus'
@@ -1754,11 +1971,21 @@ components:
           nullable: true
           readOnly: true
           type: string
+        LastExportedPrice:
+          description: Your product last exported price
+          format: decimal
+          nullable: true
+          type: number
+        LastExportedStock:
+          description: Your product last exported stock
+          format: int32
+          nullable: true
+          type: integer
       type: object
     CollectionOfChannelListedProductResponse:
       additionalProperties: false
       example:
-        TotalCount: 6
+        TotalCount: 5
         Message: Message
         ValidationErrors:
           key:
@@ -1766,13 +1993,17 @@ components:
           - ValidationErrors
         Content:
         - Ean: Ean
+          LastExportedPrice: 0.8008281904610115
           MerchantProductNo: MerchantProductNo
+          LastExportedStock: 6
         - Ean: Ean
+          LastExportedPrice: 0.8008281904610115
           MerchantProductNo: MerchantProductNo
-        ItemsPerPage: 1
-        Count: 0
-        StatusCode: 5
-        LogId: 5
+          LastExportedStock: 6
+        ItemsPerPage: 5
+        Count: 1
+        StatusCode: 2
+        LogId: 7
         Success: true
       properties:
         Content:
@@ -1813,24 +2044,27 @@ components:
       enum:
       - CHANNEL_ORDER_ANONYMIZED_BY_REQUEST
       - CHANNEL_ORDER_ANONYMIZED_AUTOMATICALLY
-      - CHANNEL_ORDER_CANCELLATION_REQUEST_NEW
       - CHANNEL_ORDER_CORRECTION_NEEDED
       - CHANNEL_ORDER_DUPLICATE_LINE
       - CHANNEL_ORDER_INVOICE_SEND_FAILED
       - CHANNEL_ORDER_IMPORT_FAILED
       - CHANNEL_ORDER_NEW
       - CHANNEL_ORDER_OVERDUE
+      - CHANNEL_ORDER_TOO_LONG_ON_NEW
       - CHANNEL_PRODUCT_DATA_EXPORT_FAILED
       - CHANNEL_PRODUCT_DATA_IMPORT_FAILED
+      - CHANNEL_PRODUCT_OFFER_EXPORT_FAILED
       - CHANNEL_RETURN_EXPORT_FAILED
       - CHANNEL_RETURN_IMPORT_FAILED
       - CHANNEL_RETURN_NEW
       - CHANNEL_RETURN_OVERDUE
       - CHANNEL_REFUND_EXPORT_FAILED
+      - CHANNEL_REFUND_LINE_ITEMS_ERROR
       - CHANNEL_SHIPMENT_IMPORT_FAILED
       - CHANNEL_SHIPMENT_IMPORT_STATUS_FAILED
       - CHANNEL_SHIPMENT_EXPORT_FAILED
       - CHANNEL_SHIPMENT_IMPORT_MISSING_LINE_FAILED
+      - CHANNEL_SHIPMENT_EXPORT_INVALID_MERCHANTSHIPMENTNO
       - CHANNEL_FULFILLMENT_SHIPMENT_IMPORT_STATUS_FAILED
       - CHANNEL_FULFILLMENT_SHIPMENT_EXPORT_FAILED
       - CHANNEL_FULFILLMENT_SHIPMENT_EXPORT_SUCCEEDED
@@ -1839,16 +2073,18 @@ components:
       - CHANNELENGINE_WEBHOOK_RQUEST_FAILED
       - FEED_NO_PRODUCTS_FAILED
       - FEED_IMPORT_FAILED
+      - FEED_INVALID_PRODUCTS_OCCURED
       - GLOBAL_MESSAGE
       - MERCHANT_ORDER_EXPORT_FAILED
+      - MERCHANT_ORDER_EXPORT_LINES_CANCELLED
       - PLUGIN_INVALID_SETTING
       - PLUGIN_DEACTIVATED
       - PRODUCT_BUNDLE_IMPORT_FAILED
-      - CHANNEL_REFUND_LINE_ITEMS_ERROR
+      - CHANNEL_ORDER_CANCELLATION_REQUEST_NEW
       - CHANNEL_CANCELLATION_EXPORT_FAILED
-      - MERCHANT_ORDER_EXPORT_LINES_CANCELLED
-      - OAUTH_REFRESH_TOKEN_EXPIRATION
       - MERCHANT_CANCELLATION_IMPORT_FAILED
+      - OAUTH_REFRESH_TOKEN_EXPIRATION
+      - MERCHANT_STOCK_UPDATE_FAILED
       type: string
     MerchantNotificationResponse:
       additionalProperties: false
@@ -2105,6 +2341,7 @@ components:
       - NEW
       - RETURNED
       - REQUIRES_CORRECTION
+      - AWAITING_PAYMENT
       type: string
     FulfillmentType:
       enum:
@@ -3697,27 +3934,94 @@ components:
           nullable: true
           type: object
       type: object
-    Operation:
+    PatchMerchantProductDto:
       additionalProperties: false
       example:
-        path: path
-        op: op
-        from: from
-        value: '{}'
+        MerchantProductRequestModels:
+        - MSRP: 1.4658129805029452
+          Description: Description
+          Size: Size
+          PurchasePrice: 5.962133916683182
+          Url: Url
+          Name: Name
+          ParentMerchantProductNo2: ParentMerchantProductNo2
+          ParentMerchantProductNo: ParentMerchantProductNo
+          ExtraImageUrl9: ExtraImageUrl9
+          ExtraImageUrl8: ExtraImageUrl8
+          ExtraImageUrl7: ExtraImageUrl7
+          ExtraImageUrl6: ExtraImageUrl6
+          ExtraImageUrl5: ExtraImageUrl5
+          Color: Color
+          ExtraImageUrl4: ExtraImageUrl4
+          ImageUrl: ImageUrl
+          ManufacturerProductNumber: ManufacturerProductNumber
+          ExtraData:
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          Brand: Brand
+          ShippingTime: ShippingTime
+          Ean: Ean
+          Price: 6.027456183070403
+          ShippingCost: 5.637376656633329
+          ExtraImageUrl3: ExtraImageUrl3
+          ExtraImageUrl2: ExtraImageUrl2
+          ExtraImageUrl1: ExtraImageUrl1
+          MerchantProductNo: MerchantProductNo
+          CategoryTrail: CategoryTrail
+          Stock: 0
+        - MSRP: 1.4658129805029452
+          Description: Description
+          Size: Size
+          PurchasePrice: 5.962133916683182
+          Url: Url
+          Name: Name
+          ParentMerchantProductNo2: ParentMerchantProductNo2
+          ParentMerchantProductNo: ParentMerchantProductNo
+          ExtraImageUrl9: ExtraImageUrl9
+          ExtraImageUrl8: ExtraImageUrl8
+          ExtraImageUrl7: ExtraImageUrl7
+          ExtraImageUrl6: ExtraImageUrl6
+          ExtraImageUrl5: ExtraImageUrl5
+          Color: Color
+          ExtraImageUrl4: ExtraImageUrl4
+          ImageUrl: ImageUrl
+          ManufacturerProductNumber: ManufacturerProductNumber
+          ExtraData:
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          Brand: Brand
+          ShippingTime: ShippingTime
+          Ean: Ean
+          Price: 6.027456183070403
+          ShippingCost: 5.637376656633329
+          ExtraImageUrl3: ExtraImageUrl3
+          ExtraImageUrl2: ExtraImageUrl2
+          ExtraImageUrl1: ExtraImageUrl1
+          MerchantProductNo: MerchantProductNo
+          CategoryTrail: CategoryTrail
+          Stock: 0
+        PropertiesToUpdate:
+        - PropertiesToUpdate
+        - PropertiesToUpdate
       properties:
-        value:
-          additionalProperties: false
+        PropertiesToUpdate:
+          items:
+            type: string
           nullable: true
-          type: object
-        path:
+          type: array
+        MerchantProductRequestModels:
+          items:
+            $ref: '#/components/schemas/MerchantProductRequest'
           nullable: true
-          type: string
-        op:
-          nullable: true
-          type: string
-        from:
-          nullable: true
-          type: string
+          type: array
       type: object
     SingleOfMerchantProductResponse:
       additionalProperties: false
@@ -3787,6 +4091,28 @@ components:
             type: array
           nullable: true
           type: object
+      type: object
+    Operation:
+      additionalProperties: false
+      example:
+        path: path
+        op: op
+        from: from
+        value: '{}'
+      properties:
+        value:
+          additionalProperties: false
+          nullable: true
+          type: object
+        path:
+          nullable: true
+          type: string
+        op:
+          nullable: true
+          type: string
+        from:
+          nullable: true
+          type: string
       type: object
     MerchantProductBundlePartResponse:
       additionalProperties: false
@@ -3949,16 +4275,52 @@ components:
       - WRONG_SIZE
       - OTHER
       type: string
+    ShipmentLineStatus:
+      enum:
+      - SHIPPED
+      - IN_BACKORDER
+      - MANCO
+      type: string
     MerchantReturnLineResponse:
       additionalProperties: false
       example:
-        Quantity: 0
+        OrderLine:
+          UnitPriceInclVat: 9.018348186070783
+          UnitVat: 1.4894159098541704
+          BundleProductMerchantProductNo: BundleProductMerchantProductNo
+          Description: Description
+          FeeFixed: 6.438423552598547
+          FeeRate: 3.5571952270680973
+          Quantity: 6
+          OriginalUnitVat: 4.965218492984954
+          ExtraData:
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+          IsFulfillmentByMarketplace: true
+          OriginalLineTotalInclVat: 5.025004791520295
+          Gtin: Gtin
+          OriginalUnitPriceInclVat: 1.1730742509559433
+          LineVat: 7.457744773683766
+          OriginalFeeFixed: 9.369310271410669
+          OriginalLineVat: 9.965781217890562
+          CancellationRequestedQuantity: 8
+          ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          MerchantProductNo: MerchantProductNo
+          LineTotalInclVat: 6.84685269835264
+          ChannelProductNo: ChannelProductNo
+        Quantity: 1
         MerchantProductNo: MerchantProductNo
       properties:
         MerchantProductNo:
           description: The unique product reference used by the Merchant (sku).
           nullable: true
           type: string
+        OrderLine:
+          $ref: '#/components/schemas/MerchantOrderLineResponse'
+        ShipmentStatus:
+          $ref: '#/components/schemas/ShipmentLineStatus'
         Quantity:
           description: Number of items of the product in this return.
           format: int32
@@ -3971,20 +4333,75 @@ components:
       example:
         ChannelOrderNo: ChannelOrderNo
         MerchantComment: MerchantComment
-        RefundExclVat: 5.962133916683182
+        RefundExclVat: 2.3021358869347655
         CreatedAt: 2000-01-23T04:56:07.000+00:00
         MerchantReturnNo: MerchantReturnNo
+        GlobalChannelId: 6
+        ChannelId: 0
         UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        GlobalChannelName: GlobalChannelName
         CustomerComment: CustomerComment
         ChannelReturnNo: ChannelReturnNo
         MerchantOrderNo: MerchantOrderNo
-        Id: 6
+        Id: 5
         Lines:
-        - Quantity: 0
+        - OrderLine:
+            UnitPriceInclVat: 9.018348186070783
+            UnitVat: 1.4894159098541704
+            BundleProductMerchantProductNo: BundleProductMerchantProductNo
+            Description: Description
+            FeeFixed: 6.438423552598547
+            FeeRate: 3.5571952270680973
+            Quantity: 6
+            OriginalUnitVat: 4.965218492984954
+            ExtraData:
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalUnitPriceInclVat: 1.1730742509559433
+            LineVat: 7.457744773683766
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            CancellationRequestedQuantity: 8
+            ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            MerchantProductNo: MerchantProductNo
+            LineTotalInclVat: 6.84685269835264
+            ChannelProductNo: ChannelProductNo
+          Quantity: 1
           MerchantProductNo: MerchantProductNo
-        - Quantity: 0
+        - OrderLine:
+            UnitPriceInclVat: 9.018348186070783
+            UnitVat: 1.4894159098541704
+            BundleProductMerchantProductNo: BundleProductMerchantProductNo
+            Description: Description
+            FeeFixed: 6.438423552598547
+            FeeRate: 3.5571952270680973
+            Quantity: 6
+            OriginalUnitVat: 4.965218492984954
+            ExtraData:
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalUnitPriceInclVat: 1.1730742509559433
+            LineVat: 7.457744773683766
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            CancellationRequestedQuantity: 8
+            ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            MerchantProductNo: MerchantProductNo
+            LineTotalInclVat: 6.84685269835264
+            ChannelProductNo: ChannelProductNo
+          Quantity: 1
           MerchantProductNo: MerchantProductNo
-        RefundInclVat: 1.4658129805029452
+        RefundInclVat: 5.637376656633329
       properties:
         MerchantOrderNo:
           description: The unique order reference used by the Merchant.
@@ -3993,6 +4410,23 @@ components:
         ChannelOrderNo:
           description: The unique order reference used by the Channel.
           nullable: true
+          type: string
+        ChannelId:
+          description: The id of the channel.
+          format: int32
+          nullable: true
+          readOnly: true
+          type: integer
+        GlobalChannelId:
+          description: The id of the Global Channel.
+          format: int32
+          nullable: true
+          readOnly: true
+          type: integer
+        GlobalChannelName:
+          description: The name of the Global Channel.
+          nullable: true
+          readOnly: true
           type: string
         Lines:
           items:
@@ -4047,7 +4481,7 @@ components:
     CollectionOfMerchantReturnResponse:
       additionalProperties: false
       example:
-        TotalCount: 2
+        TotalCount: 9
         Message: Message
         ValidationErrors:
           key:
@@ -4056,40 +4490,150 @@ components:
         Content:
         - ChannelOrderNo: ChannelOrderNo
           MerchantComment: MerchantComment
-          RefundExclVat: 5.962133916683182
+          RefundExclVat: 2.3021358869347655
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           MerchantReturnNo: MerchantReturnNo
+          GlobalChannelId: 6
+          ChannelId: 0
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          GlobalChannelName: GlobalChannelName
           CustomerComment: CustomerComment
           ChannelReturnNo: ChannelReturnNo
           MerchantOrderNo: MerchantOrderNo
-          Id: 6
+          Id: 5
           Lines:
-          - Quantity: 0
+          - OrderLine:
+              UnitPriceInclVat: 9.018348186070783
+              UnitVat: 1.4894159098541704
+              BundleProductMerchantProductNo: BundleProductMerchantProductNo
+              Description: Description
+              FeeFixed: 6.438423552598547
+              FeeRate: 3.5571952270680973
+              Quantity: 6
+              OriginalUnitVat: 4.965218492984954
+              ExtraData:
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalUnitPriceInclVat: 1.1730742509559433
+              LineVat: 7.457744773683766
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              CancellationRequestedQuantity: 8
+              ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              MerchantProductNo: MerchantProductNo
+              LineTotalInclVat: 6.84685269835264
+              ChannelProductNo: ChannelProductNo
+            Quantity: 1
             MerchantProductNo: MerchantProductNo
-          - Quantity: 0
+          - OrderLine:
+              UnitPriceInclVat: 9.018348186070783
+              UnitVat: 1.4894159098541704
+              BundleProductMerchantProductNo: BundleProductMerchantProductNo
+              Description: Description
+              FeeFixed: 6.438423552598547
+              FeeRate: 3.5571952270680973
+              Quantity: 6
+              OriginalUnitVat: 4.965218492984954
+              ExtraData:
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalUnitPriceInclVat: 1.1730742509559433
+              LineVat: 7.457744773683766
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              CancellationRequestedQuantity: 8
+              ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              MerchantProductNo: MerchantProductNo
+              LineTotalInclVat: 6.84685269835264
+              ChannelProductNo: ChannelProductNo
+            Quantity: 1
             MerchantProductNo: MerchantProductNo
-          RefundInclVat: 1.4658129805029452
+          RefundInclVat: 5.637376656633329
         - ChannelOrderNo: ChannelOrderNo
           MerchantComment: MerchantComment
-          RefundExclVat: 5.962133916683182
+          RefundExclVat: 2.3021358869347655
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           MerchantReturnNo: MerchantReturnNo
+          GlobalChannelId: 6
+          ChannelId: 0
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          GlobalChannelName: GlobalChannelName
           CustomerComment: CustomerComment
           ChannelReturnNo: ChannelReturnNo
           MerchantOrderNo: MerchantOrderNo
-          Id: 6
+          Id: 5
           Lines:
-          - Quantity: 0
+          - OrderLine:
+              UnitPriceInclVat: 9.018348186070783
+              UnitVat: 1.4894159098541704
+              BundleProductMerchantProductNo: BundleProductMerchantProductNo
+              Description: Description
+              FeeFixed: 6.438423552598547
+              FeeRate: 3.5571952270680973
+              Quantity: 6
+              OriginalUnitVat: 4.965218492984954
+              ExtraData:
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalUnitPriceInclVat: 1.1730742509559433
+              LineVat: 7.457744773683766
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              CancellationRequestedQuantity: 8
+              ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              MerchantProductNo: MerchantProductNo
+              LineTotalInclVat: 6.84685269835264
+              ChannelProductNo: ChannelProductNo
+            Quantity: 1
             MerchantProductNo: MerchantProductNo
-          - Quantity: 0
+          - OrderLine:
+              UnitPriceInclVat: 9.018348186070783
+              UnitVat: 1.4894159098541704
+              BundleProductMerchantProductNo: BundleProductMerchantProductNo
+              Description: Description
+              FeeFixed: 6.438423552598547
+              FeeRate: 3.5571952270680973
+              Quantity: 6
+              OriginalUnitVat: 4.965218492984954
+              ExtraData:
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalUnitPriceInclVat: 1.1730742509559433
+              LineVat: 7.457744773683766
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              CancellationRequestedQuantity: 8
+              ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              MerchantProductNo: MerchantProductNo
+              LineTotalInclVat: 6.84685269835264
+              ChannelProductNo: ChannelProductNo
+            Quantity: 1
             MerchantProductNo: MerchantProductNo
-          RefundInclVat: 1.4658129805029452
-        ItemsPerPage: 7
-        Count: 5
-        StatusCode: 9
-        LogId: 3
+          RefundInclVat: 5.637376656633329
+        ItemsPerPage: 3
+        Count: 7
+        StatusCode: 2
+        LogId: 4
         Success: true
       properties:
         Content:
@@ -4200,202 +4744,12 @@ components:
       - MerchantOrderNo
       - MerchantReturnNo
       type: object
-    MerchantSingleOrderReturnLineResponse:
-      additionalProperties: false
-      example:
-        RejectedQuantity: 6
-        AcceptedQuantity: 0
-        Quantity: 1
-        MerchantProductNo: MerchantProductNo
-      properties:
-        MerchantProductNo:
-          description: The unique product reference used by the Merchant (sku).
-          nullable: true
-          type: string
-        AcceptedQuantity:
-          description: The accepted quantity of returned products in this orderline.
-          format: int32
-          nullable: true
-          type: integer
-        RejectedQuantity:
-          description: The rejected quantity of returned products in this orderline.
-          format: int32
-          nullable: true
-          type: integer
-        Quantity:
-          description: Number of items of the product in this return.
-          format: int32
-          type: integer
-      required:
-      - Quantity
-      type: object
-    MerchantSingleOrderReturnResponse:
-      additionalProperties: false
-      example:
-        MerchantComment: MerchantComment
-        RefundExclVat: 2.3021358869347655
-        CreatedAt: 2000-01-23T04:56:07.000+00:00
-        MerchantReturnNo: MerchantReturnNo
-        UpdatedAt: 2000-01-23T04:56:07.000+00:00
-        CustomerComment: CustomerComment
-        ChannelReturnNo: ChannelReturnNo
-        MerchantOrderNo: MerchantOrderNo
-        Id: 5
-        Lines:
-        - RejectedQuantity: 6
-          AcceptedQuantity: 0
-          Quantity: 1
-          MerchantProductNo: MerchantProductNo
-        - RejectedQuantity: 6
-          AcceptedQuantity: 0
-          Quantity: 1
-          MerchantProductNo: MerchantProductNo
-        RefundInclVat: 5.637376656633329
-      properties:
-        MerchantOrderNo:
-          description: The unique order reference used by the Merchant.
-          nullable: true
-          type: string
-        Lines:
-          items:
-            $ref: '#/components/schemas/MerchantSingleOrderReturnLineResponse'
-          nullable: true
-          type: array
-        CreatedAt:
-          description: The date at which the return was created in ChannelEngine.
-          format: date-time
-          type: string
-        UpdatedAt:
-          description: The date at which the return was last modified in ChannelEngine.
-          format: date-time
-          type: string
-        MerchantReturnNo:
-          description: The unique return reference used by the Merchant, will be empty
-            in case of a channel or unacknowledged return.
-          nullable: true
-          type: string
-        ChannelReturnNo:
-          description: The unique return reference used by the Channel, will be empty
-            in case of a merchant return.
-          nullable: true
-          type: string
-        Status:
-          $ref: '#/components/schemas/ReturnStatus'
-        Id:
-          description: The unique return reference used by ChannelEngine.
-          format: int32
-          type: integer
-        Reason:
-          $ref: '#/components/schemas/ReturnReason'
-        CustomerComment:
-          description: Optional. Comment of customer on the (reason of) the return.
-          maxLength: 4001
-          minLength: 0
-          nullable: true
-          type: string
-        MerchantComment:
-          description: Optional. Comment of merchant on the return.
-          maxLength: 4001
-          minLength: 0
-          nullable: true
-          type: string
-        RefundInclVat:
-          description: Refund amount incl. VAT.
-          format: decimal
-          type: number
-        RefundExclVat:
-          description: Refund amount excl. VAT.
-          format: decimal
-          type: number
-      type: object
-    CollectionOfMerchantSingleOrderReturnResponse:
-      additionalProperties: false
-      example:
-        TotalCount: 9
-        Message: Message
-        ValidationErrors:
-          key:
-          - ValidationErrors
-          - ValidationErrors
-        Content:
-        - MerchantComment: MerchantComment
-          RefundExclVat: 2.3021358869347655
-          CreatedAt: 2000-01-23T04:56:07.000+00:00
-          MerchantReturnNo: MerchantReturnNo
-          UpdatedAt: 2000-01-23T04:56:07.000+00:00
-          CustomerComment: CustomerComment
-          ChannelReturnNo: ChannelReturnNo
-          MerchantOrderNo: MerchantOrderNo
-          Id: 5
-          Lines:
-          - RejectedQuantity: 6
-            AcceptedQuantity: 0
-            Quantity: 1
-            MerchantProductNo: MerchantProductNo
-          - RejectedQuantity: 6
-            AcceptedQuantity: 0
-            Quantity: 1
-            MerchantProductNo: MerchantProductNo
-          RefundInclVat: 5.637376656633329
-        - MerchantComment: MerchantComment
-          RefundExclVat: 2.3021358869347655
-          CreatedAt: 2000-01-23T04:56:07.000+00:00
-          MerchantReturnNo: MerchantReturnNo
-          UpdatedAt: 2000-01-23T04:56:07.000+00:00
-          CustomerComment: CustomerComment
-          ChannelReturnNo: ChannelReturnNo
-          MerchantOrderNo: MerchantOrderNo
-          Id: 5
-          Lines:
-          - RejectedQuantity: 6
-            AcceptedQuantity: 0
-            Quantity: 1
-            MerchantProductNo: MerchantProductNo
-          - RejectedQuantity: 6
-            AcceptedQuantity: 0
-            Quantity: 1
-            MerchantProductNo: MerchantProductNo
-          RefundInclVat: 5.637376656633329
-        ItemsPerPage: 3
-        Count: 7
-        StatusCode: 2
-        LogId: 4
-        Success: true
-      properties:
-        Content:
-          items:
-            $ref: '#/components/schemas/MerchantSingleOrderReturnResponse'
-          nullable: true
-          type: array
-        Count:
-          format: int32
-          type: integer
-        TotalCount:
-          format: int32
-          type: integer
-        ItemsPerPage:
-          format: int32
-          type: integer
-        StatusCode:
-          format: int32
-          type: integer
-        LogId:
-          format: int32
-          nullable: true
-          type: integer
-        Success:
-          type: boolean
-        Message:
-          nullable: true
-          type: string
-        ValidationErrors:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          nullable: true
-          type: object
-      type: object
+    CreatorFilter:
+      enum:
+      - ONLY_FROM_MERCHANT
+      - ONLY_FROM_CHANNEL
+      - MIXED
+      type: string
     MerchantReturnLineUpdateRequest:
       additionalProperties: false
       example:
@@ -4443,6 +4797,413 @@ components:
       required:
       - Lines
       - ReturnId
+      type: object
+    MerchantSingleOrderReturnLineResponse:
+      additionalProperties: false
+      example:
+        RejectedQuantity: 6
+        OrderLine:
+          UnitPriceInclVat: 9.018348186070783
+          UnitVat: 1.4894159098541704
+          BundleProductMerchantProductNo: BundleProductMerchantProductNo
+          Description: Description
+          FeeFixed: 6.438423552598547
+          FeeRate: 3.5571952270680973
+          Quantity: 6
+          OriginalUnitVat: 4.965218492984954
+          ExtraData:
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+          IsFulfillmentByMarketplace: true
+          OriginalLineTotalInclVat: 5.025004791520295
+          Gtin: Gtin
+          OriginalUnitPriceInclVat: 1.1730742509559433
+          LineVat: 7.457744773683766
+          OriginalFeeFixed: 9.369310271410669
+          OriginalLineVat: 9.965781217890562
+          CancellationRequestedQuantity: 8
+          ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          MerchantProductNo: MerchantProductNo
+          LineTotalInclVat: 6.84685269835264
+          ChannelProductNo: ChannelProductNo
+        AcceptedQuantity: 0
+        Quantity: 1
+        MerchantProductNo: MerchantProductNo
+      properties:
+        MerchantProductNo:
+          description: The unique product reference used by the Merchant (sku).
+          nullable: true
+          type: string
+        AcceptedQuantity:
+          description: The accepted quantity of returned products in this orderline.
+          format: int32
+          nullable: true
+          type: integer
+        RejectedQuantity:
+          description: The rejected quantity of returned products in this orderline.
+          format: int32
+          nullable: true
+          type: integer
+        OrderLine:
+          $ref: '#/components/schemas/MerchantOrderLineResponse'
+        ShipmentStatus:
+          $ref: '#/components/schemas/ShipmentLineStatus'
+        Quantity:
+          description: Number of items of the product in this return.
+          format: int32
+          type: integer
+      required:
+      - Quantity
+      type: object
+    MerchantSingleOrderReturnResponse:
+      additionalProperties: false
+      example:
+        MerchantComment: MerchantComment
+        RefundExclVat: 9.301444243932576
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        MerchantReturnNo: MerchantReturnNo
+        GlobalChannelId: 5
+        ChannelId: 5
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        GlobalChannelName: GlobalChannelName
+        CustomerComment: CustomerComment
+        ChannelReturnNo: ChannelReturnNo
+        MerchantOrderNo: MerchantOrderNo
+        Id: 2
+        Lines:
+        - RejectedQuantity: 6
+          OrderLine:
+            UnitPriceInclVat: 9.018348186070783
+            UnitVat: 1.4894159098541704
+            BundleProductMerchantProductNo: BundleProductMerchantProductNo
+            Description: Description
+            FeeFixed: 6.438423552598547
+            FeeRate: 3.5571952270680973
+            Quantity: 6
+            OriginalUnitVat: 4.965218492984954
+            ExtraData:
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalUnitPriceInclVat: 1.1730742509559433
+            LineVat: 7.457744773683766
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            CancellationRequestedQuantity: 8
+            ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            MerchantProductNo: MerchantProductNo
+            LineTotalInclVat: 6.84685269835264
+            ChannelProductNo: ChannelProductNo
+          AcceptedQuantity: 0
+          Quantity: 1
+          MerchantProductNo: MerchantProductNo
+        - RejectedQuantity: 6
+          OrderLine:
+            UnitPriceInclVat: 9.018348186070783
+            UnitVat: 1.4894159098541704
+            BundleProductMerchantProductNo: BundleProductMerchantProductNo
+            Description: Description
+            FeeFixed: 6.438423552598547
+            FeeRate: 3.5571952270680973
+            Quantity: 6
+            OriginalUnitVat: 4.965218492984954
+            ExtraData:
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalUnitPriceInclVat: 1.1730742509559433
+            LineVat: 7.457744773683766
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            CancellationRequestedQuantity: 8
+            ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            MerchantProductNo: MerchantProductNo
+            LineTotalInclVat: 6.84685269835264
+            ChannelProductNo: ChannelProductNo
+          AcceptedQuantity: 0
+          Quantity: 1
+          MerchantProductNo: MerchantProductNo
+        RefundInclVat: 7.061401241503109
+      properties:
+        MerchantOrderNo:
+          description: The unique order reference used by the Merchant.
+          nullable: true
+          type: string
+        Lines:
+          items:
+            $ref: '#/components/schemas/MerchantSingleOrderReturnLineResponse'
+          nullable: true
+          type: array
+        CreatedAt:
+          description: The date at which the return was created in ChannelEngine.
+          format: date-time
+          type: string
+        UpdatedAt:
+          description: The date at which the return was last modified in ChannelEngine.
+          format: date-time
+          type: string
+        MerchantReturnNo:
+          description: The unique return reference used by the Merchant, will be empty
+            in case of a channel or unacknowledged return.
+          nullable: true
+          type: string
+        ChannelReturnNo:
+          description: The unique return reference used by the Channel, will be empty
+            in case of a merchant return.
+          nullable: true
+          type: string
+        ChannelId:
+          description: The id of the channel.
+          format: int32
+          nullable: true
+          type: integer
+        GlobalChannelId:
+          description: The id of the Global Channel.
+          format: int32
+          nullable: true
+          readOnly: true
+          type: integer
+        GlobalChannelName:
+          description: The name of the Global Channel.
+          nullable: true
+          readOnly: true
+          type: string
+        Status:
+          $ref: '#/components/schemas/ReturnStatus'
+        Id:
+          description: The unique return reference used by ChannelEngine.
+          format: int32
+          type: integer
+        Reason:
+          $ref: '#/components/schemas/ReturnReason'
+        CustomerComment:
+          description: Optional. Comment of customer on the (reason of) the return.
+          maxLength: 4001
+          minLength: 0
+          nullable: true
+          type: string
+        MerchantComment:
+          description: Optional. Comment of merchant on the return.
+          maxLength: 4001
+          minLength: 0
+          nullable: true
+          type: string
+        RefundInclVat:
+          description: Refund amount incl. VAT.
+          format: decimal
+          type: number
+        RefundExclVat:
+          description: Refund amount excl. VAT.
+          format: decimal
+          type: number
+      type: object
+    CollectionOfMerchantSingleOrderReturnResponse:
+      additionalProperties: false
+      example:
+        TotalCount: 2
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+        - MerchantComment: MerchantComment
+          RefundExclVat: 9.301444243932576
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantReturnNo: MerchantReturnNo
+          GlobalChannelId: 5
+          ChannelId: 5
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          GlobalChannelName: GlobalChannelName
+          CustomerComment: CustomerComment
+          ChannelReturnNo: ChannelReturnNo
+          MerchantOrderNo: MerchantOrderNo
+          Id: 2
+          Lines:
+          - RejectedQuantity: 6
+            OrderLine:
+              UnitPriceInclVat: 9.018348186070783
+              UnitVat: 1.4894159098541704
+              BundleProductMerchantProductNo: BundleProductMerchantProductNo
+              Description: Description
+              FeeFixed: 6.438423552598547
+              FeeRate: 3.5571952270680973
+              Quantity: 6
+              OriginalUnitVat: 4.965218492984954
+              ExtraData:
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalUnitPriceInclVat: 1.1730742509559433
+              LineVat: 7.457744773683766
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              CancellationRequestedQuantity: 8
+              ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              MerchantProductNo: MerchantProductNo
+              LineTotalInclVat: 6.84685269835264
+              ChannelProductNo: ChannelProductNo
+            AcceptedQuantity: 0
+            Quantity: 1
+            MerchantProductNo: MerchantProductNo
+          - RejectedQuantity: 6
+            OrderLine:
+              UnitPriceInclVat: 9.018348186070783
+              UnitVat: 1.4894159098541704
+              BundleProductMerchantProductNo: BundleProductMerchantProductNo
+              Description: Description
+              FeeFixed: 6.438423552598547
+              FeeRate: 3.5571952270680973
+              Quantity: 6
+              OriginalUnitVat: 4.965218492984954
+              ExtraData:
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalUnitPriceInclVat: 1.1730742509559433
+              LineVat: 7.457744773683766
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              CancellationRequestedQuantity: 8
+              ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              MerchantProductNo: MerchantProductNo
+              LineTotalInclVat: 6.84685269835264
+              ChannelProductNo: ChannelProductNo
+            AcceptedQuantity: 0
+            Quantity: 1
+            MerchantProductNo: MerchantProductNo
+          RefundInclVat: 7.061401241503109
+        - MerchantComment: MerchantComment
+          RefundExclVat: 9.301444243932576
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantReturnNo: MerchantReturnNo
+          GlobalChannelId: 5
+          ChannelId: 5
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          GlobalChannelName: GlobalChannelName
+          CustomerComment: CustomerComment
+          ChannelReturnNo: ChannelReturnNo
+          MerchantOrderNo: MerchantOrderNo
+          Id: 2
+          Lines:
+          - RejectedQuantity: 6
+            OrderLine:
+              UnitPriceInclVat: 9.018348186070783
+              UnitVat: 1.4894159098541704
+              BundleProductMerchantProductNo: BundleProductMerchantProductNo
+              Description: Description
+              FeeFixed: 6.438423552598547
+              FeeRate: 3.5571952270680973
+              Quantity: 6
+              OriginalUnitVat: 4.965218492984954
+              ExtraData:
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalUnitPriceInclVat: 1.1730742509559433
+              LineVat: 7.457744773683766
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              CancellationRequestedQuantity: 8
+              ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              MerchantProductNo: MerchantProductNo
+              LineTotalInclVat: 6.84685269835264
+              ChannelProductNo: ChannelProductNo
+            AcceptedQuantity: 0
+            Quantity: 1
+            MerchantProductNo: MerchantProductNo
+          - RejectedQuantity: 6
+            OrderLine:
+              UnitPriceInclVat: 9.018348186070783
+              UnitVat: 1.4894159098541704
+              BundleProductMerchantProductNo: BundleProductMerchantProductNo
+              Description: Description
+              FeeFixed: 6.438423552598547
+              FeeRate: 3.5571952270680973
+              Quantity: 6
+              OriginalUnitVat: 4.965218492984954
+              ExtraData:
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalUnitPriceInclVat: 1.1730742509559433
+              LineVat: 7.457744773683766
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              CancellationRequestedQuantity: 8
+              ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              MerchantProductNo: MerchantProductNo
+              LineTotalInclVat: 6.84685269835264
+              ChannelProductNo: ChannelProductNo
+            AcceptedQuantity: 0
+            Quantity: 1
+            MerchantProductNo: MerchantProductNo
+          RefundInclVat: 7.061401241503109
+        ItemsPerPage: 4
+        Count: 3
+        StatusCode: 7
+        LogId: 1
+        Success: true
+      properties:
+        Content:
+          items:
+            $ref: '#/components/schemas/MerchantSingleOrderReturnResponse'
+          nullable: true
+          type: array
+        Count:
+          format: int32
+          type: integer
+        TotalCount:
+          format: int32
+          type: integer
+        ItemsPerPage:
+          format: int32
+          type: integer
+        StatusCode:
+          format: int32
+          type: integer
+        LogId:
+          format: int32
+          nullable: true
+          type: integer
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
       type: object
     MerchantShipmentLineRequest:
       additionalProperties: false
@@ -4741,5 +5502,5 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.9.4
+x-version: 2.9.7
 

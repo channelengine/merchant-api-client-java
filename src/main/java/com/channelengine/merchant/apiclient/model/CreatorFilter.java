@@ -24,26 +24,20 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets MancoReason
+ * Gets or Sets CreatorFilter
  */
-@JsonAdapter(MancoReason.Adapter.class)
-public enum MancoReason {
+@JsonAdapter(CreatorFilter.Adapter.class)
+public enum CreatorFilter {
   
-  NOT_IN_STOCK("NOT_IN_STOCK"),
+  ONLY_FROM_MERCHANT("ONLY_FROM_MERCHANT"),
   
-  DAMAGED("DAMAGED"),
+  ONLY_FROM_CHANNEL("ONLY_FROM_CHANNEL"),
   
-  INCOMPLETE("INCOMPLETE"),
-  
-  CLIENT_CANCELLED("CLIENT_CANCELLED"),
-  
-  INVALID_ADDRESS("INVALID_ADDRESS"),
-  
-  OTHER("OTHER");
+  MIXED("MIXED");
 
   private String value;
 
-  MancoReason(String value) {
+  CreatorFilter(String value) {
     this.value = value;
   }
 
@@ -56,8 +50,8 @@ public enum MancoReason {
     return String.valueOf(value);
   }
 
-  public static MancoReason fromValue(String value) {
-    for (MancoReason b : MancoReason.values()) {
+  public static CreatorFilter fromValue(String value) {
+    for (CreatorFilter b : CreatorFilter.values()) {
       if (b.value.equals(value)) {
         return b;
       }
@@ -65,16 +59,16 @@ public enum MancoReason {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 
-  public static class Adapter extends TypeAdapter<MancoReason> {
+  public static class Adapter extends TypeAdapter<CreatorFilter> {
     @Override
-    public void write(final JsonWriter jsonWriter, final MancoReason enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final CreatorFilter enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public MancoReason read(final JsonReader jsonReader) throws IOException {
+    public CreatorFilter read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return MancoReason.fromValue(value);
+      return CreatorFilter.fromValue(value);
     }
   }
 }
