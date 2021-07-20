@@ -24,30 +24,26 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets Condition
+ * Gets or Sets WebhookEventType
  */
-@JsonAdapter(Condition.Adapter.class)
-public enum Condition {
+@JsonAdapter(WebhookEventType.Adapter.class)
+public enum WebhookEventType {
   
-  NEW("NEW"),
+  ORDERS_CHANGE("ORDERS_CHANGE"),
   
-  NEW_REFURBISHED("NEW_REFURBISHED"),
+  PRODUCTS_CHANGE("PRODUCTS_CHANGE"),
   
-  USED_AS_NEW("USED_AS_NEW"),
+  RETURNS_CHANGE("RETURNS_CHANGE"),
   
-  USED_GOOD("USED_GOOD"),
+  SHIPMENTS_CHANGE("SHIPMENTS_CHANGE"),
   
-  USED_REASONABLE("USED_REASONABLE"),
+  NOTIFICATIONS_CHANGE("NOTIFICATIONS_CHANGE"),
   
-  USED_MEDIOCRE("USED_MEDIOCRE"),
-  
-  UNKNOWN("UNKNOWN"),
-  
-  USED_VERY_GOOD("USED_VERY_GOOD");
+  BUNDLE_PRODUCTS_CHANGE("BUNDLE_PRODUCTS_CHANGE");
 
   private String value;
 
-  Condition(String value) {
+  WebhookEventType(String value) {
     this.value = value;
   }
 
@@ -60,8 +56,8 @@ public enum Condition {
     return String.valueOf(value);
   }
 
-  public static Condition fromValue(String value) {
-    for (Condition b : Condition.values()) {
+  public static WebhookEventType fromValue(String value) {
+    for (WebhookEventType b : WebhookEventType.values()) {
       if (b.value.equals(value)) {
         return b;
       }
@@ -69,16 +65,16 @@ public enum Condition {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 
-  public static class Adapter extends TypeAdapter<Condition> {
+  public static class Adapter extends TypeAdapter<WebhookEventType> {
     @Override
-    public void write(final JsonWriter jsonWriter, final Condition enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final WebhookEventType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public Condition read(final JsonReader jsonReader) throws IOException {
+    public WebhookEventType read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return Condition.fromValue(value);
+      return WebhookEventType.fromValue(value);
     }
   }
 }

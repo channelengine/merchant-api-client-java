@@ -15,6 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.channelengine.merchant.apiclient.model.WebhookEventType;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -27,28 +28,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ProductMessage
+ * MerchantWebhookResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ProductMessage {
+public class MerchantWebhookResponse {
   public static final String SERIALIZED_NAME_NAME = "Name";
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
 
-  public static final String SERIALIZED_NAME_REFERENCE = "Reference";
-  @SerializedName(SERIALIZED_NAME_REFERENCE)
-  private String reference;
+  public static final String SERIALIZED_NAME_URL = "Url";
+  @SerializedName(SERIALIZED_NAME_URL)
+  private String url;
 
-  public static final String SERIALIZED_NAME_WARNINGS = "Warnings";
-  @SerializedName(SERIALIZED_NAME_WARNINGS)
-  private List<String> warnings = null;
+  public static final String SERIALIZED_NAME_IS_ACTIVE = "IsActive";
+  @SerializedName(SERIALIZED_NAME_IS_ACTIVE)
+  private Boolean isActive;
 
-  public static final String SERIALIZED_NAME_ERRORS = "Errors";
-  @SerializedName(SERIALIZED_NAME_ERRORS)
-  private List<String> errors = null;
+  public static final String SERIALIZED_NAME_EVENTS = "Events";
+  @SerializedName(SERIALIZED_NAME_EVENTS)
+  private List<WebhookEventType> events = null;
 
 
-  public ProductMessage name(String name) {
+  public MerchantWebhookResponse name(String name) {
     
     this.name = name;
     return this;
@@ -71,88 +72,80 @@ public class ProductMessage {
   }
 
 
-  public ProductMessage reference(String reference) {
+  public MerchantWebhookResponse url(String url) {
     
-    this.reference = reference;
+    this.url = url;
     return this;
   }
 
    /**
-   * Get reference
-   * @return reference
+   * Get url
+   * @return url
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public String getReference() {
-    return reference;
+  public String getUrl() {
+    return url;
   }
 
 
-  public void setReference(String reference) {
-    this.reference = reference;
+  public void setUrl(String url) {
+    this.url = url;
   }
 
 
-  public ProductMessage warnings(List<String> warnings) {
+  public MerchantWebhookResponse isActive(Boolean isActive) {
     
-    this.warnings = warnings;
+    this.isActive = isActive;
     return this;
   }
 
-  public ProductMessage addWarningsItem(String warningsItem) {
-    if (this.warnings == null) {
-      this.warnings = new ArrayList<String>();
+   /**
+   * Get isActive
+   * @return isActive
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Boolean getIsActive() {
+    return isActive;
+  }
+
+
+  public void setIsActive(Boolean isActive) {
+    this.isActive = isActive;
+  }
+
+
+  public MerchantWebhookResponse events(List<WebhookEventType> events) {
+    
+    this.events = events;
+    return this;
+  }
+
+  public MerchantWebhookResponse addEventsItem(WebhookEventType eventsItem) {
+    if (this.events == null) {
+      this.events = new ArrayList<WebhookEventType>();
     }
-    this.warnings.add(warningsItem);
+    this.events.add(eventsItem);
     return this;
   }
 
    /**
-   * Get warnings
-   * @return warnings
+   * Get events
+   * @return events
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public List<String> getWarnings() {
-    return warnings;
+  public List<WebhookEventType> getEvents() {
+    return events;
   }
 
 
-  public void setWarnings(List<String> warnings) {
-    this.warnings = warnings;
-  }
-
-
-  public ProductMessage errors(List<String> errors) {
-    
-    this.errors = errors;
-    return this;
-  }
-
-  public ProductMessage addErrorsItem(String errorsItem) {
-    if (this.errors == null) {
-      this.errors = new ArrayList<String>();
-    }
-    this.errors.add(errorsItem);
-    return this;
-  }
-
-   /**
-   * Get errors
-   * @return errors
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public List<String> getErrors() {
-    return errors;
-  }
-
-
-  public void setErrors(List<String> errors) {
-    this.errors = errors;
+  public void setEvents(List<WebhookEventType> events) {
+    this.events = events;
   }
 
 
@@ -164,26 +157,26 @@ public class ProductMessage {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProductMessage productMessage = (ProductMessage) o;
-    return Objects.equals(this.name, productMessage.name) &&
-        Objects.equals(this.reference, productMessage.reference) &&
-        Objects.equals(this.warnings, productMessage.warnings) &&
-        Objects.equals(this.errors, productMessage.errors);
+    MerchantWebhookResponse merchantWebhookResponse = (MerchantWebhookResponse) o;
+    return Objects.equals(this.name, merchantWebhookResponse.name) &&
+        Objects.equals(this.url, merchantWebhookResponse.url) &&
+        Objects.equals(this.isActive, merchantWebhookResponse.isActive) &&
+        Objects.equals(this.events, merchantWebhookResponse.events);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, reference, warnings, errors);
+    return Objects.hash(name, url, isActive, events);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProductMessage {\n");
+    sb.append("class MerchantWebhookResponse {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
-    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
-    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
+    sb.append("    events: ").append(toIndentedString(events)).append("\n");
     sb.append("}");
     return sb.toString();
   }
