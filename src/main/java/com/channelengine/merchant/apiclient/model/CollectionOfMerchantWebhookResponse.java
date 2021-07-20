@@ -15,7 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.merchant.apiclient.model.MerchantReturnResponse;
+import com.channelengine.merchant.apiclient.model.MerchantWebhookResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -30,13 +30,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * CollectionOfMerchantReturnResponse
+ * CollectionOfMerchantWebhookResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class CollectionOfMerchantReturnResponse {
+public class CollectionOfMerchantWebhookResponse {
   public static final String SERIALIZED_NAME_CONTENT = "Content";
   @SerializedName(SERIALIZED_NAME_CONTENT)
-  private List<MerchantReturnResponse> content = null;
+  private List<MerchantWebhookResponse> content = null;
 
   public static final String SERIALIZED_NAME_COUNT = "Count";
   @SerializedName(SERIALIZED_NAME_COUNT)
@@ -71,15 +71,15 @@ public class CollectionOfMerchantReturnResponse {
   private Map<String, List<String>> validationErrors = null;
 
 
-  public CollectionOfMerchantReturnResponse content(List<MerchantReturnResponse> content) {
+  public CollectionOfMerchantWebhookResponse content(List<MerchantWebhookResponse> content) {
     
     this.content = content;
     return this;
   }
 
-  public CollectionOfMerchantReturnResponse addContentItem(MerchantReturnResponse contentItem) {
+  public CollectionOfMerchantWebhookResponse addContentItem(MerchantWebhookResponse contentItem) {
     if (this.content == null) {
-      this.content = new ArrayList<MerchantReturnResponse>();
+      this.content = new ArrayList<MerchantWebhookResponse>();
     }
     this.content.add(contentItem);
     return this;
@@ -92,17 +92,17 @@ public class CollectionOfMerchantReturnResponse {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public List<MerchantReturnResponse> getContent() {
+  public List<MerchantWebhookResponse> getContent() {
     return content;
   }
 
 
-  public void setContent(List<MerchantReturnResponse> content) {
+  public void setContent(List<MerchantWebhookResponse> content) {
     this.content = content;
   }
 
 
-  public CollectionOfMerchantReturnResponse count(Integer count) {
+  public CollectionOfMerchantWebhookResponse count(Integer count) {
     
     this.count = count;
     return this;
@@ -125,7 +125,7 @@ public class CollectionOfMerchantReturnResponse {
   }
 
 
-  public CollectionOfMerchantReturnResponse totalCount(Integer totalCount) {
+  public CollectionOfMerchantWebhookResponse totalCount(Integer totalCount) {
     
     this.totalCount = totalCount;
     return this;
@@ -148,7 +148,7 @@ public class CollectionOfMerchantReturnResponse {
   }
 
 
-  public CollectionOfMerchantReturnResponse itemsPerPage(Integer itemsPerPage) {
+  public CollectionOfMerchantWebhookResponse itemsPerPage(Integer itemsPerPage) {
     
     this.itemsPerPage = itemsPerPage;
     return this;
@@ -171,7 +171,7 @@ public class CollectionOfMerchantReturnResponse {
   }
 
 
-  public CollectionOfMerchantReturnResponse statusCode(Integer statusCode) {
+  public CollectionOfMerchantWebhookResponse statusCode(Integer statusCode) {
     
     this.statusCode = statusCode;
     return this;
@@ -194,7 +194,7 @@ public class CollectionOfMerchantReturnResponse {
   }
 
 
-  public CollectionOfMerchantReturnResponse logId(Integer logId) {
+  public CollectionOfMerchantWebhookResponse logId(Integer logId) {
     
     this.logId = logId;
     return this;
@@ -217,7 +217,7 @@ public class CollectionOfMerchantReturnResponse {
   }
 
 
-  public CollectionOfMerchantReturnResponse success(Boolean success) {
+  public CollectionOfMerchantWebhookResponse success(Boolean success) {
     
     this.success = success;
     return this;
@@ -240,7 +240,7 @@ public class CollectionOfMerchantReturnResponse {
   }
 
 
-  public CollectionOfMerchantReturnResponse message(String message) {
+  public CollectionOfMerchantWebhookResponse message(String message) {
     
     this.message = message;
     return this;
@@ -263,13 +263,13 @@ public class CollectionOfMerchantReturnResponse {
   }
 
 
-  public CollectionOfMerchantReturnResponse validationErrors(Map<String, List<String>> validationErrors) {
+  public CollectionOfMerchantWebhookResponse validationErrors(Map<String, List<String>> validationErrors) {
     
     this.validationErrors = validationErrors;
     return this;
   }
 
-  public CollectionOfMerchantReturnResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
+  public CollectionOfMerchantWebhookResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new HashMap<String, List<String>>();
     }
@@ -302,16 +302,16 @@ public class CollectionOfMerchantReturnResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CollectionOfMerchantReturnResponse collectionOfMerchantReturnResponse = (CollectionOfMerchantReturnResponse) o;
-    return Objects.equals(this.content, collectionOfMerchantReturnResponse.content) &&
-        Objects.equals(this.count, collectionOfMerchantReturnResponse.count) &&
-        Objects.equals(this.totalCount, collectionOfMerchantReturnResponse.totalCount) &&
-        Objects.equals(this.itemsPerPage, collectionOfMerchantReturnResponse.itemsPerPage) &&
-        Objects.equals(this.statusCode, collectionOfMerchantReturnResponse.statusCode) &&
-        Objects.equals(this.logId, collectionOfMerchantReturnResponse.logId) &&
-        Objects.equals(this.success, collectionOfMerchantReturnResponse.success) &&
-        Objects.equals(this.message, collectionOfMerchantReturnResponse.message) &&
-        Objects.equals(this.validationErrors, collectionOfMerchantReturnResponse.validationErrors);
+    CollectionOfMerchantWebhookResponse collectionOfMerchantWebhookResponse = (CollectionOfMerchantWebhookResponse) o;
+    return Objects.equals(this.content, collectionOfMerchantWebhookResponse.content) &&
+        Objects.equals(this.count, collectionOfMerchantWebhookResponse.count) &&
+        Objects.equals(this.totalCount, collectionOfMerchantWebhookResponse.totalCount) &&
+        Objects.equals(this.itemsPerPage, collectionOfMerchantWebhookResponse.itemsPerPage) &&
+        Objects.equals(this.statusCode, collectionOfMerchantWebhookResponse.statusCode) &&
+        Objects.equals(this.logId, collectionOfMerchantWebhookResponse.logId) &&
+        Objects.equals(this.success, collectionOfMerchantWebhookResponse.success) &&
+        Objects.equals(this.message, collectionOfMerchantWebhookResponse.message) &&
+        Objects.equals(this.validationErrors, collectionOfMerchantWebhookResponse.validationErrors);
   }
 
   @Override
@@ -322,7 +322,7 @@ public class CollectionOfMerchantReturnResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CollectionOfMerchantReturnResponse {\n");
+    sb.append("class CollectionOfMerchantWebhookResponse {\n");
     sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");

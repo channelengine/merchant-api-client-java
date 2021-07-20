@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for merchants
   title: ChannelEngine Merchant API
-  version: 2.9.7
+  version: 2.9.8
 servers:
 - url: https://demo.channelengine.net/api
 security:
@@ -1112,18 +1112,6 @@ paths:
         schema:
           $ref: '#/components/schemas/FulfillmentType'
         style: form
-      - description: Deprecated, please use FromDate instead.
-        explode: true
-        in: query
-        name: createdSince
-        required: false
-        schema:
-          deprecated: true
-          description: Deprecated, please use FromDate instead.
-          format: date-time
-          nullable: true
-          type: string
-        style: form
       - description: Return status(es) to filter on.
         explode: true
         in: query
@@ -1286,18 +1274,6 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/FulfillmentType'
-        style: form
-      - description: Deprecated, please use FromDate instead.
-        explode: true
-        in: query
-        name: createdSince
-        required: false
-        schema:
-          deprecated: true
-          description: Deprecated, please use FromDate instead.
-          format: date-time
-          nullable: true
-          type: string
         style: form
       - description: Return status(es) to filter on.
         explode: true
@@ -1709,6 +1685,127 @@ paths:
       tags:
       - StockLocation
       x-accepts: application/json
+  /v2/webhooks:
+    get:
+      description: Get all webhooks created in the ChannelEngine.
+      operationId: WebhooksGetAll
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfMerchantWebhookResponse'
+          description: Success
+      summary: Get Webhooks.
+      tags:
+      - Webhook
+      x-accepts: application/json
+    post:
+      description: Create a new webhook in the ChannelEngine.
+      operationId: WebhooksCreate
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MerchantWebhookRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantWebhookRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MerchantWebhookRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Create Webhook.
+      tags:
+      - Webhook
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
+    put:
+      description: Update a webhook in the ChannelEngine.
+      operationId: WebhooksUpdate
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MerchantWebhookRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantWebhookRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MerchantWebhookRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Update Webhook.
+      tags:
+      - Webhook
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
+  /v2/webhooks/{webhookName}:
+    delete:
+      description: Delete a webhook based on the webhook name.
+      operationId: WebhooksDelete
+      parameters:
+      - explode: false
+        in: path
+        name: webhookName
+        required: true
+        schema:
+          nullable: true
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Delete Webhook.
+      tags:
+      - Webhook
+      x-accepts: application/json
 components:
   schemas:
     MerchantCancellationLineRequest:
@@ -2053,7 +2150,6 @@ components:
       - CHANNEL_ORDER_TOO_LONG_ON_NEW
       - CHANNEL_PRODUCT_DATA_EXPORT_FAILED
       - CHANNEL_PRODUCT_DATA_IMPORT_FAILED
-      - CHANNEL_PRODUCT_OFFER_EXPORT_FAILED
       - CHANNEL_RETURN_EXPORT_FAILED
       - CHANNEL_RETURN_IMPORT_FAILED
       - CHANNEL_RETURN_NEW
@@ -2064,7 +2160,6 @@ components:
       - CHANNEL_SHIPMENT_IMPORT_STATUS_FAILED
       - CHANNEL_SHIPMENT_EXPORT_FAILED
       - CHANNEL_SHIPMENT_IMPORT_MISSING_LINE_FAILED
-      - CHANNEL_SHIPMENT_EXPORT_INVALID_MERCHANTSHIPMENTNO
       - CHANNEL_FULFILLMENT_SHIPMENT_IMPORT_STATUS_FAILED
       - CHANNEL_FULFILLMENT_SHIPMENT_EXPORT_FAILED
       - CHANNEL_FULFILLMENT_SHIPMENT_EXPORT_SUCCEEDED
@@ -2073,7 +2168,6 @@ components:
       - CHANNELENGINE_WEBHOOK_RQUEST_FAILED
       - FEED_NO_PRODUCTS_FAILED
       - FEED_IMPORT_FAILED
-      - FEED_INVALID_PRODUCTS_OCCURED
       - GLOBAL_MESSAGE
       - MERCHANT_ORDER_EXPORT_FAILED
       - MERCHANT_ORDER_EXPORT_LINES_CANCELLED
@@ -2085,6 +2179,10 @@ components:
       - MERCHANT_CANCELLATION_IMPORT_FAILED
       - OAUTH_REFRESH_TOKEN_EXPIRATION
       - MERCHANT_STOCK_UPDATE_FAILED
+      - FEED_INVALID_PRODUCTS_OCCURED
+      - CHANNEL_SHIPMENT_EXPORT_INVALID_MERCHANTSHIPMENTNO
+      - CHANNEL_PRODUCT_OFFER_EXPORT_FAILED
+      - TRANLATIONS_IMAGE_TAGS_BROKEN
       type: string
     MerchantNotificationResponse:
       additionalProperties: false
@@ -2606,7 +2704,7 @@ components:
           type: array
         ChannelProductNo:
           description: The unique product reference used by the channel.
-          maxLength: 50
+          maxLength: 60
           minLength: 0
           type: string
         MerchantProductNo:
@@ -2700,6 +2798,7 @@ components:
         GlobalChannelName: GlobalChannelName
         OrderDate: 2000-01-23T04:56:07.000+00:00
         ChannelName: ChannelName
+        PaymentReferenceNo: PaymentReferenceNo
         ShippingAddress:
           StreetName: StreetName
           HouseNrAddition: HouseNrAddition
@@ -2933,6 +3032,12 @@ components:
           minLength: 0
           nullable: true
           type: string
+        PaymentReferenceNo:
+          description: Reference or transaction id for the payment
+          maxLength: 250
+          minLength: 0
+          nullable: true
+          type: string
         ShippingCostsInclVat:
           description: "The shipping fee including VAT\r\n(in the shop's base currency\
             \ calculated using the exchange rate at the time of ordering)."
@@ -3013,6 +3118,7 @@ components:
           GlobalChannelName: GlobalChannelName
           OrderDate: 2000-01-23T04:56:07.000+00:00
           ChannelName: ChannelName
+          PaymentReferenceNo: PaymentReferenceNo
           ShippingAddress:
             StreetName: StreetName
             HouseNrAddition: HouseNrAddition
@@ -3126,6 +3232,7 @@ components:
           GlobalChannelName: GlobalChannelName
           OrderDate: 2000-01-23T04:56:07.000+00:00
           ChannelName: ChannelName
+          PaymentReferenceNo: PaymentReferenceNo
           ShippingAddress:
             StreetName: StreetName
             HouseNrAddition: HouseNrAddition
@@ -5496,11 +5603,140 @@ components:
           nullable: true
           type: object
       type: object
+    WebhookEventType:
+      enum:
+      - ORDERS_CHANGE
+      - PRODUCTS_CHANGE
+      - RETURNS_CHANGE
+      - SHIPMENTS_CHANGE
+      - NOTIFICATIONS_CHANGE
+      - BUNDLE_PRODUCTS_CHANGE
+      type: string
+    MerchantWebhookResponse:
+      additionalProperties: false
+      example:
+        Events:
+        - null
+        - null
+        IsActive: true
+        Url: Url
+        Name: Name
+      properties:
+        Name:
+          nullable: true
+          type: string
+        Url:
+          nullable: true
+          type: string
+        IsActive:
+          type: boolean
+        Events:
+          items:
+            $ref: '#/components/schemas/WebhookEventType'
+          nullable: true
+          type: array
+      type: object
+    CollectionOfMerchantWebhookResponse:
+      additionalProperties: false
+      example:
+        TotalCount: 6
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+        - Events:
+          - null
+          - null
+          IsActive: true
+          Url: Url
+          Name: Name
+        - Events:
+          - null
+          - null
+          IsActive: true
+          Url: Url
+          Name: Name
+        ItemsPerPage: 1
+        Count: 0
+        StatusCode: 5
+        LogId: 5
+        Success: true
+      properties:
+        Content:
+          items:
+            $ref: '#/components/schemas/MerchantWebhookResponse'
+          nullable: true
+          type: array
+        Count:
+          format: int32
+          type: integer
+        TotalCount:
+          format: int32
+          type: integer
+        ItemsPerPage:
+          format: int32
+          type: integer
+        StatusCode:
+          format: int32
+          type: integer
+        LogId:
+          format: int32
+          nullable: true
+          type: integer
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+      type: object
+    MerchantWebhookRequest:
+      additionalProperties: false
+      example:
+        Events:
+        - null
+        - null
+        IsActive: true
+        Url: Url
+        Name: Name
+      properties:
+        Name:
+          description: The unique webhook name.
+          maxLength: 128
+          minLength: 0
+          type: string
+        Url:
+          description: The callback URL using by the webhook.
+          maxLength: 1028
+          minLength: 0
+          type: string
+        IsActive:
+          description: Determining if the webhook should be active and callbacks should
+            proceed or not.
+          type: boolean
+        Events:
+          description: Events supported by the webhook.
+          items:
+            $ref: '#/components/schemas/WebhookEventType'
+          type: array
+      required:
+      - Events
+      - Name
+      - Url
+      type: object
   securitySchemes:
     apiKey:
       description: API Key Authentication
       in: query
       name: apikey
       type: apiKey
-x-version: 2.9.7
+x-version: 2.9.8
 

@@ -36,6 +36,7 @@ src/main/java/com/channelengine/merchant/apiclient/api/ProductBundleApi.java
 src/main/java/com/channelengine/merchant/apiclient/api/ReturnApi.java
 src/main/java/com/channelengine/merchant/apiclient/api/ShipmentApi.java
 src/main/java/com/channelengine/merchant/apiclient/api/StockLocationApi.java
+src/main/java/com/channelengine/merchant/apiclient/api/WebhookApi.java
 src/main/java/com/channelengine/merchant/apiclient/auth/ApiKeyAuth.java
 src/main/java/com/channelengine/merchant/apiclient/auth/Authentication.java
 src/main/java/com/channelengine/merchant/apiclient/auth/HttpBasicAuth.java
@@ -53,6 +54,7 @@ src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantPro
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantReturnResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantSingleOrderReturnResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantStockLocationResponse.java
+src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantWebhookResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/Condition.java
 src/main/java/com/channelengine/merchant/apiclient/model/CreatorFilter.java
 src/main/java/com/channelengine/merchant/apiclient/model/ExtraDataType.java
@@ -94,6 +96,8 @@ src/main/java/com/channelengine/merchant/apiclient/model/MerchantSingleOrderRetu
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantSingleOrderReturnResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantStockLocationResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantStockPriceUpdateRequest.java
+src/main/java/com/channelengine/merchant/apiclient/model/MerchantWebhookRequest.java
+src/main/java/com/channelengine/merchant/apiclient/model/MerchantWebhookResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/ModelApiResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/NotificationType.java
 src/main/java/com/channelengine/merchant/apiclient/model/Operation.java
@@ -111,3 +115,4 @@ src/main/java/com/channelengine/merchant/apiclient/model/SingleOfDictionaryOfStr
 src/main/java/com/channelengine/merchant/apiclient/model/SingleOfMerchantProductResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/SingleOfProductCreationResult.java
 src/main/java/com/channelengine/merchant/apiclient/model/VatRateType.java
+src/main/java/com/channelengine/merchant/apiclient/model/WebhookEventType.java
