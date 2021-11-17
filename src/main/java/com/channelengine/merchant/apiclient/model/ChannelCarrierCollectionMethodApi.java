@@ -24,20 +24,18 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets Gender
+ * Gets or Sets ChannelCarrierCollectionMethodApi
  */
-@JsonAdapter(Gender.Adapter.class)
-public enum Gender {
+@JsonAdapter(ChannelCarrierCollectionMethodApi.Adapter.class)
+public enum ChannelCarrierCollectionMethodApi {
   
-  MALE("MALE"),
+  DROP_OFF("DROP_OFF"),
   
-  FEMALE("FEMALE"),
-  
-  NOT_APPLICABLE("NOT_APPLICABLE");
+  PICK_UP("PICK_UP");
 
   private String value;
 
-  Gender(String value) {
+  ChannelCarrierCollectionMethodApi(String value) {
     this.value = value;
   }
 
@@ -50,8 +48,8 @@ public enum Gender {
     return String.valueOf(value);
   }
 
-  public static Gender fromValue(String value) {
-    for (Gender b : Gender.values()) {
+  public static ChannelCarrierCollectionMethodApi fromValue(String value) {
+    for (ChannelCarrierCollectionMethodApi b : ChannelCarrierCollectionMethodApi.values()) {
       if (b.value.equals(value)) {
         return b;
       }
@@ -59,16 +57,16 @@ public enum Gender {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 
-  public static class Adapter extends TypeAdapter<Gender> {
+  public static class Adapter extends TypeAdapter<ChannelCarrierCollectionMethodApi> {
     @Override
-    public void write(final JsonWriter jsonWriter, final Gender enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final ChannelCarrierCollectionMethodApi enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public Gender read(final JsonReader jsonReader) throws IOException {
+    public ChannelCarrierCollectionMethodApi read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return Gender.fromValue(value);
+      return ChannelCarrierCollectionMethodApi.fromValue(value);
     }
   }
 }

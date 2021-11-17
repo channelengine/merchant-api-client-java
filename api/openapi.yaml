@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for merchants
   title: ChannelEngine Merchant API
-  version: 2.9.9
+  version: 2.9.10
 servers:
 - url: http://dev.channelengine.local/api
 security:
@@ -1225,6 +1225,19 @@ paths:
         />call.
       operationId: ReturnGetDeclaredByChannel
       parameters:
+      - description: Filter on Channel IDs
+        explode: true
+        in: query
+        name: channelIds
+        required: false
+        schema:
+          description: Filter on Channel IDs
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        style: form
       - description: Filter on unique order reference used by the merchant.
         explode: true
         in: query
@@ -1388,6 +1401,19 @@ paths:
         schema:
           $ref: '#/components/schemas/CreatorFilter'
         style: form
+      - description: Filter on Channel IDs
+        explode: true
+        in: query
+        name: channelIds
+        required: false
+        schema:
+          description: Filter on Channel IDs
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        style: form
       - description: Filter on unique order reference used by the merchant.
         explode: true
         in: query
@@ -1542,6 +1568,19 @@ paths:
         />call.
       operationId: ReturnGetUnhandled
       parameters:
+      - description: Filter on Channel IDs
+        explode: true
+        in: query
+        name: channelIds
+        required: false
+        schema:
+          description: Filter on Channel IDs
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        style: form
       - description: The page to filter on. Starts at 1.
         explode: true
         in: query
@@ -1733,7 +1772,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: '#/components/schemas/CollectionOfMerchantShipmentLabelCarrierResponse'
           description: Success
         "400":
           content:
@@ -1795,7 +1834,9 @@ paths:
       x-accepts: application/json
   /v2/orders/{merchantShipmentNo}/shippinglabel:
     get:
-      description: Downloads the shipping label for the shipment
+      description: Downloads the shipping label for the shipment. There may pass some
+        time between creating the shipment<br />and the availability of the label.
+        So '404 Not Found' might incidate it is not available yet.
       operationId: ShipmentShippingLabel
       parameters:
       - description: The unique shipment reference as used by the merchant.
@@ -2867,31 +2908,34 @@ components:
     MerchantOrderLineResponse:
       additionalProperties: false
       example:
-        UnitPriceInclVat: 0.9018348186070783
         UnitVat: 1.4894159098541704
         BundleProductMerchantProductNo: BundleProductMerchantProductNo
         Description: Description
-        FeeFixed: 0.6438423552598547
-        FeeRate: 0.35571952270680973
-        Quantity: 0
+        JurisCode: JurisCode
         OriginalUnitVat: 4.965218492984954
+        IsFulfillmentByMarketplace: true
+        OriginalLineTotalInclVat: 5.025004791520295
+        Gtin: Gtin
+        OriginalFeeFixed: 9.369310271410669
+        OriginalLineVat: 9.965781217890562
+        ChannelProductNo: ChannelProductNo
+        UnitPriceInclVat: 0.6438423552598547
+        JurisName: JurisName
+        FeeFixed: 0.35571952270680973
+        FeeRate: 0.6965117697638845
+        Quantity: 0
         ExtraData:
         - Value: Value
           Key: Key
         - Value: Value
           Key: Key
-        IsFulfillmentByMarketplace: true
-        OriginalLineTotalInclVat: 5.025004791520295
-        Gtin: Gtin
+        VatRate: 6.683562403749608
         OriginalUnitPriceInclVat: 1.1730742509559433
         LineVat: 7.457744773683766
-        OriginalFeeFixed: 9.369310271410669
-        OriginalLineVat: 9.965781217890562
         CancellationRequestedQuantity: 0
         ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
         MerchantProductNo: MerchantProductNo
         LineTotalInclVat: 6.84685269835264
-        ChannelProductNo: ChannelProductNo
       properties:
         Status:
           $ref: '#/components/schemas/OrderStatusView'
@@ -2967,6 +3011,18 @@ components:
             \ the MerchantProductNo of\r\nthe product bundle."
           nullable: true
           type: string
+        JurisCode:
+          description: State assigned code identifying the jurisdiction.
+          nullable: true
+          type: string
+        JurisName:
+          description: Name of a tax jurisdiction.
+          nullable: true
+          type: string
+        VatRate:
+          description: VAT rate of the orderline.
+          format: decimal
+          type: number
         ExtraData:
           items:
             $ref: '#/components/schemas/MerchantOrderLineExtraDataResponse'
@@ -3090,7 +3146,7 @@ components:
           Line2: Line2
           Line3: Line3
         OriginalTotalVat: 1.0246457001441578
-        ShippingCostsInclVat: 0.6965117697638845
+        ShippingCostsInclVat: 0.1284659006116532
         IsBusinessOrder: true
         OriginalSubTotalInclVat: 3.616076749251911
         PaymentMethod: PaymentMethod
@@ -3098,56 +3154,62 @@ components:
         OriginalShippingCostsInclVat: 4.145608029883936
         OriginalTotalInclVat: 1.2315135367772556
         Lines:
-        - UnitPriceInclVat: 0.9018348186070783
-          UnitVat: 1.4894159098541704
+        - UnitVat: 1.4894159098541704
           BundleProductMerchantProductNo: BundleProductMerchantProductNo
           Description: Description
-          FeeFixed: 0.6438423552598547
-          FeeRate: 0.35571952270680973
-          Quantity: 0
+          JurisCode: JurisCode
           OriginalUnitVat: 4.965218492984954
+          IsFulfillmentByMarketplace: true
+          OriginalLineTotalInclVat: 5.025004791520295
+          Gtin: Gtin
+          OriginalFeeFixed: 9.369310271410669
+          OriginalLineVat: 9.965781217890562
+          ChannelProductNo: ChannelProductNo
+          UnitPriceInclVat: 0.6438423552598547
+          JurisName: JurisName
+          FeeFixed: 0.35571952270680973
+          FeeRate: 0.6965117697638845
+          Quantity: 0
           ExtraData:
           - Value: Value
             Key: Key
           - Value: Value
             Key: Key
-          IsFulfillmentByMarketplace: true
-          OriginalLineTotalInclVat: 5.025004791520295
-          Gtin: Gtin
+          VatRate: 6.683562403749608
           OriginalUnitPriceInclVat: 1.1730742509559433
           LineVat: 7.457744773683766
-          OriginalFeeFixed: 9.369310271410669
-          OriginalLineVat: 9.965781217890562
           CancellationRequestedQuantity: 0
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 6.84685269835264
-          ChannelProductNo: ChannelProductNo
-        - UnitPriceInclVat: 0.9018348186070783
-          UnitVat: 1.4894159098541704
+        - UnitVat: 1.4894159098541704
           BundleProductMerchantProductNo: BundleProductMerchantProductNo
           Description: Description
-          FeeFixed: 0.6438423552598547
-          FeeRate: 0.35571952270680973
-          Quantity: 0
+          JurisCode: JurisCode
           OriginalUnitVat: 4.965218492984954
+          IsFulfillmentByMarketplace: true
+          OriginalLineTotalInclVat: 5.025004791520295
+          Gtin: Gtin
+          OriginalFeeFixed: 9.369310271410669
+          OriginalLineVat: 9.965781217890562
+          ChannelProductNo: ChannelProductNo
+          UnitPriceInclVat: 0.6438423552598547
+          JurisName: JurisName
+          FeeFixed: 0.35571952270680973
+          FeeRate: 0.6965117697638845
+          Quantity: 0
           ExtraData:
           - Value: Value
             Key: Key
           - Value: Value
             Key: Key
-          IsFulfillmentByMarketplace: true
-          OriginalLineTotalInclVat: 5.025004791520295
-          Gtin: Gtin
+          VatRate: 6.683562403749608
           OriginalUnitPriceInclVat: 1.1730742509559433
           LineVat: 7.457744773683766
-          OriginalFeeFixed: 9.369310271410669
-          OriginalLineVat: 9.965781217890562
           CancellationRequestedQuantity: 0
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 6.84685269835264
-          ChannelProductNo: ChannelProductNo
       properties:
         Id:
           description: "The unique identifier used by ChannelEngine. This identifier\
@@ -3348,7 +3410,7 @@ components:
     CollectionOfMerchantOrderResponse:
       additionalProperties: false
       example:
-        TotalCount: 2
+        TotalCount: 6
         Message: Message
         ValidationErrors:
           key:
@@ -3411,7 +3473,7 @@ components:
             Line2: Line2
             Line3: Line3
           OriginalTotalVat: 1.0246457001441578
-          ShippingCostsInclVat: 0.6965117697638845
+          ShippingCostsInclVat: 0.1284659006116532
           IsBusinessOrder: true
           OriginalSubTotalInclVat: 3.616076749251911
           PaymentMethod: PaymentMethod
@@ -3419,56 +3481,62 @@ components:
           OriginalShippingCostsInclVat: 4.145608029883936
           OriginalTotalInclVat: 1.2315135367772556
           Lines:
-          - UnitPriceInclVat: 0.9018348186070783
-            UnitVat: 1.4894159098541704
+          - UnitVat: 1.4894159098541704
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.6438423552598547
-            FeeRate: 0.35571952270680973
-            Quantity: 0
+            JurisCode: JurisCode
             OriginalUnitVat: 4.965218492984954
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            ChannelProductNo: ChannelProductNo
+            UnitPriceInclVat: 0.6438423552598547
+            JurisName: JurisName
+            FeeFixed: 0.35571952270680973
+            FeeRate: 0.6965117697638845
+            Quantity: 0
             ExtraData:
             - Value: Value
               Key: Key
             - Value: Value
               Key: Key
-            IsFulfillmentByMarketplace: true
-            OriginalLineTotalInclVat: 5.025004791520295
-            Gtin: Gtin
+            VatRate: 6.683562403749608
             OriginalUnitPriceInclVat: 1.1730742509559433
             LineVat: 7.457744773683766
-            OriginalFeeFixed: 9.369310271410669
-            OriginalLineVat: 9.965781217890562
             CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.84685269835264
-            ChannelProductNo: ChannelProductNo
-          - UnitPriceInclVat: 0.9018348186070783
-            UnitVat: 1.4894159098541704
+          - UnitVat: 1.4894159098541704
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.6438423552598547
-            FeeRate: 0.35571952270680973
-            Quantity: 0
+            JurisCode: JurisCode
             OriginalUnitVat: 4.965218492984954
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            ChannelProductNo: ChannelProductNo
+            UnitPriceInclVat: 0.6438423552598547
+            JurisName: JurisName
+            FeeFixed: 0.35571952270680973
+            FeeRate: 0.6965117697638845
+            Quantity: 0
             ExtraData:
             - Value: Value
               Key: Key
             - Value: Value
               Key: Key
-            IsFulfillmentByMarketplace: true
-            OriginalLineTotalInclVat: 5.025004791520295
-            Gtin: Gtin
+            VatRate: 6.683562403749608
             OriginalUnitPriceInclVat: 1.1730742509559433
             LineVat: 7.457744773683766
-            OriginalFeeFixed: 9.369310271410669
-            OriginalLineVat: 9.965781217890562
             CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.84685269835264
-            ChannelProductNo: ChannelProductNo
         - MerchantComment: MerchantComment
           Email: Email
           VatNo: VatNo
@@ -3525,7 +3593,7 @@ components:
             Line2: Line2
             Line3: Line3
           OriginalTotalVat: 1.0246457001441578
-          ShippingCostsInclVat: 0.6965117697638845
+          ShippingCostsInclVat: 0.1284659006116532
           IsBusinessOrder: true
           OriginalSubTotalInclVat: 3.616076749251911
           PaymentMethod: PaymentMethod
@@ -3533,60 +3601,66 @@ components:
           OriginalShippingCostsInclVat: 4.145608029883936
           OriginalTotalInclVat: 1.2315135367772556
           Lines:
-          - UnitPriceInclVat: 0.9018348186070783
-            UnitVat: 1.4894159098541704
+          - UnitVat: 1.4894159098541704
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.6438423552598547
-            FeeRate: 0.35571952270680973
-            Quantity: 0
+            JurisCode: JurisCode
             OriginalUnitVat: 4.965218492984954
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            ChannelProductNo: ChannelProductNo
+            UnitPriceInclVat: 0.6438423552598547
+            JurisName: JurisName
+            FeeFixed: 0.35571952270680973
+            FeeRate: 0.6965117697638845
+            Quantity: 0
             ExtraData:
             - Value: Value
               Key: Key
             - Value: Value
               Key: Key
-            IsFulfillmentByMarketplace: true
-            OriginalLineTotalInclVat: 5.025004791520295
-            Gtin: Gtin
+            VatRate: 6.683562403749608
             OriginalUnitPriceInclVat: 1.1730742509559433
             LineVat: 7.457744773683766
-            OriginalFeeFixed: 9.369310271410669
-            OriginalLineVat: 9.965781217890562
             CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.84685269835264
-            ChannelProductNo: ChannelProductNo
-          - UnitPriceInclVat: 0.9018348186070783
-            UnitVat: 1.4894159098541704
+          - UnitVat: 1.4894159098541704
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.6438423552598547
-            FeeRate: 0.35571952270680973
-            Quantity: 0
+            JurisCode: JurisCode
             OriginalUnitVat: 4.965218492984954
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            ChannelProductNo: ChannelProductNo
+            UnitPriceInclVat: 0.6438423552598547
+            JurisName: JurisName
+            FeeFixed: 0.35571952270680973
+            FeeRate: 0.6965117697638845
+            Quantity: 0
             ExtraData:
             - Value: Value
               Key: Key
             - Value: Value
               Key: Key
-            IsFulfillmentByMarketplace: true
-            OriginalLineTotalInclVat: 5.025004791520295
-            Gtin: Gtin
+            VatRate: 6.683562403749608
             OriginalUnitPriceInclVat: 1.1730742509559433
             LineVat: 7.457744773683766
-            OriginalFeeFixed: 9.369310271410669
-            OriginalLineVat: 9.965781217890562
             CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.84685269835264
-            ChannelProductNo: ChannelProductNo
         ItemsPerPage: 6
-        Count: 1
-        StatusCode: 6
-        LogId: 5
+        Count: 2
+        StatusCode: 5
+        LogId: 6
         Success: true
       properties:
         Content:
@@ -4757,31 +4831,34 @@ components:
       additionalProperties: false
       example:
         OrderLine:
-          UnitPriceInclVat: 0.9018348186070783
           UnitVat: 1.4894159098541704
           BundleProductMerchantProductNo: BundleProductMerchantProductNo
           Description: Description
-          FeeFixed: 0.6438423552598547
-          FeeRate: 0.35571952270680973
-          Quantity: 0
+          JurisCode: JurisCode
           OriginalUnitVat: 4.965218492984954
+          IsFulfillmentByMarketplace: true
+          OriginalLineTotalInclVat: 5.025004791520295
+          Gtin: Gtin
+          OriginalFeeFixed: 9.369310271410669
+          OriginalLineVat: 9.965781217890562
+          ChannelProductNo: ChannelProductNo
+          UnitPriceInclVat: 0.6438423552598547
+          JurisName: JurisName
+          FeeFixed: 0.35571952270680973
+          FeeRate: 0.6965117697638845
+          Quantity: 0
           ExtraData:
           - Value: Value
             Key: Key
           - Value: Value
             Key: Key
-          IsFulfillmentByMarketplace: true
-          OriginalLineTotalInclVat: 5.025004791520295
-          Gtin: Gtin
+          VatRate: 6.683562403749608
           OriginalUnitPriceInclVat: 1.1730742509559433
           LineVat: 7.457744773683766
-          OriginalFeeFixed: 9.369310271410669
-          OriginalLineVat: 9.965781217890562
           CancellationRequestedQuantity: 0
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 6.84685269835264
-          ChannelProductNo: ChannelProductNo
         Quantity: 0
         MerchantProductNo: MerchantProductNo
       properties:
@@ -4819,59 +4896,65 @@ components:
         Id: 5
         Lines:
         - OrderLine:
-            UnitPriceInclVat: 0.9018348186070783
             UnitVat: 1.4894159098541704
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.6438423552598547
-            FeeRate: 0.35571952270680973
-            Quantity: 0
+            JurisCode: JurisCode
             OriginalUnitVat: 4.965218492984954
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            ChannelProductNo: ChannelProductNo
+            UnitPriceInclVat: 0.6438423552598547
+            JurisName: JurisName
+            FeeFixed: 0.35571952270680973
+            FeeRate: 0.6965117697638845
+            Quantity: 0
             ExtraData:
             - Value: Value
               Key: Key
             - Value: Value
               Key: Key
-            IsFulfillmentByMarketplace: true
-            OriginalLineTotalInclVat: 5.025004791520295
-            Gtin: Gtin
+            VatRate: 6.683562403749608
             OriginalUnitPriceInclVat: 1.1730742509559433
             LineVat: 7.457744773683766
-            OriginalFeeFixed: 9.369310271410669
-            OriginalLineVat: 9.965781217890562
             CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.84685269835264
-            ChannelProductNo: ChannelProductNo
           Quantity: 0
           MerchantProductNo: MerchantProductNo
         - OrderLine:
-            UnitPriceInclVat: 0.9018348186070783
             UnitVat: 1.4894159098541704
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.6438423552598547
-            FeeRate: 0.35571952270680973
-            Quantity: 0
+            JurisCode: JurisCode
             OriginalUnitVat: 4.965218492984954
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            ChannelProductNo: ChannelProductNo
+            UnitPriceInclVat: 0.6438423552598547
+            JurisName: JurisName
+            FeeFixed: 0.35571952270680973
+            FeeRate: 0.6965117697638845
+            Quantity: 0
             ExtraData:
             - Value: Value
               Key: Key
             - Value: Value
               Key: Key
-            IsFulfillmentByMarketplace: true
-            OriginalLineTotalInclVat: 5.025004791520295
-            Gtin: Gtin
+            VatRate: 6.683562403749608
             OriginalUnitPriceInclVat: 1.1730742509559433
             LineVat: 7.457744773683766
-            OriginalFeeFixed: 9.369310271410669
-            OriginalLineVat: 9.965781217890562
             CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.84685269835264
-            ChannelProductNo: ChannelProductNo
           Quantity: 0
           MerchantProductNo: MerchantProductNo
         RefundInclVat: 0.5637376656633328
@@ -4978,59 +5061,65 @@ components:
           Id: 5
           Lines:
           - OrderLine:
-              UnitPriceInclVat: 0.9018348186070783
               UnitVat: 1.4894159098541704
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.6438423552598547
-              FeeRate: 0.35571952270680973
-              Quantity: 0
+              JurisCode: JurisCode
               OriginalUnitVat: 4.965218492984954
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              ChannelProductNo: ChannelProductNo
+              UnitPriceInclVat: 0.6438423552598547
+              JurisName: JurisName
+              FeeFixed: 0.35571952270680973
+              FeeRate: 0.6965117697638845
+              Quantity: 0
               ExtraData:
               - Value: Value
                 Key: Key
               - Value: Value
                 Key: Key
-              IsFulfillmentByMarketplace: true
-              OriginalLineTotalInclVat: 5.025004791520295
-              Gtin: Gtin
+              VatRate: 6.683562403749608
               OriginalUnitPriceInclVat: 1.1730742509559433
               LineVat: 7.457744773683766
-              OriginalFeeFixed: 9.369310271410669
-              OriginalLineVat: 9.965781217890562
               CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.84685269835264
-              ChannelProductNo: ChannelProductNo
             Quantity: 0
             MerchantProductNo: MerchantProductNo
           - OrderLine:
-              UnitPriceInclVat: 0.9018348186070783
               UnitVat: 1.4894159098541704
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.6438423552598547
-              FeeRate: 0.35571952270680973
-              Quantity: 0
+              JurisCode: JurisCode
               OriginalUnitVat: 4.965218492984954
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              ChannelProductNo: ChannelProductNo
+              UnitPriceInclVat: 0.6438423552598547
+              JurisName: JurisName
+              FeeFixed: 0.35571952270680973
+              FeeRate: 0.6965117697638845
+              Quantity: 0
               ExtraData:
               - Value: Value
                 Key: Key
               - Value: Value
                 Key: Key
-              IsFulfillmentByMarketplace: true
-              OriginalLineTotalInclVat: 5.025004791520295
-              Gtin: Gtin
+              VatRate: 6.683562403749608
               OriginalUnitPriceInclVat: 1.1730742509559433
               LineVat: 7.457744773683766
-              OriginalFeeFixed: 9.369310271410669
-              OriginalLineVat: 9.965781217890562
               CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.84685269835264
-              ChannelProductNo: ChannelProductNo
             Quantity: 0
             MerchantProductNo: MerchantProductNo
           RefundInclVat: 0.5637376656633328
@@ -5049,59 +5138,65 @@ components:
           Id: 5
           Lines:
           - OrderLine:
-              UnitPriceInclVat: 0.9018348186070783
               UnitVat: 1.4894159098541704
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.6438423552598547
-              FeeRate: 0.35571952270680973
-              Quantity: 0
+              JurisCode: JurisCode
               OriginalUnitVat: 4.965218492984954
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              ChannelProductNo: ChannelProductNo
+              UnitPriceInclVat: 0.6438423552598547
+              JurisName: JurisName
+              FeeFixed: 0.35571952270680973
+              FeeRate: 0.6965117697638845
+              Quantity: 0
               ExtraData:
               - Value: Value
                 Key: Key
               - Value: Value
                 Key: Key
-              IsFulfillmentByMarketplace: true
-              OriginalLineTotalInclVat: 5.025004791520295
-              Gtin: Gtin
+              VatRate: 6.683562403749608
               OriginalUnitPriceInclVat: 1.1730742509559433
               LineVat: 7.457744773683766
-              OriginalFeeFixed: 9.369310271410669
-              OriginalLineVat: 9.965781217890562
               CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.84685269835264
-              ChannelProductNo: ChannelProductNo
             Quantity: 0
             MerchantProductNo: MerchantProductNo
           - OrderLine:
-              UnitPriceInclVat: 0.9018348186070783
               UnitVat: 1.4894159098541704
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.6438423552598547
-              FeeRate: 0.35571952270680973
-              Quantity: 0
+              JurisCode: JurisCode
               OriginalUnitVat: 4.965218492984954
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              ChannelProductNo: ChannelProductNo
+              UnitPriceInclVat: 0.6438423552598547
+              JurisName: JurisName
+              FeeFixed: 0.35571952270680973
+              FeeRate: 0.6965117697638845
+              Quantity: 0
               ExtraData:
               - Value: Value
                 Key: Key
               - Value: Value
                 Key: Key
-              IsFulfillmentByMarketplace: true
-              OriginalLineTotalInclVat: 5.025004791520295
-              Gtin: Gtin
+              VatRate: 6.683562403749608
               OriginalUnitPriceInclVat: 1.1730742509559433
               LineVat: 7.457744773683766
-              OriginalFeeFixed: 9.369310271410669
-              OriginalLineVat: 9.965781217890562
               CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.84685269835264
-              ChannelProductNo: ChannelProductNo
             Quantity: 0
             MerchantProductNo: MerchantProductNo
           RefundInclVat: 0.5637376656633328
@@ -5293,31 +5388,34 @@ components:
       example:
         RejectedQuantity: 6
         OrderLine:
-          UnitPriceInclVat: 0.9018348186070783
           UnitVat: 1.4894159098541704
           BundleProductMerchantProductNo: BundleProductMerchantProductNo
           Description: Description
-          FeeFixed: 0.6438423552598547
-          FeeRate: 0.35571952270680973
-          Quantity: 0
+          JurisCode: JurisCode
           OriginalUnitVat: 4.965218492984954
+          IsFulfillmentByMarketplace: true
+          OriginalLineTotalInclVat: 5.025004791520295
+          Gtin: Gtin
+          OriginalFeeFixed: 9.369310271410669
+          OriginalLineVat: 9.965781217890562
+          ChannelProductNo: ChannelProductNo
+          UnitPriceInclVat: 0.6438423552598547
+          JurisName: JurisName
+          FeeFixed: 0.35571952270680973
+          FeeRate: 0.6965117697638845
+          Quantity: 0
           ExtraData:
           - Value: Value
             Key: Key
           - Value: Value
             Key: Key
-          IsFulfillmentByMarketplace: true
-          OriginalLineTotalInclVat: 5.025004791520295
-          Gtin: Gtin
+          VatRate: 6.683562403749608
           OriginalUnitPriceInclVat: 1.1730742509559433
           LineVat: 7.457744773683766
-          OriginalFeeFixed: 9.369310271410669
-          OriginalLineVat: 9.965781217890562
           CancellationRequestedQuantity: 0
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 6.84685269835264
-          ChannelProductNo: ChannelProductNo
         AcceptedQuantity: 0
         Quantity: 0
         MerchantProductNo: MerchantProductNo
@@ -5366,61 +5464,67 @@ components:
         Lines:
         - RejectedQuantity: 6
           OrderLine:
-            UnitPriceInclVat: 0.9018348186070783
             UnitVat: 1.4894159098541704
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.6438423552598547
-            FeeRate: 0.35571952270680973
-            Quantity: 0
+            JurisCode: JurisCode
             OriginalUnitVat: 4.965218492984954
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            ChannelProductNo: ChannelProductNo
+            UnitPriceInclVat: 0.6438423552598547
+            JurisName: JurisName
+            FeeFixed: 0.35571952270680973
+            FeeRate: 0.6965117697638845
+            Quantity: 0
             ExtraData:
             - Value: Value
               Key: Key
             - Value: Value
               Key: Key
-            IsFulfillmentByMarketplace: true
-            OriginalLineTotalInclVat: 5.025004791520295
-            Gtin: Gtin
+            VatRate: 6.683562403749608
             OriginalUnitPriceInclVat: 1.1730742509559433
             LineVat: 7.457744773683766
-            OriginalFeeFixed: 9.369310271410669
-            OriginalLineVat: 9.965781217890562
             CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.84685269835264
-            ChannelProductNo: ChannelProductNo
           AcceptedQuantity: 0
           Quantity: 0
           MerchantProductNo: MerchantProductNo
         - RejectedQuantity: 6
           OrderLine:
-            UnitPriceInclVat: 0.9018348186070783
             UnitVat: 1.4894159098541704
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.6438423552598547
-            FeeRate: 0.35571952270680973
-            Quantity: 0
+            JurisCode: JurisCode
             OriginalUnitVat: 4.965218492984954
+            IsFulfillmentByMarketplace: true
+            OriginalLineTotalInclVat: 5.025004791520295
+            Gtin: Gtin
+            OriginalFeeFixed: 9.369310271410669
+            OriginalLineVat: 9.965781217890562
+            ChannelProductNo: ChannelProductNo
+            UnitPriceInclVat: 0.6438423552598547
+            JurisName: JurisName
+            FeeFixed: 0.35571952270680973
+            FeeRate: 0.6965117697638845
+            Quantity: 0
             ExtraData:
             - Value: Value
               Key: Key
             - Value: Value
               Key: Key
-            IsFulfillmentByMarketplace: true
-            OriginalLineTotalInclVat: 5.025004791520295
-            Gtin: Gtin
+            VatRate: 6.683562403749608
             OriginalUnitPriceInclVat: 1.1730742509559433
             LineVat: 7.457744773683766
-            OriginalFeeFixed: 9.369310271410669
-            OriginalLineVat: 9.965781217890562
             CancellationRequestedQuantity: 0
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.84685269835264
-            ChannelProductNo: ChannelProductNo
           AcceptedQuantity: 0
           Quantity: 0
           MerchantProductNo: MerchantProductNo
@@ -5525,61 +5629,67 @@ components:
           Lines:
           - RejectedQuantity: 6
             OrderLine:
-              UnitPriceInclVat: 0.9018348186070783
               UnitVat: 1.4894159098541704
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.6438423552598547
-              FeeRate: 0.35571952270680973
-              Quantity: 0
+              JurisCode: JurisCode
               OriginalUnitVat: 4.965218492984954
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              ChannelProductNo: ChannelProductNo
+              UnitPriceInclVat: 0.6438423552598547
+              JurisName: JurisName
+              FeeFixed: 0.35571952270680973
+              FeeRate: 0.6965117697638845
+              Quantity: 0
               ExtraData:
               - Value: Value
                 Key: Key
               - Value: Value
                 Key: Key
-              IsFulfillmentByMarketplace: true
-              OriginalLineTotalInclVat: 5.025004791520295
-              Gtin: Gtin
+              VatRate: 6.683562403749608
               OriginalUnitPriceInclVat: 1.1730742509559433
               LineVat: 7.457744773683766
-              OriginalFeeFixed: 9.369310271410669
-              OriginalLineVat: 9.965781217890562
               CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.84685269835264
-              ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
             Quantity: 0
             MerchantProductNo: MerchantProductNo
           - RejectedQuantity: 6
             OrderLine:
-              UnitPriceInclVat: 0.9018348186070783
               UnitVat: 1.4894159098541704
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.6438423552598547
-              FeeRate: 0.35571952270680973
-              Quantity: 0
+              JurisCode: JurisCode
               OriginalUnitVat: 4.965218492984954
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              ChannelProductNo: ChannelProductNo
+              UnitPriceInclVat: 0.6438423552598547
+              JurisName: JurisName
+              FeeFixed: 0.35571952270680973
+              FeeRate: 0.6965117697638845
+              Quantity: 0
               ExtraData:
               - Value: Value
                 Key: Key
               - Value: Value
                 Key: Key
-              IsFulfillmentByMarketplace: true
-              OriginalLineTotalInclVat: 5.025004791520295
-              Gtin: Gtin
+              VatRate: 6.683562403749608
               OriginalUnitPriceInclVat: 1.1730742509559433
               LineVat: 7.457744773683766
-              OriginalFeeFixed: 9.369310271410669
-              OriginalLineVat: 9.965781217890562
               CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.84685269835264
-              ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
             Quantity: 0
             MerchantProductNo: MerchantProductNo
@@ -5599,61 +5709,67 @@ components:
           Lines:
           - RejectedQuantity: 6
             OrderLine:
-              UnitPriceInclVat: 0.9018348186070783
               UnitVat: 1.4894159098541704
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.6438423552598547
-              FeeRate: 0.35571952270680973
-              Quantity: 0
+              JurisCode: JurisCode
               OriginalUnitVat: 4.965218492984954
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              ChannelProductNo: ChannelProductNo
+              UnitPriceInclVat: 0.6438423552598547
+              JurisName: JurisName
+              FeeFixed: 0.35571952270680973
+              FeeRate: 0.6965117697638845
+              Quantity: 0
               ExtraData:
               - Value: Value
                 Key: Key
               - Value: Value
                 Key: Key
-              IsFulfillmentByMarketplace: true
-              OriginalLineTotalInclVat: 5.025004791520295
-              Gtin: Gtin
+              VatRate: 6.683562403749608
               OriginalUnitPriceInclVat: 1.1730742509559433
               LineVat: 7.457744773683766
-              OriginalFeeFixed: 9.369310271410669
-              OriginalLineVat: 9.965781217890562
               CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.84685269835264
-              ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
             Quantity: 0
             MerchantProductNo: MerchantProductNo
           - RejectedQuantity: 6
             OrderLine:
-              UnitPriceInclVat: 0.9018348186070783
               UnitVat: 1.4894159098541704
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.6438423552598547
-              FeeRate: 0.35571952270680973
-              Quantity: 0
+              JurisCode: JurisCode
               OriginalUnitVat: 4.965218492984954
+              IsFulfillmentByMarketplace: true
+              OriginalLineTotalInclVat: 5.025004791520295
+              Gtin: Gtin
+              OriginalFeeFixed: 9.369310271410669
+              OriginalLineVat: 9.965781217890562
+              ChannelProductNo: ChannelProductNo
+              UnitPriceInclVat: 0.6438423552598547
+              JurisName: JurisName
+              FeeFixed: 0.35571952270680973
+              FeeRate: 0.6965117697638845
+              Quantity: 0
               ExtraData:
               - Value: Value
                 Key: Key
               - Value: Value
                 Key: Key
-              IsFulfillmentByMarketplace: true
-              OriginalLineTotalInclVat: 5.025004791520295
-              Gtin: Gtin
+              VatRate: 6.683562403749608
               OriginalUnitPriceInclVat: 1.1730742509559433
               LineVat: 7.457744773683766
-              OriginalFeeFixed: 9.369310271410669
-              OriginalLineVat: 9.965781217890562
               CancellationRequestedQuantity: 0
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.84685269835264
-              ChannelProductNo: ChannelProductNo
             AcceptedQuantity: 0
             Quantity: 0
             MerchantProductNo: MerchantProductNo
@@ -6140,6 +6256,117 @@ components:
       - Lines
       - Weight
       type: object
+    ChannelCarrierRecommendationApi:
+      enum:
+      - NEUTRAL
+      - RECOMMENDED
+      - DISCOMMENDED
+      type: string
+    ChannelCarrierCollectionMethodApi:
+      enum:
+      - DROP_OFF
+      - PICK_UP
+      type: string
+    MerchantShipmentLabelCarrierResponse:
+      additionalProperties: false
+      example:
+        HandoverDateTime: 2000-01-23T04:56:07.000+00:00
+        Price: 0.8008281904610115
+        Code: Code
+        Restrictions: Restrictions
+        Name: Name
+      properties:
+        Name:
+          description: The channel's name for the shipping label carrier
+          nullable: true
+          type: string
+        Code:
+          description: The channel's code for the shipping label carrier
+          nullable: true
+          type: string
+        Restrictions:
+          description: Optional. Any restrictions on this carriers, e.g. weight and/or
+            dimensions
+          nullable: true
+          type: string
+        Price:
+          description: Optional. Price for this shipping label
+          format: decimal
+          nullable: true
+          type: number
+        Recommendation:
+          $ref: '#/components/schemas/ChannelCarrierRecommendationApi'
+        CollectionMethod:
+          $ref: '#/components/schemas/ChannelCarrierCollectionMethodApi'
+        HandoverDateTime:
+          description: "Optional. When to handover the package to the carrier\r\n\
+            It is in the ISO format including the timezone offset.\r\nE.g. 2020-10-03T18:00:00+02:00\r\
+            \nwhich is 3rd Oct 2020, at 18:00 PM in Amsterdam (Summer Time aka CEST:\
+            \ UTC +2:00 )"
+          format: date-time
+          nullable: true
+          type: string
+      type: object
+    CollectionOfMerchantShipmentLabelCarrierResponse:
+      additionalProperties: false
+      example:
+        TotalCount: 1
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+        - HandoverDateTime: 2000-01-23T04:56:07.000+00:00
+          Price: 0.8008281904610115
+          Code: Code
+          Restrictions: Restrictions
+          Name: Name
+        - HandoverDateTime: 2000-01-23T04:56:07.000+00:00
+          Price: 0.8008281904610115
+          Code: Code
+          Restrictions: Restrictions
+          Name: Name
+        ItemsPerPage: 5
+        Count: 6
+        StatusCode: 5
+        LogId: 2
+        Success: true
+      properties:
+        Content:
+          items:
+            $ref: '#/components/schemas/MerchantShipmentLabelCarrierResponse'
+          nullable: true
+          type: array
+        Count:
+          format: int32
+          type: integer
+        TotalCount:
+          format: int32
+          type: integer
+        ItemsPerPage:
+          format: int32
+          type: integer
+        StatusCode:
+          format: int32
+          type: integer
+        LogId:
+          format: int32
+          nullable: true
+          type: integer
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+      type: object
     MerchantChannelLabelShipmentRequest:
       additionalProperties: false
       example:
@@ -6265,11 +6492,11 @@ components:
       type: object
     WebhookEventType:
       enum:
-      - ORDERS_CHANGE
+      - ORDERS_CREATE
       - PRODUCTS_CHANGE
       - RETURNS_CHANGE
       - SHIPMENTS_CHANGE
-      - NOTIFICATIONS_CHANGE
+      - NOTIFICATIONS_CREATE
       - BUNDLE_PRODUCTS_CHANGE
       type: string
     MerchantWebhookResponse:
@@ -6399,5 +6626,5 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.9.9
+x-version: 2.9.10
 

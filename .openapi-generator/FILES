@@ -44,6 +44,8 @@ src/main/java/com/channelengine/merchant/apiclient/auth/Authentication.java
 src/main/java/com/channelengine/merchant/apiclient/auth/HttpBasicAuth.java
 src/main/java/com/channelengine/merchant/apiclient/auth/HttpBearerAuth.java
 src/main/java/com/channelengine/merchant/apiclient/model/AdvanceSettingsResponse.java
+src/main/java/com/channelengine/merchant/apiclient/model/ChannelCarrierCollectionMethodApi.java
+src/main/java/com/channelengine/merchant/apiclient/model/ChannelCarrierRecommendationApi.java
 src/main/java/com/channelengine/merchant/apiclient/model/ChannelChannelResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/ChannelGlobalChannelResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/ChannelListedProductResponse.java
@@ -56,6 +58,7 @@ src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantPro
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantProductResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantProductWithBuyBoxPrice.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantReturnResponse.java
+src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantShipmentLabelCarrierResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantSingleOrderReturnResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantStockLocationResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantWebhookResponse.java
@@ -93,6 +96,7 @@ src/main/java/com/channelengine/merchant/apiclient/model/MerchantReturnResponse.
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantReturnUpdateRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantSettingsResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentLabelCarrierRequest.java
+src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentLabelCarrierResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentLineRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentPackageDimensionsRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentPackageWeightRequest.java

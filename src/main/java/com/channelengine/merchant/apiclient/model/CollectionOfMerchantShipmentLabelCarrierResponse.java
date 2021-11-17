@@ -15,7 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.merchant.apiclient.model.MerchantStockLocationResponse;
+import com.channelengine.merchant.apiclient.model.MerchantShipmentLabelCarrierResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -30,13 +30,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * CollectionOfMerchantStockLocationResponse
+ * CollectionOfMerchantShipmentLabelCarrierResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class CollectionOfMerchantStockLocationResponse {
+public class CollectionOfMerchantShipmentLabelCarrierResponse {
   public static final String SERIALIZED_NAME_CONTENT = "Content";
   @SerializedName(SERIALIZED_NAME_CONTENT)
-  private List<MerchantStockLocationResponse> content = null;
+  private List<MerchantShipmentLabelCarrierResponse> content = null;
 
   public static final String SERIALIZED_NAME_COUNT = "Count";
   @SerializedName(SERIALIZED_NAME_COUNT)
@@ -71,15 +71,15 @@ public class CollectionOfMerchantStockLocationResponse {
   private Map<String, List<String>> validationErrors = null;
 
 
-  public CollectionOfMerchantStockLocationResponse content(List<MerchantStockLocationResponse> content) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse content(List<MerchantShipmentLabelCarrierResponse> content) {
     
     this.content = content;
     return this;
   }
 
-  public CollectionOfMerchantStockLocationResponse addContentItem(MerchantStockLocationResponse contentItem) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse addContentItem(MerchantShipmentLabelCarrierResponse contentItem) {
     if (this.content == null) {
-      this.content = new ArrayList<MerchantStockLocationResponse>();
+      this.content = new ArrayList<MerchantShipmentLabelCarrierResponse>();
     }
     this.content.add(contentItem);
     return this;
@@ -92,17 +92,17 @@ public class CollectionOfMerchantStockLocationResponse {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public List<MerchantStockLocationResponse> getContent() {
+  public List<MerchantShipmentLabelCarrierResponse> getContent() {
     return content;
   }
 
 
-  public void setContent(List<MerchantStockLocationResponse> content) {
+  public void setContent(List<MerchantShipmentLabelCarrierResponse> content) {
     this.content = content;
   }
 
 
-  public CollectionOfMerchantStockLocationResponse count(Integer count) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse count(Integer count) {
     
     this.count = count;
     return this;
@@ -125,7 +125,7 @@ public class CollectionOfMerchantStockLocationResponse {
   }
 
 
-  public CollectionOfMerchantStockLocationResponse totalCount(Integer totalCount) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse totalCount(Integer totalCount) {
     
     this.totalCount = totalCount;
     return this;
@@ -148,7 +148,7 @@ public class CollectionOfMerchantStockLocationResponse {
   }
 
 
-  public CollectionOfMerchantStockLocationResponse itemsPerPage(Integer itemsPerPage) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse itemsPerPage(Integer itemsPerPage) {
     
     this.itemsPerPage = itemsPerPage;
     return this;
@@ -171,7 +171,7 @@ public class CollectionOfMerchantStockLocationResponse {
   }
 
 
-  public CollectionOfMerchantStockLocationResponse statusCode(Integer statusCode) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse statusCode(Integer statusCode) {
     
     this.statusCode = statusCode;
     return this;
@@ -194,7 +194,7 @@ public class CollectionOfMerchantStockLocationResponse {
   }
 
 
-  public CollectionOfMerchantStockLocationResponse logId(Integer logId) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse logId(Integer logId) {
     
     this.logId = logId;
     return this;
@@ -217,7 +217,7 @@ public class CollectionOfMerchantStockLocationResponse {
   }
 
 
-  public CollectionOfMerchantStockLocationResponse success(Boolean success) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse success(Boolean success) {
     
     this.success = success;
     return this;
@@ -240,7 +240,7 @@ public class CollectionOfMerchantStockLocationResponse {
   }
 
 
-  public CollectionOfMerchantStockLocationResponse message(String message) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse message(String message) {
     
     this.message = message;
     return this;
@@ -263,13 +263,13 @@ public class CollectionOfMerchantStockLocationResponse {
   }
 
 
-  public CollectionOfMerchantStockLocationResponse validationErrors(Map<String, List<String>> validationErrors) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse validationErrors(Map<String, List<String>> validationErrors) {
     
     this.validationErrors = validationErrors;
     return this;
   }
 
-  public CollectionOfMerchantStockLocationResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
+  public CollectionOfMerchantShipmentLabelCarrierResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new HashMap<String, List<String>>();
     }
@@ -302,16 +302,16 @@ public class CollectionOfMerchantStockLocationResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CollectionOfMerchantStockLocationResponse collectionOfMerchantStockLocationResponse = (CollectionOfMerchantStockLocationResponse) o;
-    return Objects.equals(this.content, collectionOfMerchantStockLocationResponse.content) &&
-        Objects.equals(this.count, collectionOfMerchantStockLocationResponse.count) &&
-        Objects.equals(this.totalCount, collectionOfMerchantStockLocationResponse.totalCount) &&
-        Objects.equals(this.itemsPerPage, collectionOfMerchantStockLocationResponse.itemsPerPage) &&
-        Objects.equals(this.statusCode, collectionOfMerchantStockLocationResponse.statusCode) &&
-        Objects.equals(this.logId, collectionOfMerchantStockLocationResponse.logId) &&
-        Objects.equals(this.success, collectionOfMerchantStockLocationResponse.success) &&
-        Objects.equals(this.message, collectionOfMerchantStockLocationResponse.message) &&
-        Objects.equals(this.validationErrors, collectionOfMerchantStockLocationResponse.validationErrors);
+    CollectionOfMerchantShipmentLabelCarrierResponse collectionOfMerchantShipmentLabelCarrierResponse = (CollectionOfMerchantShipmentLabelCarrierResponse) o;
+    return Objects.equals(this.content, collectionOfMerchantShipmentLabelCarrierResponse.content) &&
+        Objects.equals(this.count, collectionOfMerchantShipmentLabelCarrierResponse.count) &&
+        Objects.equals(this.totalCount, collectionOfMerchantShipmentLabelCarrierResponse.totalCount) &&
+        Objects.equals(this.itemsPerPage, collectionOfMerchantShipmentLabelCarrierResponse.itemsPerPage) &&
+        Objects.equals(this.statusCode, collectionOfMerchantShipmentLabelCarrierResponse.statusCode) &&
+        Objects.equals(this.logId, collectionOfMerchantShipmentLabelCarrierResponse.logId) &&
+        Objects.equals(this.success, collectionOfMerchantShipmentLabelCarrierResponse.success) &&
+        Objects.equals(this.message, collectionOfMerchantShipmentLabelCarrierResponse.message) &&
+        Objects.equals(this.validationErrors, collectionOfMerchantShipmentLabelCarrierResponse.validationErrors);
   }
 
   @Override
@@ -322,7 +322,7 @@ public class CollectionOfMerchantStockLocationResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CollectionOfMerchantStockLocationResponse {\n");
+    sb.append("class CollectionOfMerchantShipmentLabelCarrierResponse {\n");
     sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
