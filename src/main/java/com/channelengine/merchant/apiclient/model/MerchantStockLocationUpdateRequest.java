@@ -23,53 +23,22 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 /**
- * MerchantStockPriceUpdateRequest
+ * MerchantStockLocationUpdateRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class MerchantStockPriceUpdateRequest {
-  public static final String SERIALIZED_NAME_MERCHANT_PRODUCT_NO = "MerchantProductNo";
-  @SerializedName(SERIALIZED_NAME_MERCHANT_PRODUCT_NO)
-  private String merchantProductNo;
-
+public class MerchantStockLocationUpdateRequest {
   public static final String SERIALIZED_NAME_STOCK = "Stock";
   @SerializedName(SERIALIZED_NAME_STOCK)
   private Integer stock;
-
-  public static final String SERIALIZED_NAME_PRICE = "Price";
-  @SerializedName(SERIALIZED_NAME_PRICE)
-  private BigDecimal price;
 
   public static final String SERIALIZED_NAME_STOCK_LOCATION_ID = "StockLocationId";
   @SerializedName(SERIALIZED_NAME_STOCK_LOCATION_ID)
   private Integer stockLocationId;
 
 
-  public MerchantStockPriceUpdateRequest merchantProductNo(String merchantProductNo) {
-    
-    this.merchantProductNo = merchantProductNo;
-    return this;
-  }
-
-   /**
-   * The unique product reference used by the Merchant (sku).
-   * @return merchantProductNo
-  **/
-  @ApiModelProperty(required = true, value = "The unique product reference used by the Merchant (sku).")
-
-  public String getMerchantProductNo() {
-    return merchantProductNo;
-  }
-
-
-  public void setMerchantProductNo(String merchantProductNo) {
-    this.merchantProductNo = merchantProductNo;
-  }
-
-
-  public MerchantStockPriceUpdateRequest stock(Integer stock) {
+  public MerchantStockLocationUpdateRequest stock(Integer stock) {
     
     this.stock = stock;
     return this;
@@ -93,31 +62,7 @@ public class MerchantStockPriceUpdateRequest {
   }
 
 
-  public MerchantStockPriceUpdateRequest price(BigDecimal price) {
-    
-    this.price = price;
-    return this;
-  }
-
-   /**
-   * The price of the product. Should not be negative.
-   * minimum: 0
-   * @return price
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "The price of the product. Should not be negative.")
-
-  public BigDecimal getPrice() {
-    return price;
-  }
-
-
-  public void setPrice(BigDecimal price) {
-    this.price = price;
-  }
-
-
-  public MerchantStockPriceUpdateRequest stockLocationId(Integer stockLocationId) {
+  public MerchantStockLocationUpdateRequest stockLocationId(Integer stockLocationId) {
     
     this.stockLocationId = stockLocationId;
     return this;
@@ -148,25 +93,21 @@ public class MerchantStockPriceUpdateRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MerchantStockPriceUpdateRequest merchantStockPriceUpdateRequest = (MerchantStockPriceUpdateRequest) o;
-    return Objects.equals(this.merchantProductNo, merchantStockPriceUpdateRequest.merchantProductNo) &&
-        Objects.equals(this.stock, merchantStockPriceUpdateRequest.stock) &&
-        Objects.equals(this.price, merchantStockPriceUpdateRequest.price) &&
-        Objects.equals(this.stockLocationId, merchantStockPriceUpdateRequest.stockLocationId);
+    MerchantStockLocationUpdateRequest merchantStockLocationUpdateRequest = (MerchantStockLocationUpdateRequest) o;
+    return Objects.equals(this.stock, merchantStockLocationUpdateRequest.stock) &&
+        Objects.equals(this.stockLocationId, merchantStockLocationUpdateRequest.stockLocationId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantProductNo, stock, price, stockLocationId);
+    return Objects.hash(stock, stockLocationId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MerchantStockPriceUpdateRequest {\n");
-    sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
+    sb.append("class MerchantStockLocationUpdateRequest {\n");
     sb.append("    stock: ").append(toIndentedString(stock)).append("\n");
-    sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    stockLocationId: ").append(toIndentedString(stockLocationId)).append("\n");
     sb.append("}");
     return sb.toString();

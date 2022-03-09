@@ -15,6 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.channelengine.merchant.apiclient.model.MerchantStockLocationUpdateRequest;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -23,22 +24,24 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * MerchantReturnLineRequest
+ * MerchantOfferStockUpdateRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class MerchantReturnLineRequest {
+public class MerchantOfferStockUpdateRequest {
   public static final String SERIALIZED_NAME_MERCHANT_PRODUCT_NO = "MerchantProductNo";
   @SerializedName(SERIALIZED_NAME_MERCHANT_PRODUCT_NO)
   private String merchantProductNo;
 
-  public static final String SERIALIZED_NAME_QUANTITY = "Quantity";
-  @SerializedName(SERIALIZED_NAME_QUANTITY)
-  private Integer quantity;
+  public static final String SERIALIZED_NAME_STOCK_LOCATIONS = "StockLocations";
+  @SerializedName(SERIALIZED_NAME_STOCK_LOCATIONS)
+  private List<MerchantStockLocationUpdateRequest> stockLocations = new ArrayList<MerchantStockLocationUpdateRequest>();
 
 
-  public MerchantReturnLineRequest merchantProductNo(String merchantProductNo) {
+  public MerchantOfferStockUpdateRequest merchantProductNo(String merchantProductNo) {
     
     this.merchantProductNo = merchantProductNo;
     return this;
@@ -60,26 +63,30 @@ public class MerchantReturnLineRequest {
   }
 
 
-  public MerchantReturnLineRequest quantity(Integer quantity) {
+  public MerchantOfferStockUpdateRequest stockLocations(List<MerchantStockLocationUpdateRequest> stockLocations) {
     
-    this.quantity = quantity;
+    this.stockLocations = stockLocations;
+    return this;
+  }
+
+  public MerchantOfferStockUpdateRequest addStockLocationsItem(MerchantStockLocationUpdateRequest stockLocationsItem) {
+    this.stockLocations.add(stockLocationsItem);
     return this;
   }
 
    /**
-   * Number of items of the product in this return.
-   * minimum: 0
-   * @return quantity
+   * Stock locations data
+   * @return stockLocations
   **/
-  @ApiModelProperty(required = true, value = "Number of items of the product in this return.")
+  @ApiModelProperty(required = true, value = "Stock locations data")
 
-  public Integer getQuantity() {
-    return quantity;
+  public List<MerchantStockLocationUpdateRequest> getStockLocations() {
+    return stockLocations;
   }
 
 
-  public void setQuantity(Integer quantity) {
-    this.quantity = quantity;
+  public void setStockLocations(List<MerchantStockLocationUpdateRequest> stockLocations) {
+    this.stockLocations = stockLocations;
   }
 
 
@@ -91,22 +98,22 @@ public class MerchantReturnLineRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MerchantReturnLineRequest merchantReturnLineRequest = (MerchantReturnLineRequest) o;
-    return Objects.equals(this.merchantProductNo, merchantReturnLineRequest.merchantProductNo) &&
-        Objects.equals(this.quantity, merchantReturnLineRequest.quantity);
+    MerchantOfferStockUpdateRequest merchantOfferStockUpdateRequest = (MerchantOfferStockUpdateRequest) o;
+    return Objects.equals(this.merchantProductNo, merchantOfferStockUpdateRequest.merchantProductNo) &&
+        Objects.equals(this.stockLocations, merchantOfferStockUpdateRequest.stockLocations);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantProductNo, quantity);
+    return Objects.hash(merchantProductNo, stockLocations);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MerchantReturnLineRequest {\n");
+    sb.append("class MerchantOfferStockUpdateRequest {\n");
     sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
-    sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
+    sb.append("    stockLocations: ").append(toIndentedString(stockLocations)).append("\n");
     sb.append("}");
     return sb.toString();
   }
