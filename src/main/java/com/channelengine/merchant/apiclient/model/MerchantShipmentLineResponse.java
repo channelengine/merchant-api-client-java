@@ -25,15 +25,22 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * MerchantReturnLineResponse
+ * MerchantShipmentLineResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class MerchantReturnLineResponse {
+public class MerchantShipmentLineResponse {
   public static final String SERIALIZED_NAME_MERCHANT_PRODUCT_NO = "MerchantProductNo";
   @SerializedName(SERIALIZED_NAME_MERCHANT_PRODUCT_NO)
   private String merchantProductNo;
+
+  public static final String SERIALIZED_NAME_CHANNEL_PRODUCT_NO = "ChannelProductNo";
+  @SerializedName(SERIALIZED_NAME_CHANNEL_PRODUCT_NO)
+  private String channelProductNo;
 
   public static final String SERIALIZED_NAME_ORDER_LINE = "OrderLine";
   @SerializedName(SERIALIZED_NAME_ORDER_LINE)
@@ -43,23 +50,26 @@ public class MerchantReturnLineResponse {
   @SerializedName(SERIALIZED_NAME_SHIPMENT_STATUS)
   private ShipmentLineStatus shipmentStatus;
 
+  public static final String SERIALIZED_NAME_EXTRA_DATA = "ExtraData";
+  @SerializedName(SERIALIZED_NAME_EXTRA_DATA)
+  private Map<String, String> extraData = null;
+
   public static final String SERIALIZED_NAME_QUANTITY = "Quantity";
   @SerializedName(SERIALIZED_NAME_QUANTITY)
   private Integer quantity;
 
 
-  public MerchantReturnLineResponse merchantProductNo(String merchantProductNo) {
+  public MerchantShipmentLineResponse merchantProductNo(String merchantProductNo) {
     
     this.merchantProductNo = merchantProductNo;
     return this;
   }
 
    /**
-   * The unique product reference used by the Merchant (sku).
+   * The unique product reference used by the Merchant.
    * @return merchantProductNo
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "The unique product reference used by the Merchant (sku).")
+  @ApiModelProperty(required = true, value = "The unique product reference used by the Merchant.")
 
   public String getMerchantProductNo() {
     return merchantProductNo;
@@ -71,7 +81,30 @@ public class MerchantReturnLineResponse {
   }
 
 
-  public MerchantReturnLineResponse orderLine(MerchantOrderLineResponse orderLine) {
+  public MerchantShipmentLineResponse channelProductNo(String channelProductNo) {
+    
+    this.channelProductNo = channelProductNo;
+    return this;
+  }
+
+   /**
+   * The unique product reference used by the Channel.
+   * @return channelProductNo
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The unique product reference used by the Channel.")
+
+  public String getChannelProductNo() {
+    return channelProductNo;
+  }
+
+
+  public void setChannelProductNo(String channelProductNo) {
+    this.channelProductNo = channelProductNo;
+  }
+
+
+  public MerchantShipmentLineResponse orderLine(MerchantOrderLineResponse orderLine) {
     
     this.orderLine = orderLine;
     return this;
@@ -94,7 +127,7 @@ public class MerchantReturnLineResponse {
   }
 
 
-  public MerchantReturnLineResponse shipmentStatus(ShipmentLineStatus shipmentStatus) {
+  public MerchantShipmentLineResponse shipmentStatus(ShipmentLineStatus shipmentStatus) {
     
     this.shipmentStatus = shipmentStatus;
     return this;
@@ -117,18 +150,49 @@ public class MerchantReturnLineResponse {
   }
 
 
-  public MerchantReturnLineResponse quantity(Integer quantity) {
+  public MerchantShipmentLineResponse extraData(Map<String, String> extraData) {
+    
+    this.extraData = extraData;
+    return this;
+  }
+
+  public MerchantShipmentLineResponse putExtraDataItem(String key, String extraDataItem) {
+    if (this.extraData == null) {
+      this.extraData = new HashMap<String, String>();
+    }
+    this.extraData.put(key, extraDataItem);
+    return this;
+  }
+
+   /**
+   * Extra data on the shipment line. Each item must have an unqiue key
+   * @return extraData
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Extra data on the shipment line. Each item must have an unqiue key")
+
+  public Map<String, String> getExtraData() {
+    return extraData;
+  }
+
+
+  public void setExtraData(Map<String, String> extraData) {
+    this.extraData = extraData;
+  }
+
+
+  public MerchantShipmentLineResponse quantity(Integer quantity) {
     
     this.quantity = quantity;
     return this;
   }
 
    /**
-   * Number of items of the product in this return.
+   * Number of items of the product in the shipment.
    * minimum: 0
    * @return quantity
   **/
-  @ApiModelProperty(required = true, value = "Number of items of the product in this return.")
+  @ApiModelProperty(required = true, value = "Number of items of the product in the shipment.")
 
   public Integer getQuantity() {
     return quantity;
@@ -148,25 +212,29 @@ public class MerchantReturnLineResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MerchantReturnLineResponse merchantReturnLineResponse = (MerchantReturnLineResponse) o;
-    return Objects.equals(this.merchantProductNo, merchantReturnLineResponse.merchantProductNo) &&
-        Objects.equals(this.orderLine, merchantReturnLineResponse.orderLine) &&
-        Objects.equals(this.shipmentStatus, merchantReturnLineResponse.shipmentStatus) &&
-        Objects.equals(this.quantity, merchantReturnLineResponse.quantity);
+    MerchantShipmentLineResponse merchantShipmentLineResponse = (MerchantShipmentLineResponse) o;
+    return Objects.equals(this.merchantProductNo, merchantShipmentLineResponse.merchantProductNo) &&
+        Objects.equals(this.channelProductNo, merchantShipmentLineResponse.channelProductNo) &&
+        Objects.equals(this.orderLine, merchantShipmentLineResponse.orderLine) &&
+        Objects.equals(this.shipmentStatus, merchantShipmentLineResponse.shipmentStatus) &&
+        Objects.equals(this.extraData, merchantShipmentLineResponse.extraData) &&
+        Objects.equals(this.quantity, merchantShipmentLineResponse.quantity);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantProductNo, orderLine, shipmentStatus, quantity);
+    return Objects.hash(merchantProductNo, channelProductNo, orderLine, shipmentStatus, extraData, quantity);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MerchantReturnLineResponse {\n");
+    sb.append("class MerchantShipmentLineResponse {\n");
     sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
+    sb.append("    channelProductNo: ").append(toIndentedString(channelProductNo)).append("\n");
     sb.append("    orderLine: ").append(toIndentedString(orderLine)).append("\n");
     sb.append("    shipmentStatus: ").append(toIndentedString(shipmentStatus)).append("\n");
+    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
     sb.append("}");
     return sb.toString();

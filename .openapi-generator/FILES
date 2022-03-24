@@ -59,6 +59,7 @@ src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantPro
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantProductWithBuyBoxPrice.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantReturnResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantShipmentLabelCarrierResponse.java
+src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantShipmentResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantSingleOrderReturnResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantStockLocationResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantWebhookResponse.java
@@ -100,9 +101,11 @@ src/main/java/com/channelengine/merchant/apiclient/model/MerchantSettingsRespons
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentLabelCarrierRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentLabelCarrierResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentLineRequest.java
+src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentLineResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentPackageDimensionsRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentPackageWeightRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentRequest.java
+src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentTrackingRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantSingleOrderReturnLineResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantSingleOrderReturnResponse.java

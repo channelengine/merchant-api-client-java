@@ -15,7 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.merchant.apiclient.model.MerchantProductResponse;
+import com.channelengine.merchant.apiclient.model.MerchantShipmentResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -24,18 +24,31 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * SingleOfMerchantProductResponse
+ * CollectionOfMerchantShipmentResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class SingleOfMerchantProductResponse {
+public class CollectionOfMerchantShipmentResponse {
   public static final String SERIALIZED_NAME_CONTENT = "Content";
   @SerializedName(SERIALIZED_NAME_CONTENT)
-  private MerchantProductResponse content;
+  private List<MerchantShipmentResponse> content = null;
+
+  public static final String SERIALIZED_NAME_COUNT = "Count";
+  @SerializedName(SERIALIZED_NAME_COUNT)
+  private Integer count;
+
+  public static final String SERIALIZED_NAME_TOTAL_COUNT = "TotalCount";
+  @SerializedName(SERIALIZED_NAME_TOTAL_COUNT)
+  private Integer totalCount;
+
+  public static final String SERIALIZED_NAME_ITEMS_PER_PAGE = "ItemsPerPage";
+  @SerializedName(SERIALIZED_NAME_ITEMS_PER_PAGE)
+  private Integer itemsPerPage;
 
   public static final String SERIALIZED_NAME_STATUS_CODE = "StatusCode";
   @SerializedName(SERIALIZED_NAME_STATUS_CODE)
@@ -58,9 +71,17 @@ public class SingleOfMerchantProductResponse {
   private Map<String, List<String>> validationErrors = null;
 
 
-  public SingleOfMerchantProductResponse content(MerchantProductResponse content) {
+  public CollectionOfMerchantShipmentResponse content(List<MerchantShipmentResponse> content) {
     
     this.content = content;
+    return this;
+  }
+
+  public CollectionOfMerchantShipmentResponse addContentItem(MerchantShipmentResponse contentItem) {
+    if (this.content == null) {
+      this.content = new ArrayList<MerchantShipmentResponse>();
+    }
+    this.content.add(contentItem);
     return this;
   }
 
@@ -71,17 +92,86 @@ public class SingleOfMerchantProductResponse {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public MerchantProductResponse getContent() {
+  public List<MerchantShipmentResponse> getContent() {
     return content;
   }
 
 
-  public void setContent(MerchantProductResponse content) {
+  public void setContent(List<MerchantShipmentResponse> content) {
     this.content = content;
   }
 
 
-  public SingleOfMerchantProductResponse statusCode(Integer statusCode) {
+  public CollectionOfMerchantShipmentResponse count(Integer count) {
+    
+    this.count = count;
+    return this;
+  }
+
+   /**
+   * Get count
+   * @return count
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getCount() {
+    return count;
+  }
+
+
+  public void setCount(Integer count) {
+    this.count = count;
+  }
+
+
+  public CollectionOfMerchantShipmentResponse totalCount(Integer totalCount) {
+    
+    this.totalCount = totalCount;
+    return this;
+  }
+
+   /**
+   * Get totalCount
+   * @return totalCount
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getTotalCount() {
+    return totalCount;
+  }
+
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
+
+
+  public CollectionOfMerchantShipmentResponse itemsPerPage(Integer itemsPerPage) {
+    
+    this.itemsPerPage = itemsPerPage;
+    return this;
+  }
+
+   /**
+   * Get itemsPerPage
+   * @return itemsPerPage
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getItemsPerPage() {
+    return itemsPerPage;
+  }
+
+
+  public void setItemsPerPage(Integer itemsPerPage) {
+    this.itemsPerPage = itemsPerPage;
+  }
+
+
+  public CollectionOfMerchantShipmentResponse statusCode(Integer statusCode) {
     
     this.statusCode = statusCode;
     return this;
@@ -104,7 +194,7 @@ public class SingleOfMerchantProductResponse {
   }
 
 
-  public SingleOfMerchantProductResponse logId(Integer logId) {
+  public CollectionOfMerchantShipmentResponse logId(Integer logId) {
     
     this.logId = logId;
     return this;
@@ -127,7 +217,7 @@ public class SingleOfMerchantProductResponse {
   }
 
 
-  public SingleOfMerchantProductResponse success(Boolean success) {
+  public CollectionOfMerchantShipmentResponse success(Boolean success) {
     
     this.success = success;
     return this;
@@ -150,7 +240,7 @@ public class SingleOfMerchantProductResponse {
   }
 
 
-  public SingleOfMerchantProductResponse message(String message) {
+  public CollectionOfMerchantShipmentResponse message(String message) {
     
     this.message = message;
     return this;
@@ -173,13 +263,13 @@ public class SingleOfMerchantProductResponse {
   }
 
 
-  public SingleOfMerchantProductResponse validationErrors(Map<String, List<String>> validationErrors) {
+  public CollectionOfMerchantShipmentResponse validationErrors(Map<String, List<String>> validationErrors) {
     
     this.validationErrors = validationErrors;
     return this;
   }
 
-  public SingleOfMerchantProductResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
+  public CollectionOfMerchantShipmentResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new HashMap<String, List<String>>();
     }
@@ -212,25 +302,31 @@ public class SingleOfMerchantProductResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SingleOfMerchantProductResponse singleOfMerchantProductResponse = (SingleOfMerchantProductResponse) o;
-    return Objects.equals(this.content, singleOfMerchantProductResponse.content) &&
-        Objects.equals(this.statusCode, singleOfMerchantProductResponse.statusCode) &&
-        Objects.equals(this.logId, singleOfMerchantProductResponse.logId) &&
-        Objects.equals(this.success, singleOfMerchantProductResponse.success) &&
-        Objects.equals(this.message, singleOfMerchantProductResponse.message) &&
-        Objects.equals(this.validationErrors, singleOfMerchantProductResponse.validationErrors);
+    CollectionOfMerchantShipmentResponse collectionOfMerchantShipmentResponse = (CollectionOfMerchantShipmentResponse) o;
+    return Objects.equals(this.content, collectionOfMerchantShipmentResponse.content) &&
+        Objects.equals(this.count, collectionOfMerchantShipmentResponse.count) &&
+        Objects.equals(this.totalCount, collectionOfMerchantShipmentResponse.totalCount) &&
+        Objects.equals(this.itemsPerPage, collectionOfMerchantShipmentResponse.itemsPerPage) &&
+        Objects.equals(this.statusCode, collectionOfMerchantShipmentResponse.statusCode) &&
+        Objects.equals(this.logId, collectionOfMerchantShipmentResponse.logId) &&
+        Objects.equals(this.success, collectionOfMerchantShipmentResponse.success) &&
+        Objects.equals(this.message, collectionOfMerchantShipmentResponse.message) &&
+        Objects.equals(this.validationErrors, collectionOfMerchantShipmentResponse.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(content, statusCode, logId, success, message, validationErrors);
+    return Objects.hash(content, count, totalCount, itemsPerPage, statusCode, logId, success, message, validationErrors);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SingleOfMerchantProductResponse {\n");
+    sb.append("class CollectionOfMerchantShipmentResponse {\n");
     sb.append("    content: ").append(toIndentedString(content)).append("\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
+    sb.append("    itemsPerPage: ").append(toIndentedString(itemsPerPage)).append("\n");
     sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");
     sb.append("    logId: ").append(toIndentedString(logId)).append("\n");
     sb.append("    success: ").append(toIndentedString(success)).append("\n");

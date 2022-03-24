@@ -15,7 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.merchant.apiclient.model.MerchantShipmentLineRequest;
+import com.channelengine.merchant.apiclient.model.MerchantShipmentLineResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -31,10 +31,10 @@ import java.util.Map;
 import org.threeten.bp.OffsetDateTime;
 
 /**
- * MerchantShipmentRequest
+ * MerchantShipmentResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class MerchantShipmentRequest {
+public class MerchantShipmentResponse {
   public static final String SERIALIZED_NAME_MERCHANT_SHIPMENT_NO = "MerchantShipmentNo";
   @SerializedName(SERIALIZED_NAME_MERCHANT_SHIPMENT_NO)
   private String merchantShipmentNo;
@@ -45,7 +45,15 @@ public class MerchantShipmentRequest {
 
   public static final String SERIALIZED_NAME_LINES = "Lines";
   @SerializedName(SERIALIZED_NAME_LINES)
-  private List<MerchantShipmentLineRequest> lines = new ArrayList<MerchantShipmentLineRequest>();
+  private List<MerchantShipmentLineResponse> lines = null;
+
+  public static final String SERIALIZED_NAME_CREATED_AT = "CreatedAt";
+  @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  private OffsetDateTime createdAt;
+
+  public static final String SERIALIZED_NAME_UPDATED_AT = "UpdatedAt";
+  @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+  private OffsetDateTime updatedAt;
 
   public static final String SERIALIZED_NAME_EXTRA_DATA = "ExtraData";
   @SerializedName(SERIALIZED_NAME_EXTRA_DATA)
@@ -76,7 +84,7 @@ public class MerchantShipmentRequest {
   private OffsetDateTime shipmentDate;
 
 
-  public MerchantShipmentRequest merchantShipmentNo(String merchantShipmentNo) {
+  public MerchantShipmentResponse merchantShipmentNo(String merchantShipmentNo) {
     
     this.merchantShipmentNo = merchantShipmentNo;
     return this;
@@ -98,7 +106,7 @@ public class MerchantShipmentRequest {
   }
 
 
-  public MerchantShipmentRequest merchantOrderNo(String merchantOrderNo) {
+  public MerchantShipmentResponse merchantOrderNo(String merchantOrderNo) {
     
     this.merchantOrderNo = merchantOrderNo;
     return this;
@@ -108,7 +116,8 @@ public class MerchantShipmentRequest {
    * The unique order reference used by the Merchant.
    * @return merchantOrderNo
   **/
-  @ApiModelProperty(required = true, value = "The unique order reference used by the Merchant.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The unique order reference used by the Merchant.")
 
   public String getMerchantOrderNo() {
     return merchantOrderNo;
@@ -120,13 +129,16 @@ public class MerchantShipmentRequest {
   }
 
 
-  public MerchantShipmentRequest lines(List<MerchantShipmentLineRequest> lines) {
+  public MerchantShipmentResponse lines(List<MerchantShipmentLineResponse> lines) {
     
     this.lines = lines;
     return this;
   }
 
-  public MerchantShipmentRequest addLinesItem(MerchantShipmentLineRequest linesItem) {
+  public MerchantShipmentResponse addLinesItem(MerchantShipmentLineResponse linesItem) {
+    if (this.lines == null) {
+      this.lines = new ArrayList<MerchantShipmentLineResponse>();
+    }
     this.lines.add(linesItem);
     return this;
   }
@@ -135,25 +147,72 @@ public class MerchantShipmentRequest {
    * Get lines
    * @return lines
   **/
-  @ApiModelProperty(required = true, value = "")
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-  public List<MerchantShipmentLineRequest> getLines() {
+  public List<MerchantShipmentLineResponse> getLines() {
     return lines;
   }
 
 
-  public void setLines(List<MerchantShipmentLineRequest> lines) {
+  public void setLines(List<MerchantShipmentLineResponse> lines) {
     this.lines = lines;
   }
 
 
-  public MerchantShipmentRequest extraData(Map<String, String> extraData) {
+  public MerchantShipmentResponse createdAt(OffsetDateTime createdAt) {
+    
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * The date at which the shipment was created in ChannelEngine.
+   * @return createdAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The date at which the shipment was created in ChannelEngine.")
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+
+  public MerchantShipmentResponse updatedAt(OffsetDateTime updatedAt) {
+    
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * The date at which the shipment was last modified in ChannelEngine.
+   * @return updatedAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The date at which the shipment was last modified in ChannelEngine.")
+
+  public OffsetDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+
+  public void setUpdatedAt(OffsetDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+
+  public MerchantShipmentResponse extraData(Map<String, String> extraData) {
     
     this.extraData = extraData;
     return this;
   }
 
-  public MerchantShipmentRequest putExtraDataItem(String key, String extraDataItem) {
+  public MerchantShipmentResponse putExtraDataItem(String key, String extraDataItem) {
     if (this.extraData == null) {
       this.extraData = new HashMap<String, String>();
     }
@@ -178,7 +237,7 @@ public class MerchantShipmentRequest {
   }
 
 
-  public MerchantShipmentRequest trackTraceNo(String trackTraceNo) {
+  public MerchantShipmentResponse trackTraceNo(String trackTraceNo) {
     
     this.trackTraceNo = trackTraceNo;
     return this;
@@ -201,7 +260,7 @@ public class MerchantShipmentRequest {
   }
 
 
-  public MerchantShipmentRequest trackTraceUrl(String trackTraceUrl) {
+  public MerchantShipmentResponse trackTraceUrl(String trackTraceUrl) {
     
     this.trackTraceUrl = trackTraceUrl;
     return this;
@@ -224,7 +283,7 @@ public class MerchantShipmentRequest {
   }
 
 
-  public MerchantShipmentRequest returnTrackTraceNo(String returnTrackTraceNo) {
+  public MerchantShipmentResponse returnTrackTraceNo(String returnTrackTraceNo) {
     
     this.returnTrackTraceNo = returnTrackTraceNo;
     return this;
@@ -247,7 +306,7 @@ public class MerchantShipmentRequest {
   }
 
 
-  public MerchantShipmentRequest method(String method) {
+  public MerchantShipmentResponse method(String method) {
     
     this.method = method;
     return this;
@@ -270,7 +329,7 @@ public class MerchantShipmentRequest {
   }
 
 
-  public MerchantShipmentRequest shippedFromCountryCode(String shippedFromCountryCode) {
+  public MerchantShipmentResponse shippedFromCountryCode(String shippedFromCountryCode) {
     
     this.shippedFromCountryCode = shippedFromCountryCode;
     return this;
@@ -293,7 +352,7 @@ public class MerchantShipmentRequest {
   }
 
 
-  public MerchantShipmentRequest shipmentDate(OffsetDateTime shipmentDate) {
+  public MerchantShipmentResponse shipmentDate(OffsetDateTime shipmentDate) {
     
     this.shipmentDate = shipmentDate;
     return this;
@@ -324,31 +383,35 @@ public class MerchantShipmentRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MerchantShipmentRequest merchantShipmentRequest = (MerchantShipmentRequest) o;
-    return Objects.equals(this.merchantShipmentNo, merchantShipmentRequest.merchantShipmentNo) &&
-        Objects.equals(this.merchantOrderNo, merchantShipmentRequest.merchantOrderNo) &&
-        Objects.equals(this.lines, merchantShipmentRequest.lines) &&
-        Objects.equals(this.extraData, merchantShipmentRequest.extraData) &&
-        Objects.equals(this.trackTraceNo, merchantShipmentRequest.trackTraceNo) &&
-        Objects.equals(this.trackTraceUrl, merchantShipmentRequest.trackTraceUrl) &&
-        Objects.equals(this.returnTrackTraceNo, merchantShipmentRequest.returnTrackTraceNo) &&
-        Objects.equals(this.method, merchantShipmentRequest.method) &&
-        Objects.equals(this.shippedFromCountryCode, merchantShipmentRequest.shippedFromCountryCode) &&
-        Objects.equals(this.shipmentDate, merchantShipmentRequest.shipmentDate);
+    MerchantShipmentResponse merchantShipmentResponse = (MerchantShipmentResponse) o;
+    return Objects.equals(this.merchantShipmentNo, merchantShipmentResponse.merchantShipmentNo) &&
+        Objects.equals(this.merchantOrderNo, merchantShipmentResponse.merchantOrderNo) &&
+        Objects.equals(this.lines, merchantShipmentResponse.lines) &&
+        Objects.equals(this.createdAt, merchantShipmentResponse.createdAt) &&
+        Objects.equals(this.updatedAt, merchantShipmentResponse.updatedAt) &&
+        Objects.equals(this.extraData, merchantShipmentResponse.extraData) &&
+        Objects.equals(this.trackTraceNo, merchantShipmentResponse.trackTraceNo) &&
+        Objects.equals(this.trackTraceUrl, merchantShipmentResponse.trackTraceUrl) &&
+        Objects.equals(this.returnTrackTraceNo, merchantShipmentResponse.returnTrackTraceNo) &&
+        Objects.equals(this.method, merchantShipmentResponse.method) &&
+        Objects.equals(this.shippedFromCountryCode, merchantShipmentResponse.shippedFromCountryCode) &&
+        Objects.equals(this.shipmentDate, merchantShipmentResponse.shipmentDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantShipmentNo, merchantOrderNo, lines, extraData, trackTraceNo, trackTraceUrl, returnTrackTraceNo, method, shippedFromCountryCode, shipmentDate);
+    return Objects.hash(merchantShipmentNo, merchantOrderNo, lines, createdAt, updatedAt, extraData, trackTraceNo, trackTraceUrl, returnTrackTraceNo, method, shippedFromCountryCode, shipmentDate);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MerchantShipmentRequest {\n");
+    sb.append("class MerchantShipmentResponse {\n");
     sb.append("    merchantShipmentNo: ").append(toIndentedString(merchantShipmentNo)).append("\n");
     sb.append("    merchantOrderNo: ").append(toIndentedString(merchantOrderNo)).append("\n");
     sb.append("    lines: ").append(toIndentedString(lines)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("    trackTraceNo: ").append(toIndentedString(trackTraceNo)).append("\n");
     sb.append("    trackTraceUrl: ").append(toIndentedString(trackTraceUrl)).append("\n");
