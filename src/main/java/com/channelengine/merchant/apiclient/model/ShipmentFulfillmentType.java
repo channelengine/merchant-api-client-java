@@ -15,6 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.IOException;
@@ -24,18 +25,20 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets PackageDimensionsUnit
+ * Shipment is fully fulfilled by channel or merchant  so no make sense to use FulfillmentType for orders  It is created to keep it consistent with others
  */
-@JsonAdapter(PackageDimensionsUnit.Adapter.class)
-public enum PackageDimensionsUnit {
+@JsonAdapter(ShipmentFulfillmentType.Adapter.class)
+public enum ShipmentFulfillmentType {
   
-  CM("CM"),
+  ALL("ALL"),
   
-  INCH("INCH");
+  ONLY_MERCHANT("ONLY_MERCHANT"),
+  
+  ONLY_CHANNEL("ONLY_CHANNEL");
 
   private String value;
 
-  PackageDimensionsUnit(String value) {
+  ShipmentFulfillmentType(String value) {
     this.value = value;
   }
 
@@ -48,8 +51,8 @@ public enum PackageDimensionsUnit {
     return String.valueOf(value);
   }
 
-  public static PackageDimensionsUnit fromValue(String value) {
-    for (PackageDimensionsUnit b : PackageDimensionsUnit.values()) {
+  public static ShipmentFulfillmentType fromValue(String value) {
+    for (ShipmentFulfillmentType b : ShipmentFulfillmentType.values()) {
       if (b.value.equals(value)) {
         return b;
       }
@@ -57,16 +60,16 @@ public enum PackageDimensionsUnit {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 
-  public static class Adapter extends TypeAdapter<PackageDimensionsUnit> {
+  public static class Adapter extends TypeAdapter<ShipmentFulfillmentType> {
     @Override
-    public void write(final JsonWriter jsonWriter, final PackageDimensionsUnit enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final ShipmentFulfillmentType enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public PackageDimensionsUnit read(final JsonReader jsonReader) throws IOException {
+    public ShipmentFulfillmentType read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return PackageDimensionsUnit.fromValue(value);
+      return ShipmentFulfillmentType.fromValue(value);
     }
   }
 }

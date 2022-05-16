@@ -127,6 +127,7 @@ src/main/java/com/channelengine/merchant/apiclient/model/ProductMessage.java
 src/main/java/com/channelengine/merchant/apiclient/model/ReturnReason.java
 src/main/java/com/channelengine/merchant/apiclient/model/ReturnStatus.java
 src/main/java/com/channelengine/merchant/apiclient/model/SettingsResponse.java
+src/main/java/com/channelengine/merchant/apiclient/model/ShipmentFulfillmentType.java
 src/main/java/com/channelengine/merchant/apiclient/model/ShipmentLineStatus.java
 src/main/java/com/channelengine/merchant/apiclient/model/ShipmentSettingsResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/SingleOfDictionaryOfStringAndListOfString.java

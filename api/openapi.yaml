@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for merchants
   title: ChannelEngine Merchant API
-  version: 2.10.0
+  version: 2.11.0
 servers:
 - url: http://dev.channelengine.local/api
 security:
@@ -908,7 +908,13 @@ paths:
         content:
           application/json-patch+json:
             schema:
-              $ref: '#/components/schemas/JsonPatchDocument'
+              $ref: '#/components/schemas/PatchMerchantProductDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchMerchantProductDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PatchMerchantProductDto'
         description: '1) PropertiesToUpdate: Fields to update<br />2) MerchantProductRequestModels:
           Products to be updated'
       responses:
@@ -1051,9 +1057,18 @@ paths:
         /> <br />It''s not possible to nest parent and children more than one level
         (A parent can have many children,<br />but any child cannot itself also have
         children).<br /> <br />The supplied MerchantProductNo needs to be unique.<br
-        /><br /><br />Sample request:<br /> <br /> PATCH /v2/products/{merchantProductNo}<br
+        /><br /> <br />ExtraData used as translations is ignored and cannot be changed.<br
+        /><br />Sample request:<br /> <br /> PATCH /v2/products/{merchantProductNo}<br
         /> {<br /> "value": "Value",<br /> "path": "Name",<br /> "op": "replace"<br
-        /> }'
+        /> }<br /> <br />Adding ExtraData:<br /><br /> PATCH /v2/products/{merchantProductNo}<br
+        /> {<br /> "value": {"key": "Key1", "value": "value1"},<br /> "path": "extraData/0",<br
+        /> "op": "add"<br /> }<br /> <br />Replacing ExtraData (will replace entire
+        ExtraData collection):<br /><br /> PATCH /v2/products/{merchantProductNo}<br
+        /> {<br /> "value": [{"key": "Key1", "value": "value1"}],<br /> "path": "extraData",<br
+        /> "op": "replace"<br /> }<br /> <br />Removing all ExtraData:<br /><br />
+        PATCH /v2/products/{merchantProductNo}<br /> {<br /> "path": "extraData",<br
+        /> "op": "replace"<br /> }<br /> <br /> Or:<br /> <br /> PATCH /v2/products/{merchantProductNo}<br
+        /> {<br /> "path": "extraData",<br /> "op": "remove"<br /> }'
       operationId: ProductPatch
       parameters:
       - description: The MerchantProductNo of the product you wish to patch
@@ -1655,7 +1670,7 @@ paths:
           is inclusive.
         explode: true
         in: query
-        name: fromDate
+        name: fromShipmentDate
         required: false
         schema:
           description: Filter on the shipment date, starting from this date. This
@@ -1666,13 +1681,93 @@ paths:
       - description: Filter on the shipment date, until this date. This date is exclusive.
         explode: true
         in: query
-        name: toDate
+        name: toShipmentDate
         required: false
         schema:
           description: Filter on the shipment date, until this date. This date is
             exclusive.
           format: date-time
           type: string
+        style: form
+      - description: Filter on the create date of the shipment in ChannelEngine, starting
+          from this date. This date is inclusive.
+        explode: true
+        in: query
+        name: fromCreateDate
+        required: false
+        schema:
+          description: Filter on the create date of the shipment in ChannelEngine,
+            starting from this date. This date is inclusive.
+          format: date-time
+          type: string
+        style: form
+      - description: Filter on the create date of the shipment in ChannelEngine, until
+          this date. This date is exclusive.
+        explode: true
+        in: query
+        name: toCreateDate
+        required: false
+        schema:
+          description: Filter on the create date of the shipment in ChannelEngine,
+            until this date. This date is exclusive.
+          format: date-time
+          type: string
+        style: form
+      - description: Filter on the update date of the shipment in ChannelEngine, starting
+          from this date. This date is inclusive.
+        explode: true
+        in: query
+        name: fromUpdateDate
+        required: false
+        schema:
+          description: Filter on the update date of the shipment in ChannelEngine,
+            starting from this date. This date is inclusive.
+          format: date-time
+          type: string
+        style: form
+      - description: Filter on the update date of the shipment in ChannelEngine, until
+          this date. This date is exclusive.
+        explode: true
+        in: query
+        name: toUpdateDate
+        required: false
+        schema:
+          description: Filter on the update date of the shipment in ChannelEngine,
+            until this date. This date is exclusive.
+          format: date-time
+          type: string
+        style: form
+      - description: Filter on the fulfillment type of the shipment.
+        explode: true
+        in: query
+        name: fulfillmentType
+        required: false
+        schema:
+          $ref: '#/components/schemas/ShipmentFulfillmentType'
+        style: form
+      - description: Filter on the unique references (ids) as used by the channel.
+        explode: true
+        in: query
+        name: channelShipmentNos
+        required: false
+        schema:
+          description: Filter on the unique references (ids) as used by the channel.
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter on the unique references (ids) of order as used by the
+          channel.
+        explode: true
+        in: query
+        name: channelOrderNos
+        required: false
+        schema:
+          description: Filter on the unique references (ids) of order as used by the
+            channel.
+          items:
+            type: string
+          type: array
         style: form
       - description: The page to filter on. Starts at 1.
         explode: true
@@ -1856,7 +1951,7 @@ paths:
               $ref: '#/components/schemas/MerchantChannelLabelShipmentRequest'
         description: The shipment to create
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
@@ -2100,22 +2195,25 @@ components:
     ApiResponse:
       additionalProperties: false
       example:
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
           - ValidationErrors
           - ValidationErrors
         StatusCode: 0
-        LogId: 6
+        LogId: LogId
         Success: true
       properties:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -2234,6 +2332,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 5
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -2265,7 +2364,7 @@ components:
         ItemsPerPage: 5
         Count: 1
         StatusCode: 2
-        LogId: 7
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -2285,10 +2384,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -2306,6 +2407,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 5
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -2323,7 +2425,7 @@ components:
         ItemsPerPage: 5
         Count: 1
         StatusCode: 2
-        LogId: 7
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -2343,10 +2445,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -2364,6 +2468,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 5
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -2385,7 +2490,7 @@ components:
         ItemsPerPage: 5
         Count: 1
         StatusCode: 2
-        LogId: 7
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -2405,10 +2510,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -2426,6 +2533,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 5
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -2443,7 +2551,7 @@ components:
         ItemsPerPage: 5
         Count: 1
         StatusCode: 2
-        LogId: 7
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -2463,10 +2571,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -2484,6 +2594,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 6
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -2747,7 +2858,7 @@ components:
         ItemsPerPage: 5
         Count: 6
         StatusCode: 6
-        LogId: 3
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -2767,10 +2878,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -2788,6 +2901,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 5
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -2827,7 +2941,7 @@ components:
         ItemsPerPage: 2
         Count: 5
         StatusCode: 7
-        LogId: 9
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -2847,10 +2961,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -2868,6 +2984,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 7
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -2945,7 +3062,7 @@ components:
         ItemsPerPage: 9
         Count: 2
         StatusCode: 3
-        LogId: 2
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -2965,10 +3082,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -2986,6 +3105,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 5
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -3005,7 +3125,7 @@ components:
         ItemsPerPage: 5
         Count: 1
         StatusCode: 2
-        LogId: 7
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -3025,10 +3145,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -3046,6 +3168,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 9
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -3223,7 +3346,7 @@ components:
         ItemsPerPage: 3
         Count: 7
         StatusCode: 2
-        LogId: 4
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -3243,10 +3366,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -3264,6 +3389,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 1
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -3283,7 +3409,7 @@ components:
         ItemsPerPage: 5
         Count: 6
         StatusCode: 5
-        LogId: 2
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -3303,10 +3429,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -3324,24 +3452,27 @@ components:
       additionalProperties: false
       example:
         TotalCount: 1
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
           - ValidationErrors
           - ValidationErrors
         Content:
-        - TrackTraceUrl: TrackTraceUrl
-          ShippedFromCountryCode: ShippedFromCountryCode
-          ShipmentDate: 2000-01-23T04:56:07.000+00:00
+        - ChannelOrderNo: ChannelOrderNo
+          TrackTraceUrl: TrackTraceUrl
+          ChannelShipmentNo: ChannelShipmentNo
           CreatedAt: 2000-01-23T04:56:07.000+00:00
-          TrackTraceNo: TrackTraceNo
-          ReturnTrackTraceNo: ReturnTrackTraceNo
-          MerchantOrderNo: MerchantOrderNo
           ExtraData:
             key: ExtraData
           Method: Method
-          MerchantShipmentNo: MerchantShipmentNo
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          ShippedFromCountryCode: ShippedFromCountryCode
+          ShipmentDate: 2000-01-23T04:56:07.000+00:00
+          TrackTraceNo: TrackTraceNo
+          ReturnTrackTraceNo: ReturnTrackTraceNo
+          MerchantOrderNo: MerchantOrderNo
+          MerchantShipmentNo: MerchantShipmentNo
           Lines:
           - OrderLine:
               UnitVat: 6.84685269835264
@@ -3417,18 +3548,20 @@ components:
               key: ExtraData
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
-        - TrackTraceUrl: TrackTraceUrl
-          ShippedFromCountryCode: ShippedFromCountryCode
-          ShipmentDate: 2000-01-23T04:56:07.000+00:00
+        - ChannelOrderNo: ChannelOrderNo
+          TrackTraceUrl: TrackTraceUrl
+          ChannelShipmentNo: ChannelShipmentNo
           CreatedAt: 2000-01-23T04:56:07.000+00:00
-          TrackTraceNo: TrackTraceNo
-          ReturnTrackTraceNo: ReturnTrackTraceNo
-          MerchantOrderNo: MerchantOrderNo
           ExtraData:
             key: ExtraData
           Method: Method
-          MerchantShipmentNo: MerchantShipmentNo
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          ShippedFromCountryCode: ShippedFromCountryCode
+          ShipmentDate: 2000-01-23T04:56:07.000+00:00
+          TrackTraceNo: TrackTraceNo
+          ReturnTrackTraceNo: ReturnTrackTraceNo
+          MerchantOrderNo: MerchantOrderNo
+          MerchantShipmentNo: MerchantShipmentNo
           Lines:
           - OrderLine:
               UnitVat: 6.84685269835264
@@ -3507,7 +3640,7 @@ components:
         ItemsPerPage: 5
         Count: 6
         StatusCode: 5
-        LogId: 2
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -3527,10 +3660,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -3548,6 +3683,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 2
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -3731,7 +3867,7 @@ components:
         ItemsPerPage: 4
         Count: 3
         StatusCode: 7
-        LogId: 1
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -3751,10 +3887,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -3772,6 +3910,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 6
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -3785,7 +3924,7 @@ components:
         ItemsPerPage: 1
         Count: 0
         StatusCode: 5
-        LogId: 5
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -3805,10 +3944,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -3826,6 +3967,7 @@ components:
       additionalProperties: false
       example:
         TotalCount: 6
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -3847,7 +3989,7 @@ components:
         ItemsPerPage: 1
         Count: 0
         StatusCode: 5
-        LogId: 5
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -3867,10 +4009,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -5731,6 +5875,8 @@ components:
             in case of a merchant return.
           nullable: true
           type: string
+        Status:
+          $ref: '#/components/schemas/ReturnStatus'
         Id:
           description: The unique return reference used by ChannelEngine.
           format: int32
@@ -6140,18 +6286,20 @@ components:
     MerchantShipmentResponse:
       additionalProperties: false
       example:
+        ChannelOrderNo: ChannelOrderNo
         TrackTraceUrl: TrackTraceUrl
-        ShippedFromCountryCode: ShippedFromCountryCode
-        ShipmentDate: 2000-01-23T04:56:07.000+00:00
+        ChannelShipmentNo: ChannelShipmentNo
         CreatedAt: 2000-01-23T04:56:07.000+00:00
-        TrackTraceNo: TrackTraceNo
-        ReturnTrackTraceNo: ReturnTrackTraceNo
-        MerchantOrderNo: MerchantOrderNo
         ExtraData:
           key: ExtraData
         Method: Method
-        MerchantShipmentNo: MerchantShipmentNo
         UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        ShippedFromCountryCode: ShippedFromCountryCode
+        ShipmentDate: 2000-01-23T04:56:07.000+00:00
+        TrackTraceNo: TrackTraceNo
+        ReturnTrackTraceNo: ReturnTrackTraceNo
+        MerchantOrderNo: MerchantOrderNo
+        MerchantShipmentNo: MerchantShipmentNo
         Lines:
         - OrderLine:
             UnitVat: 6.84685269835264
@@ -6233,6 +6381,14 @@ components:
           type: string
         MerchantOrderNo:
           description: The unique order reference used by the Merchant.
+          nullable: true
+          type: string
+        ChannelShipmentNo:
+          description: The unique shipment reference used by the Channel.
+          nullable: true
+          type: string
+        ChannelOrderNo:
+          description: The unique order reference used by the Channel.
           nullable: true
           type: string
         Lines:
@@ -6747,11 +6903,13 @@ components:
       - FEED_INVALID_PRODUCTS_OCCURED
       - CHANNEL_SHIPMENT_EXPORT_INVALID_MERCHANTSHIPMENTNO
       - CHANNEL_PRODUCT_OFFER_EXPORT_FAILED
-      - TRANLATIONS_IMAGE_TAGS_BROKEN
+      - TRANSLATION_IMAGE_TAGS_BROKEN
       - CHANNEL_RETURN_DELETED
       - TAX_PROVIDER_NOT_ACTIVATED
       - STOCK_LOCATION_NOT_FOUND
       - CUSTOM_VAT_RATE_OVERLAPPING_RATES
+      - TRANSLATION_FAILED
+      - ORDER_CANNOT_BE_FULFILLED
       type: string
     Operation:
       example:
@@ -6800,13 +6958,90 @@ components:
       type: string
     PatchMerchantProductDto:
       additionalProperties: false
+      example:
+        MerchantProductRequestModels:
+        - MSRP: 1.4658129805029452
+          Description: Description
+          Size: Size
+          PurchasePrice: 5.962133916683182
+          Url: Url
+          Name: Name
+          ParentMerchantProductNo2: ParentMerchantProductNo2
+          ParentMerchantProductNo: ParentMerchantProductNo
+          ExtraImageUrl9: ExtraImageUrl9
+          ExtraImageUrl8: ExtraImageUrl8
+          ExtraImageUrl7: ExtraImageUrl7
+          ExtraImageUrl6: ExtraImageUrl6
+          ExtraImageUrl5: ExtraImageUrl5
+          Color: Color
+          ExtraImageUrl4: ExtraImageUrl4
+          ImageUrl: ImageUrl
+          ManufacturerProductNumber: ManufacturerProductNumber
+          ExtraData:
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          Brand: Brand
+          ShippingTime: ShippingTime
+          Ean: Ean
+          Price: 0.6027456183070403
+          ShippingCost: 5.637376656633329
+          ExtraImageUrl3: ExtraImageUrl3
+          ExtraImageUrl2: ExtraImageUrl2
+          ExtraImageUrl1: ExtraImageUrl1
+          MerchantProductNo: MerchantProductNo
+          CategoryTrail: CategoryTrail
+          Stock: 0
+        - MSRP: 1.4658129805029452
+          Description: Description
+          Size: Size
+          PurchasePrice: 5.962133916683182
+          Url: Url
+          Name: Name
+          ParentMerchantProductNo2: ParentMerchantProductNo2
+          ParentMerchantProductNo: ParentMerchantProductNo
+          ExtraImageUrl9: ExtraImageUrl9
+          ExtraImageUrl8: ExtraImageUrl8
+          ExtraImageUrl7: ExtraImageUrl7
+          ExtraImageUrl6: ExtraImageUrl6
+          ExtraImageUrl5: ExtraImageUrl5
+          Color: Color
+          ExtraImageUrl4: ExtraImageUrl4
+          ImageUrl: ImageUrl
+          ManufacturerProductNumber: ManufacturerProductNumber
+          ExtraData:
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          - IsPublic: true
+            Value: Value
+            Key: Key
+          Brand: Brand
+          ShippingTime: ShippingTime
+          Ean: Ean
+          Price: 0.6027456183070403
+          ShippingCost: 5.637376656633329
+          ExtraImageUrl3: ExtraImageUrl3
+          ExtraImageUrl2: ExtraImageUrl2
+          ExtraImageUrl1: ExtraImageUrl1
+          MerchantProductNo: MerchantProductNo
+          CategoryTrail: CategoryTrail
+          Stock: 0
+        PropertiesToUpdate:
+        - PropertiesToUpdate
+        - PropertiesToUpdate
       properties:
         PropertiesToUpdate:
+          description: Fields to update
           items:
             type: string
           nullable: true
           type: array
         MerchantProductRequestModels:
+          description: Products to be updated
           items:
             $ref: '#/components/schemas/MerchantProductRequest'
           nullable: true
@@ -6922,6 +7157,15 @@ components:
         Advanced:
           $ref: '#/components/schemas/AdvanceSettingsResponse'
       type: object
+    ShipmentFulfillmentType:
+      description: "Shipment is fully fulfilled by channel or merchant\r\nso no make\
+        \ sense to use FulfillmentType for orders\r\nIt is created to keep it consistent\
+        \ with others"
+      enum:
+      - ALL
+      - ONLY_MERCHANT
+      - ONLY_CHANNEL
+      type: string
     ShipmentLineStatus:
       enum:
       - SHIPPED
@@ -6949,6 +7193,7 @@ components:
     SingleOfDictionaryOfStringAndListOfString:
       additionalProperties: false
       example:
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -6959,7 +7204,7 @@ components:
           - Content
           - Content
         StatusCode: 0
-        LogId: 6
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -6972,10 +7217,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -6992,6 +7239,7 @@ components:
     SingleOfMerchantProductResponse:
       additionalProperties: false
       example:
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -7033,7 +7281,7 @@ components:
           CategoryTrail: CategoryTrail
           Stock: 0
         StatusCode: 0
-        LogId: 6
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -7041,10 +7289,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -7061,6 +7311,7 @@ components:
     SingleOfMerchantSettingsResponse:
       additionalProperties: false
       example:
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -7101,7 +7352,7 @@ components:
               DefaultUntrackedShipmentMethod: DefaultUntrackedShipmentMethod
           Name: Name
         StatusCode: 7
-        LogId: 9
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -7109,10 +7360,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -7129,6 +7382,7 @@ components:
     SingleOfProductCreationResult:
       additionalProperties: false
       example:
+        RequestId: RequestId
         Message: Message
         ValidationErrors:
           key:
@@ -7155,7 +7409,7 @@ components:
             - Warnings
             Name: Name
         StatusCode: 1
-        LogId: 5
+        LogId: LogId
         Success: true
       properties:
         Content:
@@ -7163,10 +7417,12 @@ components:
         StatusCode:
           format: int32
           type: integer
-        LogId:
-          format: int32
+        RequestId:
           nullable: true
-          type: integer
+          type: string
+        LogId:
+          nullable: true
+          type: string
         Success:
           type: boolean
         Message:
@@ -7230,5 +7486,5 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.10.0
+x-version: 2.11.0
 
