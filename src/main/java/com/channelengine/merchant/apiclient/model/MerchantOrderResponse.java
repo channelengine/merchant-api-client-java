@@ -80,6 +80,10 @@ public class MerchantOrderResponse {
   @SerializedName(SERIALIZED_NAME_IS_BUSINESS_ORDER)
   private Boolean isBusinessOrder;
 
+  public static final String SERIALIZED_NAME_ACKNOWLEDGED_DATE = "AcknowledgedDate";
+  @SerializedName(SERIALIZED_NAME_ACKNOWLEDGED_DATE)
+  private OffsetDateTime acknowledgedDate;
+
   public static final String SERIALIZED_NAME_CREATED_AT = "CreatedAt";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
   private OffsetDateTime createdAt;
@@ -420,6 +424,29 @@ public class MerchantOrderResponse {
 
   public void setIsBusinessOrder(Boolean isBusinessOrder) {
     this.isBusinessOrder = isBusinessOrder;
+  }
+
+
+  public MerchantOrderResponse acknowledgedDate(OffsetDateTime acknowledgedDate) {
+    
+    this.acknowledgedDate = acknowledgedDate;
+    return this;
+  }
+
+   /**
+   * The date the order was acknowledged in ChannelEngine.
+   * @return acknowledgedDate
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The date the order was acknowledged in ChannelEngine.")
+
+  public OffsetDateTime getAcknowledgedDate() {
+    return acknowledgedDate;
+  }
+
+
+  public void setAcknowledgedDate(OffsetDateTime acknowledgedDate) {
+    this.acknowledgedDate = acknowledgedDate;
   }
 
 
@@ -1102,6 +1129,7 @@ public class MerchantOrderResponse {
         Objects.equals(this.merchantOrderNo, merchantOrderResponse.merchantOrderNo) &&
         Objects.equals(this.status, merchantOrderResponse.status) &&
         Objects.equals(this.isBusinessOrder, merchantOrderResponse.isBusinessOrder) &&
+        Objects.equals(this.acknowledgedDate, merchantOrderResponse.acknowledgedDate) &&
         Objects.equals(this.createdAt, merchantOrderResponse.createdAt) &&
         Objects.equals(this.updatedAt, merchantOrderResponse.updatedAt) &&
         Objects.equals(this.merchantComment, merchantOrderResponse.merchantComment) &&
@@ -1138,7 +1166,7 @@ public class MerchantOrderResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, channelName, channelId, globalChannelName, globalChannelId, channelOrderSupport, channelOrderNo, merchantOrderNo, status, isBusinessOrder, createdAt, updatedAt, merchantComment, billingAddress, shippingAddress, subTotalInclVat, subTotalVat, shippingCostsVat, totalInclVat, totalVat, originalSubTotalInclVat, originalSubTotalVat, originalShippingCostsInclVat, originalShippingCostsVat, originalTotalInclVat, originalTotalVat, lines, shippingCostsInclVat, phone, email, companyRegistrationNo, vatNo, paymentMethod, paymentReferenceNo, currencyCode, orderDate, channelCustomerNo, extraData);
+    return Objects.hash(id, channelName, channelId, globalChannelName, globalChannelId, channelOrderSupport, channelOrderNo, merchantOrderNo, status, isBusinessOrder, acknowledgedDate, createdAt, updatedAt, merchantComment, billingAddress, shippingAddress, subTotalInclVat, subTotalVat, shippingCostsVat, totalInclVat, totalVat, originalSubTotalInclVat, originalSubTotalVat, originalShippingCostsInclVat, originalShippingCostsVat, originalTotalInclVat, originalTotalVat, lines, shippingCostsInclVat, phone, email, companyRegistrationNo, vatNo, paymentMethod, paymentReferenceNo, currencyCode, orderDate, channelCustomerNo, extraData);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -1162,6 +1190,7 @@ public class MerchantOrderResponse {
     sb.append("    merchantOrderNo: ").append(toIndentedString(merchantOrderNo)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    isBusinessOrder: ").append(toIndentedString(isBusinessOrder)).append("\n");
+    sb.append("    acknowledgedDate: ").append(toIndentedString(acknowledgedDate)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    merchantComment: ").append(toIndentedString(merchantComment)).append("\n");

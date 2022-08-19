@@ -31,6 +31,7 @@ import com.channelengine.merchant.apiclient.model.CollectionOfMerchantReturnResp
 import com.channelengine.merchant.apiclient.model.CollectionOfMerchantSingleOrderReturnResponse;
 import com.channelengine.merchant.apiclient.model.CreatorFilter;
 import com.channelengine.merchant.apiclient.model.FulfillmentType;
+import com.channelengine.merchant.apiclient.model.MerchantReturnAcknowledgeRequest;
 import com.channelengine.merchant.apiclient.model.MerchantReturnRequest;
 import com.channelengine.merchant.apiclient.model.MerchantReturnUpdateRequest;
 import com.channelengine.merchant.apiclient.model.ModelApiResponse;
@@ -63,6 +64,124 @@ public class ReturnApi {
         this.localVarApiClient = apiClient;
     }
 
+    /**
+     * Build call for returnAcknowledge
+     * @param merchantReturnAcknowledgeRequest  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call returnAcknowledgeCall(MerchantReturnAcknowledgeRequest merchantReturnAcknowledgeRequest, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = merchantReturnAcknowledgeRequest;
+
+        // create path and map variables
+        String localVarPath = "/v2/returns/merchant/acknowledge";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json-patch+json", "application/json", "application/_*+json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "apiKey" };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call returnAcknowledgeValidateBeforeCall(MerchantReturnAcknowledgeRequest merchantReturnAcknowledgeRequest, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = returnAcknowledgeCall(merchantReturnAcknowledgeRequest, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Acknowledge Return.
+     * 
+     * @param merchantReturnAcknowledgeRequest  (optional)
+     * @return ModelApiResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict </td><td>  -  </td></tr>
+     </table>
+     */
+    public ModelApiResponse returnAcknowledge(MerchantReturnAcknowledgeRequest merchantReturnAcknowledgeRequest) throws ApiException {
+        ApiResponse<ModelApiResponse> localVarResp = returnAcknowledgeWithHttpInfo(merchantReturnAcknowledgeRequest);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Acknowledge Return.
+     * 
+     * @param merchantReturnAcknowledgeRequest  (optional)
+     * @return ApiResponse&lt;ModelApiResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ModelApiResponse> returnAcknowledgeWithHttpInfo(MerchantReturnAcknowledgeRequest merchantReturnAcknowledgeRequest) throws ApiException {
+        okhttp3.Call localVarCall = returnAcknowledgeValidateBeforeCall(merchantReturnAcknowledgeRequest, null);
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Acknowledge Return. (asynchronously)
+     * 
+     * @param merchantReturnAcknowledgeRequest  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call returnAcknowledgeAsync(MerchantReturnAcknowledgeRequest merchantReturnAcknowledgeRequest, final ApiCallback<ModelApiResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = returnAcknowledgeValidateBeforeCall(merchantReturnAcknowledgeRequest, _callback);
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
     /**
      * Build call for returnDeclareForMerchant
      * @param merchantReturnRequest  (optional)
@@ -295,15 +414,16 @@ public class ReturnApi {
     }
     /**
      * Build call for returnGetDeclaredByChannel
-     * @param channelIds Filter on Channel IDs (optional)
-     * @param merchantOrderNos Filter on unique order reference used by the merchant. (optional)
-     * @param channelOrderNos Filter on unique order reference used by the channel. (optional)
-     * @param fulfillmentType Filter on the fulfillment type of the order. (optional)
      * @param statuses Return status(es) to filter on. (optional)
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
+     * @param channelIds Filter on Channel IDs (optional)
+     * @param merchantOrderNos Filter on unique order reference used by the merchant. (optional)
+     * @param channelOrderNos Filter on unique order reference used by the channel. (optional)
+     * @param fulfillmentType Filter on the fulfillment type of the order. (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -313,7 +433,7 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call returnGetDeclaredByChannelCall(List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call returnGetDeclaredByChannelCall(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -324,22 +444,6 @@ public class ReturnApi {
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (channelIds != null) {
-            localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "channelIds", channelIds));
-        }
-
-        if (merchantOrderNos != null) {
-            localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "merchantOrderNos", merchantOrderNos));
-        }
-
-        if (channelOrderNos != null) {
-            localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "channelOrderNos", channelOrderNos));
-        }
-
-        if (fulfillmentType != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("fulfillmentType", fulfillmentType));
-        }
 
         if (statuses != null) {
             localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "statuses", statuses));
@@ -357,8 +461,28 @@ public class ReturnApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("toDate", toDate));
         }
 
+        if (isAcknowledged != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("isAcknowledged", isAcknowledged));
+        }
+
         if (page != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("page", page));
+        }
+
+        if (channelIds != null) {
+            localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "channelIds", channelIds));
+        }
+
+        if (merchantOrderNos != null) {
+            localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "merchantOrderNos", merchantOrderNos));
+        }
+
+        if (channelOrderNos != null) {
+            localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "channelOrderNos", channelOrderNos));
+        }
+
+        if (fulfillmentType != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("fulfillmentType", fulfillmentType));
         }
 
         final String[] localVarAccepts = {
@@ -380,10 +504,10 @@ public class ReturnApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call returnGetDeclaredByChannelValidateBeforeCall(List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call returnGetDeclaredByChannelValidateBeforeCall(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = returnGetDeclaredByChannelCall(channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, page, _callback);
+        okhttp3.Call localVarCall = returnGetDeclaredByChannelCall(statuses, reasons, fromDate, toDate, isAcknowledged, page, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, _callback);
         return localVarCall;
 
     }
@@ -391,15 +515,16 @@ public class ReturnApi {
     /**
      * Get Returns.
      * Get all returns created by the channel. This call is supposed&lt;br /&gt;to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;&lt;br /&gt;call.
-     * @param channelIds Filter on Channel IDs (optional)
-     * @param merchantOrderNos Filter on unique order reference used by the merchant. (optional)
-     * @param channelOrderNos Filter on unique order reference used by the channel. (optional)
-     * @param fulfillmentType Filter on the fulfillment type of the order. (optional)
      * @param statuses Return status(es) to filter on. (optional)
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
+     * @param channelIds Filter on Channel IDs (optional)
+     * @param merchantOrderNos Filter on unique order reference used by the merchant. (optional)
+     * @param channelOrderNos Filter on unique order reference used by the channel. (optional)
+     * @param fulfillmentType Filter on the fulfillment type of the order. (optional)
      * @return CollectionOfMerchantReturnResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -408,23 +533,24 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public CollectionOfMerchantReturnResponse returnGetDeclaredByChannel(List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page) throws ApiException {
-        ApiResponse<CollectionOfMerchantReturnResponse> localVarResp = returnGetDeclaredByChannelWithHttpInfo(channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, page);
+    public CollectionOfMerchantReturnResponse returnGetDeclaredByChannel(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType) throws ApiException {
+        ApiResponse<CollectionOfMerchantReturnResponse> localVarResp = returnGetDeclaredByChannelWithHttpInfo(statuses, reasons, fromDate, toDate, isAcknowledged, page, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType);
         return localVarResp.getData();
     }
 
     /**
      * Get Returns.
      * Get all returns created by the channel. This call is supposed&lt;br /&gt;to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;&lt;br /&gt;call.
-     * @param channelIds Filter on Channel IDs (optional)
-     * @param merchantOrderNos Filter on unique order reference used by the merchant. (optional)
-     * @param channelOrderNos Filter on unique order reference used by the channel. (optional)
-     * @param fulfillmentType Filter on the fulfillment type of the order. (optional)
      * @param statuses Return status(es) to filter on. (optional)
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
+     * @param channelIds Filter on Channel IDs (optional)
+     * @param merchantOrderNos Filter on unique order reference used by the merchant. (optional)
+     * @param channelOrderNos Filter on unique order reference used by the channel. (optional)
+     * @param fulfillmentType Filter on the fulfillment type of the order. (optional)
      * @return ApiResponse&lt;CollectionOfMerchantReturnResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -433,8 +559,8 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CollectionOfMerchantReturnResponse> returnGetDeclaredByChannelWithHttpInfo(List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page) throws ApiException {
-        okhttp3.Call localVarCall = returnGetDeclaredByChannelValidateBeforeCall(channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, page, null);
+    public ApiResponse<CollectionOfMerchantReturnResponse> returnGetDeclaredByChannelWithHttpInfo(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType) throws ApiException {
+        okhttp3.Call localVarCall = returnGetDeclaredByChannelValidateBeforeCall(statuses, reasons, fromDate, toDate, isAcknowledged, page, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, null);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantReturnResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -442,15 +568,16 @@ public class ReturnApi {
     /**
      * Get Returns. (asynchronously)
      * Get all returns created by the channel. This call is supposed&lt;br /&gt;to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;&lt;br /&gt;call.
-     * @param channelIds Filter on Channel IDs (optional)
-     * @param merchantOrderNos Filter on unique order reference used by the merchant. (optional)
-     * @param channelOrderNos Filter on unique order reference used by the channel. (optional)
-     * @param fulfillmentType Filter on the fulfillment type of the order. (optional)
      * @param statuses Return status(es) to filter on. (optional)
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
+     * @param channelIds Filter on Channel IDs (optional)
+     * @param merchantOrderNos Filter on unique order reference used by the merchant. (optional)
+     * @param channelOrderNos Filter on unique order reference used by the channel. (optional)
+     * @param fulfillmentType Filter on the fulfillment type of the order. (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -460,9 +587,9 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call returnGetDeclaredByChannelAsync(List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ApiCallback<CollectionOfMerchantReturnResponse> _callback) throws ApiException {
+    public okhttp3.Call returnGetDeclaredByChannelAsync(List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, final ApiCallback<CollectionOfMerchantReturnResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = returnGetDeclaredByChannelValidateBeforeCall(channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, page, _callback);
+        okhttp3.Call localVarCall = returnGetDeclaredByChannelValidateBeforeCall(statuses, reasons, fromDate, toDate, isAcknowledged, page, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, _callback);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantReturnResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -478,6 +605,7 @@ public class ReturnApi {
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -488,7 +616,7 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call returnGetReturnsCall(CreatorFilter creatorType, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call returnGetReturnsCall(CreatorFilter creatorType, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -536,6 +664,10 @@ public class ReturnApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("toDate", toDate));
         }
 
+        if (isAcknowledged != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("isAcknowledged", isAcknowledged));
+        }
+
         if (page != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("page", page));
         }
@@ -559,10 +691,10 @@ public class ReturnApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call returnGetReturnsValidateBeforeCall(CreatorFilter creatorType, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call returnGetReturnsValidateBeforeCall(CreatorFilter creatorType, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = returnGetReturnsCall(creatorType, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, page, _callback);
+        okhttp3.Call localVarCall = returnGetReturnsCall(creatorType, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, isAcknowledged, page, _callback);
         return localVarCall;
 
     }
@@ -579,6 +711,7 @@ public class ReturnApi {
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @return CollectionOfMerchantReturnResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -588,8 +721,8 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public CollectionOfMerchantReturnResponse returnGetReturns(CreatorFilter creatorType, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page) throws ApiException {
-        ApiResponse<CollectionOfMerchantReturnResponse> localVarResp = returnGetReturnsWithHttpInfo(creatorType, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, page);
+    public CollectionOfMerchantReturnResponse returnGetReturns(CreatorFilter creatorType, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page) throws ApiException {
+        ApiResponse<CollectionOfMerchantReturnResponse> localVarResp = returnGetReturnsWithHttpInfo(creatorType, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, isAcknowledged, page);
         return localVarResp.getData();
     }
 
@@ -605,6 +738,7 @@ public class ReturnApi {
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @return ApiResponse&lt;CollectionOfMerchantReturnResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -614,8 +748,8 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CollectionOfMerchantReturnResponse> returnGetReturnsWithHttpInfo(CreatorFilter creatorType, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page) throws ApiException {
-        okhttp3.Call localVarCall = returnGetReturnsValidateBeforeCall(creatorType, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, page, null);
+    public ApiResponse<CollectionOfMerchantReturnResponse> returnGetReturnsWithHttpInfo(CreatorFilter creatorType, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page) throws ApiException {
+        okhttp3.Call localVarCall = returnGetReturnsValidateBeforeCall(creatorType, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, isAcknowledged, page, null);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantReturnResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -632,6 +766,7 @@ public class ReturnApi {
      * @param reasons Return reason(s) to filter on. (optional)
      * @param fromDate Filter on the creation date, starting from this date. This date is inclusive. (optional)
      * @param toDate Filter on the creation date, until this date. This date is exclusive. (optional)
+     * @param isAcknowledged Filters based on acknowledgements (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -642,9 +777,9 @@ public class ReturnApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call returnGetReturnsAsync(CreatorFilter creatorType, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Integer page, final ApiCallback<CollectionOfMerchantReturnResponse> _callback) throws ApiException {
+    public okhttp3.Call returnGetReturnsAsync(CreatorFilter creatorType, List<Integer> channelIds, List<String> merchantOrderNos, List<String> channelOrderNos, FulfillmentType fulfillmentType, List<ReturnStatus> statuses, List<ReturnReason> reasons, OffsetDateTime fromDate, OffsetDateTime toDate, Boolean isAcknowledged, Integer page, final ApiCallback<CollectionOfMerchantReturnResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = returnGetReturnsValidateBeforeCall(creatorType, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, page, _callback);
+        okhttp3.Call localVarCall = returnGetReturnsValidateBeforeCall(creatorType, channelIds, merchantOrderNos, channelOrderNos, fulfillmentType, statuses, reasons, fromDate, toDate, isAcknowledged, page, _callback);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantReturnResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

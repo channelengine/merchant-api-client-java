@@ -4,7 +4,7 @@ info:
   title: ChannelEngine Merchant API
   version: 2.11.0
 servers:
-- url: http://dev.channelengine.local/api
+- url: https://demo.channelengine.net/api
 security:
 - apiKey: []
 paths:
@@ -611,14 +611,38 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: Filter on the order update date, unitl from this date. This date
-          is exclusive.
+      - description: Filter on the order update date, unitl this date. This date is
+          exclusive.
         explode: true
         in: query
         name: toUpdatedAtDate
         required: false
         schema:
-          description: Filter on the order update date, unitl from this date. This
+          description: Filter on the order update date, unitl this date. This date
+            is exclusive.
+          format: date-time
+          type: string
+        style: form
+      - description: Filter on the order acknowledged date, starting from this date.
+          This date is inclusive.
+        explode: true
+        in: query
+        name: fromAcknowledgedDate
+        required: false
+        schema:
+          description: Filter on the order acknowledged date, starting from this date.
+            This date is inclusive.
+          format: date-time
+          type: string
+        style: form
+      - description: Filter on the order acknowledged date, unitl this date. This
+          date is exclusive.
+        explode: true
+        in: query
+        name: toAcknowledgedDate
+        required: false
+        schema:
+          description: Filter on the order acknowledged date, unitl this date. This
             date is exclusive.
           format: date-time
           type: string
@@ -1216,48 +1240,6 @@ paths:
         />call.
       operationId: ReturnGetDeclaredByChannel
       parameters:
-      - description: Filter on Channel IDs
-        explode: true
-        in: query
-        name: channelIds
-        required: false
-        schema:
-          description: Filter on Channel IDs
-          items:
-            format: int32
-            type: integer
-          type: array
-        style: form
-      - description: Filter on unique order reference used by the merchant.
-        explode: true
-        in: query
-        name: merchantOrderNos
-        required: false
-        schema:
-          description: Filter on unique order reference used by the merchant.
-          items:
-            type: string
-          type: array
-        style: form
-      - description: Filter on unique order reference used by the channel.
-        explode: true
-        in: query
-        name: channelOrderNos
-        required: false
-        schema:
-          description: Filter on unique order reference used by the channel.
-          items:
-            type: string
-          type: array
-        style: form
-      - description: Filter on the fulfillment type of the order.
-        explode: true
-        in: query
-        name: fulfillmentType
-        required: false
-        schema:
-          $ref: '#/components/schemas/FulfillmentType'
-        style: form
       - description: Return status(es) to filter on.
         explode: true
         in: query
@@ -1303,6 +1285,15 @@ paths:
           format: date-time
           type: string
         style: form
+      - description: Filters based on acknowledgements
+        explode: true
+        in: query
+        name: isAcknowledged
+        required: false
+        schema:
+          description: Filters based on acknowledgements
+          type: boolean
+        style: form
       - description: The page to filter on. Starts at 1.
         explode: true
         in: query
@@ -1312,6 +1303,48 @@ paths:
           description: The page to filter on. Starts at 1.
           format: int32
           type: integer
+        style: form
+      - description: Filter on Channel IDs
+        explode: true
+        in: query
+        name: channelIds
+        required: false
+        schema:
+          description: Filter on Channel IDs
+          items:
+            format: int32
+            type: integer
+          type: array
+        style: form
+      - description: Filter on unique order reference used by the merchant.
+        explode: true
+        in: query
+        name: merchantOrderNos
+        required: false
+        schema:
+          description: Filter on unique order reference used by the merchant.
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter on unique order reference used by the channel.
+        explode: true
+        in: query
+        name: channelOrderNos
+        required: false
+        schema:
+          description: Filter on unique order reference used by the channel.
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter on the fulfillment type of the order.
+        explode: true
+        in: query
+        name: fulfillmentType
+        required: false
+        schema:
+          $ref: '#/components/schemas/FulfillmentType'
         style: form
       responses:
         "200":
@@ -1471,6 +1504,15 @@ paths:
           format: date-time
           type: string
         style: form
+      - description: Filters based on acknowledgements
+        explode: true
+        in: query
+        name: isAcknowledged
+        required: false
+        schema:
+          description: Filters based on acknowledgements
+          type: boolean
+        style: form
       - description: The page to filter on. Starts at 1.
         explode: true
         in: query
@@ -1600,6 +1642,50 @@ paths:
       summary: Get Return.
       tags:
       - Return
+      x-accepts: application/json
+  /v2/returns/merchant/acknowledge:
+    post:
+      operationId: ReturnAcknowledge
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MerchantReturnAcknowledgeRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantReturnAcknowledgeRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MerchantReturnAcknowledgeRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Acknowledge Return.
+      tags:
+      - Return
+      x-contentType: application/json-patch+json
       x-accepts: application/json
   /v2/settings:
     get:
@@ -2640,6 +2726,7 @@ components:
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
           GlobalChannelName: GlobalChannelName
           OrderDate: 2000-01-23T04:56:07.000+00:00
+          AcknowledgedDate: 2000-01-23T04:56:07.000+00:00
           ChannelName: ChannelName
           PaymentReferenceNo: PaymentReferenceNo
           ShippingAddress:
@@ -2767,6 +2854,7 @@ components:
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
           GlobalChannelName: GlobalChannelName
           OrderDate: 2000-01-23T04:56:07.000+00:00
+          AcknowledgedDate: 2000-01-23T04:56:07.000+00:00
           ChannelName: ChannelName
           PaymentReferenceNo: PaymentReferenceNo
           ShippingAddress:
@@ -3182,9 +3270,12 @@ components:
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           MerchantReturnNo: MerchantReturnNo
           GlobalChannelId: 6
+          ExtraData:
+            key: ExtraData
           ChannelId: 0
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
           GlobalChannelName: GlobalChannelName
+          AcknowledgedDate: 2000-01-23T04:56:07.000+00:00
           CustomerComment: CustomerComment
           ChannelReturnNo: ChannelReturnNo
           MerchantOrderNo: MerchantOrderNo
@@ -3223,6 +3314,8 @@ components:
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 7.457744773683766
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
           - OrderLine:
               UnitVat: 6.84685269835264
@@ -3257,6 +3350,8 @@ components:
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 7.457744773683766
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
           RefundInclVat: 0.5637376656633328
         - ReturnDate: 2000-01-23T04:56:07.000+00:00
@@ -3266,9 +3361,12 @@ components:
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           MerchantReturnNo: MerchantReturnNo
           GlobalChannelId: 6
+          ExtraData:
+            key: ExtraData
           ChannelId: 0
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
           GlobalChannelName: GlobalChannelName
+          AcknowledgedDate: 2000-01-23T04:56:07.000+00:00
           CustomerComment: CustomerComment
           ChannelReturnNo: ChannelReturnNo
           MerchantOrderNo: MerchantOrderNo
@@ -3307,6 +3405,8 @@ components:
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 7.457744773683766
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
           - OrderLine:
               UnitVat: 6.84685269835264
@@ -3341,6 +3441,8 @@ components:
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 7.457744773683766
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
           RefundInclVat: 0.5637376656633328
         ItemsPerPage: 3
@@ -3696,6 +3798,8 @@ components:
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           MerchantReturnNo: MerchantReturnNo
           GlobalChannelId: 5
+          ExtraData:
+            key: ExtraData
           ChannelId: 5
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
           GlobalChannelName: GlobalChannelName
@@ -3739,6 +3843,8 @@ components:
               LineTotalInclVat: 7.457744773683766
             AcceptedQuantity: 0
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
           - RejectedQuantity: 6
             OrderLine:
@@ -3775,6 +3881,8 @@ components:
               LineTotalInclVat: 7.457744773683766
             AcceptedQuantity: 0
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
           RefundInclVat: 0.7061401241503109
         - ReturnDate: 2000-01-23T04:56:07.000+00:00
@@ -3783,6 +3891,8 @@ components:
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           MerchantReturnNo: MerchantReturnNo
           GlobalChannelId: 5
+          ExtraData:
+            key: ExtraData
           ChannelId: 5
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
           GlobalChannelName: GlobalChannelName
@@ -3826,6 +3936,8 @@ components:
               LineTotalInclVat: 7.457744773683766
             AcceptedQuantity: 0
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
           - RejectedQuantity: 6
             OrderLine:
@@ -3862,6 +3974,8 @@ components:
               LineTotalInclVat: 7.457744773683766
             AcceptedQuantity: 0
             Quantity: 0
+            ExtraData:
+              key: ExtraData
             MerchantProductNo: MerchantProductNo
           RefundInclVat: 0.7061401241503109
         ItemsPerPage: 4
@@ -4704,6 +4818,7 @@ components:
         UpdatedAt: 2000-01-23T04:56:07.000+00:00
         GlobalChannelName: GlobalChannelName
         OrderDate: 2000-01-23T04:56:07.000+00:00
+        AcknowledgedDate: 2000-01-23T04:56:07.000+00:00
         ChannelName: ChannelName
         PaymentReferenceNo: PaymentReferenceNo
         ShippingAddress:
@@ -4834,6 +4949,11 @@ components:
         IsBusinessOrder:
           description: Indicating whether the order is a business order.
           type: boolean
+        AcknowledgedDate:
+          description: The date the order was acknowledged in ChannelEngine.
+          format: date-time
+          nullable: true
+          type: string
         CreatedAt:
           description: The date the order was created in ChannelEngine.
           format: date-time
@@ -5062,7 +5182,6 @@ components:
           description: Name of the extra data field.
           maxLength: 100
           minLength: 0
-          nullable: true
           type: string
         Value:
           description: Value of the extra data field.
@@ -5073,6 +5192,8 @@ components:
         IsPublic:
           description: Add this field to the export of the product feed to the channel.
           type: boolean
+      required:
+      - Key
       type: object
     MerchantProductExtraDataItemResponse:
       additionalProperties: false
@@ -5085,7 +5206,6 @@ components:
           description: Name of the extra data field.
           maxLength: 100
           minLength: 0
-          nullable: true
           type: string
         Value:
           description: Value of the extra data field.
@@ -5096,6 +5216,8 @@ components:
         IsPublic:
           description: Add this field to the export of the product feed to the channel.
           type: boolean
+      required:
+      - Key
       type: object
     MerchantProductRequest:
       additionalProperties: false
@@ -5570,10 +5692,26 @@ components:
           description: Are you the Buy box winner or not?
           type: boolean
       type: object
+    MerchantReturnAcknowledgeRequest:
+      additionalProperties: false
+      example:
+        ReturnId: 0
+        MerchantReturnNo: MerchantReturnNo
+      properties:
+        ReturnId:
+          format: int32
+          type: integer
+        MerchantReturnNo:
+          type: string
+      required:
+      - MerchantReturnNo
+      type: object
     MerchantReturnLineRequest:
       additionalProperties: false
       example:
         Quantity: 0
+        ExtraData:
+          key: ExtraData
         MerchantProductNo: MerchantProductNo
       properties:
         MerchantProductNo:
@@ -5586,6 +5724,13 @@ components:
           format: int32
           minimum: 0
           type: integer
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the returnline. Each item must have an unqiue
+            key
+          nullable: true
+          type: object
       required:
       - MerchantProductNo
       - Quantity
@@ -5626,6 +5771,8 @@ components:
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 7.457744773683766
         Quantity: 0
+        ExtraData:
+          key: ExtraData
         MerchantProductNo: MerchantProductNo
       properties:
         MerchantProductNo:
@@ -5641,6 +5788,13 @@ components:
           format: int32
           minimum: 0
           type: integer
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the returnline. Each item must have an unqiue
+            key
+          nullable: true
+          type: object
       required:
       - Quantity
       type: object
@@ -5681,10 +5835,16 @@ components:
         MerchantReturnNo: MerchantReturnNo
         MerchantOrderNo: MerchantOrderNo
         Id: 6
+        ExtraData:
+          key: ExtraData
         Lines:
         - Quantity: 0
+          ExtraData:
+            key: ExtraData
           MerchantProductNo: MerchantProductNo
         - Quantity: 0
+          ExtraData:
+            key: ExtraData
           MerchantProductNo: MerchantProductNo
         RefundInclVat: 0.14658129805029452
       properties:
@@ -5737,6 +5897,12 @@ components:
           format: date-time
           nullable: true
           type: string
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the return. Each item must have an unqiue key
+          nullable: true
+          type: object
       required:
       - Lines
       - MerchantOrderNo
@@ -5752,9 +5918,12 @@ components:
         CreatedAt: 2000-01-23T04:56:07.000+00:00
         MerchantReturnNo: MerchantReturnNo
         GlobalChannelId: 6
+        ExtraData:
+          key: ExtraData
         ChannelId: 0
         UpdatedAt: 2000-01-23T04:56:07.000+00:00
         GlobalChannelName: GlobalChannelName
+        AcknowledgedDate: 2000-01-23T04:56:07.000+00:00
         CustomerComment: CustomerComment
         ChannelReturnNo: ChannelReturnNo
         MerchantOrderNo: MerchantOrderNo
@@ -5793,6 +5962,8 @@ components:
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 7.457744773683766
           Quantity: 0
+          ExtraData:
+            key: ExtraData
           MerchantProductNo: MerchantProductNo
         - OrderLine:
             UnitVat: 6.84685269835264
@@ -5827,6 +5998,8 @@ components:
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 7.457744773683766
           Quantity: 0
+          ExtraData:
+            key: ExtraData
           MerchantProductNo: MerchantProductNo
         RefundInclVat: 0.5637376656633328
       properties:
@@ -5877,6 +6050,11 @@ components:
           type: string
         Status:
           $ref: '#/components/schemas/ReturnStatus'
+        AcknowledgedDate:
+          description: Date of acknowledgement
+          format: date-time
+          nullable: true
+          type: string
         Id:
           description: The unique return reference used by ChannelEngine.
           format: int32
@@ -5911,6 +6089,12 @@ components:
           format: date-time
           nullable: true
           type: string
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the return. Each item must have an unqiue key
+          nullable: true
+          type: object
       type: object
     MerchantReturnUpdateRequest:
       additionalProperties: false
@@ -6535,6 +6719,8 @@ components:
           LineTotalInclVat: 7.457744773683766
         AcceptedQuantity: 0
         Quantity: 0
+        ExtraData:
+          key: ExtraData
         MerchantProductNo: MerchantProductNo
       properties:
         MerchantProductNo:
@@ -6560,6 +6746,13 @@ components:
           format: int32
           minimum: 0
           type: integer
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the returnline. Each item must have an unqiue
+            key
+          nullable: true
+          type: object
       required:
       - Quantity
       type: object
@@ -6572,6 +6765,8 @@ components:
         CreatedAt: 2000-01-23T04:56:07.000+00:00
         MerchantReturnNo: MerchantReturnNo
         GlobalChannelId: 5
+        ExtraData:
+          key: ExtraData
         ChannelId: 5
         UpdatedAt: 2000-01-23T04:56:07.000+00:00
         GlobalChannelName: GlobalChannelName
@@ -6615,6 +6810,8 @@ components:
             LineTotalInclVat: 7.457744773683766
           AcceptedQuantity: 0
           Quantity: 0
+          ExtraData:
+            key: ExtraData
           MerchantProductNo: MerchantProductNo
         - RejectedQuantity: 6
           OrderLine:
@@ -6651,6 +6848,8 @@ components:
             LineTotalInclVat: 7.457744773683766
           AcceptedQuantity: 0
           Quantity: 0
+          ExtraData:
+            key: ExtraData
           MerchantProductNo: MerchantProductNo
         RefundInclVat: 0.7061401241503109
       properties:
@@ -6731,6 +6930,12 @@ components:
           format: date-time
           nullable: true
           type: string
+        ExtraData:
+          additionalProperties:
+            type: string
+          description: Extra data on the return. Each item must have an unqiue key
+          nullable: true
+          type: object
       type: object
     MerchantStockLocationResponse:
       additionalProperties: false

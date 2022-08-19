@@ -91,6 +91,7 @@ src/main/java/com/channelengine/merchant/apiclient/model/MerchantProductExtraDat
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantProductRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantProductResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantProductWithBuyBoxPrice.java
+src/main/java/com/channelengine/merchant/apiclient/model/MerchantReturnAcknowledgeRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantReturnLineRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantReturnLineResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantReturnLineUpdateRequest.java

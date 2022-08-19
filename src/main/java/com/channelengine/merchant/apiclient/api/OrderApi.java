@@ -192,7 +192,9 @@ public class OrderApi {
      * @param stockLocationIds Filter on stock locations (optional)
      * @param isAcknowledged Filter on acknowledged value (optional)
      * @param fromUpdatedAtDate Filter on the order update date, starting from this date. This date is inclusive. (optional)
-     * @param toUpdatedAtDate Filter on the order update date, unitl from this date. This date is exclusive. (optional)
+     * @param toUpdatedAtDate Filter on the order update date, unitl this date. This date is exclusive. (optional)
+     * @param fromAcknowledgedDate Filter on the order acknowledged date, starting from this date. This date is inclusive. (optional)
+     * @param toAcknowledgedDate Filter on the order acknowledged date, unitl this date. This date is exclusive. (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -203,7 +205,7 @@ public class OrderApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call orderGetByFilterCall(List<OrderStatusView> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, OffsetDateTime fromCreatedAtDate, OffsetDateTime toCreatedAtDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, FulfillmentType fulfillmentType, Boolean onlyWithCancellationRequests, List<Integer> channelIds, List<Integer> stockLocationIds, Boolean isAcknowledged, OffsetDateTime fromUpdatedAtDate, OffsetDateTime toUpdatedAtDate, Integer page, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call orderGetByFilterCall(List<OrderStatusView> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, OffsetDateTime fromCreatedAtDate, OffsetDateTime toCreatedAtDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, FulfillmentType fulfillmentType, Boolean onlyWithCancellationRequests, List<Integer> channelIds, List<Integer> stockLocationIds, Boolean isAcknowledged, OffsetDateTime fromUpdatedAtDate, OffsetDateTime toUpdatedAtDate, OffsetDateTime fromAcknowledgedDate, OffsetDateTime toAcknowledgedDate, Integer page, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -279,6 +281,14 @@ public class OrderApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("toUpdatedAtDate", toUpdatedAtDate));
         }
 
+        if (fromAcknowledgedDate != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("fromAcknowledgedDate", fromAcknowledgedDate));
+        }
+
+        if (toAcknowledgedDate != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("toAcknowledgedDate", toAcknowledgedDate));
+        }
+
         if (page != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("page", page));
         }
@@ -302,10 +312,10 @@ public class OrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call orderGetByFilterValidateBeforeCall(List<OrderStatusView> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, OffsetDateTime fromCreatedAtDate, OffsetDateTime toCreatedAtDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, FulfillmentType fulfillmentType, Boolean onlyWithCancellationRequests, List<Integer> channelIds, List<Integer> stockLocationIds, Boolean isAcknowledged, OffsetDateTime fromUpdatedAtDate, OffsetDateTime toUpdatedAtDate, Integer page, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call orderGetByFilterValidateBeforeCall(List<OrderStatusView> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, OffsetDateTime fromCreatedAtDate, OffsetDateTime toCreatedAtDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, FulfillmentType fulfillmentType, Boolean onlyWithCancellationRequests, List<Integer> channelIds, List<Integer> stockLocationIds, Boolean isAcknowledged, OffsetDateTime fromUpdatedAtDate, OffsetDateTime toUpdatedAtDate, OffsetDateTime fromAcknowledgedDate, OffsetDateTime toAcknowledgedDate, Integer page, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = orderGetByFilterCall(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, fromCreatedAtDate, toCreatedAtDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, channelIds, stockLocationIds, isAcknowledged, fromUpdatedAtDate, toUpdatedAtDate, page, _callback);
+        okhttp3.Call localVarCall = orderGetByFilterCall(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, fromCreatedAtDate, toCreatedAtDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, channelIds, stockLocationIds, isAcknowledged, fromUpdatedAtDate, toUpdatedAtDate, fromAcknowledgedDate, toAcknowledgedDate, page, _callback);
         return localVarCall;
 
     }
@@ -328,7 +338,9 @@ public class OrderApi {
      * @param stockLocationIds Filter on stock locations (optional)
      * @param isAcknowledged Filter on acknowledged value (optional)
      * @param fromUpdatedAtDate Filter on the order update date, starting from this date. This date is inclusive. (optional)
-     * @param toUpdatedAtDate Filter on the order update date, unitl from this date. This date is exclusive. (optional)
+     * @param toUpdatedAtDate Filter on the order update date, unitl this date. This date is exclusive. (optional)
+     * @param fromAcknowledgedDate Filter on the order acknowledged date, starting from this date. This date is inclusive. (optional)
+     * @param toAcknowledgedDate Filter on the order acknowledged date, unitl this date. This date is exclusive. (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @return CollectionOfMerchantOrderResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -338,8 +350,8 @@ public class OrderApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public CollectionOfMerchantOrderResponse orderGetByFilter(List<OrderStatusView> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, OffsetDateTime fromCreatedAtDate, OffsetDateTime toCreatedAtDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, FulfillmentType fulfillmentType, Boolean onlyWithCancellationRequests, List<Integer> channelIds, List<Integer> stockLocationIds, Boolean isAcknowledged, OffsetDateTime fromUpdatedAtDate, OffsetDateTime toUpdatedAtDate, Integer page) throws ApiException {
-        ApiResponse<CollectionOfMerchantOrderResponse> localVarResp = orderGetByFilterWithHttpInfo(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, fromCreatedAtDate, toCreatedAtDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, channelIds, stockLocationIds, isAcknowledged, fromUpdatedAtDate, toUpdatedAtDate, page);
+    public CollectionOfMerchantOrderResponse orderGetByFilter(List<OrderStatusView> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, OffsetDateTime fromCreatedAtDate, OffsetDateTime toCreatedAtDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, FulfillmentType fulfillmentType, Boolean onlyWithCancellationRequests, List<Integer> channelIds, List<Integer> stockLocationIds, Boolean isAcknowledged, OffsetDateTime fromUpdatedAtDate, OffsetDateTime toUpdatedAtDate, OffsetDateTime fromAcknowledgedDate, OffsetDateTime toAcknowledgedDate, Integer page) throws ApiException {
+        ApiResponse<CollectionOfMerchantOrderResponse> localVarResp = orderGetByFilterWithHttpInfo(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, fromCreatedAtDate, toCreatedAtDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, channelIds, stockLocationIds, isAcknowledged, fromUpdatedAtDate, toUpdatedAtDate, fromAcknowledgedDate, toAcknowledgedDate, page);
         return localVarResp.getData();
     }
 
@@ -361,7 +373,9 @@ public class OrderApi {
      * @param stockLocationIds Filter on stock locations (optional)
      * @param isAcknowledged Filter on acknowledged value (optional)
      * @param fromUpdatedAtDate Filter on the order update date, starting from this date. This date is inclusive. (optional)
-     * @param toUpdatedAtDate Filter on the order update date, unitl from this date. This date is exclusive. (optional)
+     * @param toUpdatedAtDate Filter on the order update date, unitl this date. This date is exclusive. (optional)
+     * @param fromAcknowledgedDate Filter on the order acknowledged date, starting from this date. This date is inclusive. (optional)
+     * @param toAcknowledgedDate Filter on the order acknowledged date, unitl this date. This date is exclusive. (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @return ApiResponse&lt;CollectionOfMerchantOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -371,8 +385,8 @@ public class OrderApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CollectionOfMerchantOrderResponse> orderGetByFilterWithHttpInfo(List<OrderStatusView> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, OffsetDateTime fromCreatedAtDate, OffsetDateTime toCreatedAtDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, FulfillmentType fulfillmentType, Boolean onlyWithCancellationRequests, List<Integer> channelIds, List<Integer> stockLocationIds, Boolean isAcknowledged, OffsetDateTime fromUpdatedAtDate, OffsetDateTime toUpdatedAtDate, Integer page) throws ApiException {
-        okhttp3.Call localVarCall = orderGetByFilterValidateBeforeCall(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, fromCreatedAtDate, toCreatedAtDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, channelIds, stockLocationIds, isAcknowledged, fromUpdatedAtDate, toUpdatedAtDate, page, null);
+    public ApiResponse<CollectionOfMerchantOrderResponse> orderGetByFilterWithHttpInfo(List<OrderStatusView> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, OffsetDateTime fromCreatedAtDate, OffsetDateTime toCreatedAtDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, FulfillmentType fulfillmentType, Boolean onlyWithCancellationRequests, List<Integer> channelIds, List<Integer> stockLocationIds, Boolean isAcknowledged, OffsetDateTime fromUpdatedAtDate, OffsetDateTime toUpdatedAtDate, OffsetDateTime fromAcknowledgedDate, OffsetDateTime toAcknowledgedDate, Integer page) throws ApiException {
+        okhttp3.Call localVarCall = orderGetByFilterValidateBeforeCall(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, fromCreatedAtDate, toCreatedAtDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, channelIds, stockLocationIds, isAcknowledged, fromUpdatedAtDate, toUpdatedAtDate, fromAcknowledgedDate, toAcknowledgedDate, page, null);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantOrderResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -395,7 +409,9 @@ public class OrderApi {
      * @param stockLocationIds Filter on stock locations (optional)
      * @param isAcknowledged Filter on acknowledged value (optional)
      * @param fromUpdatedAtDate Filter on the order update date, starting from this date. This date is inclusive. (optional)
-     * @param toUpdatedAtDate Filter on the order update date, unitl from this date. This date is exclusive. (optional)
+     * @param toUpdatedAtDate Filter on the order update date, unitl this date. This date is exclusive. (optional)
+     * @param fromAcknowledgedDate Filter on the order acknowledged date, starting from this date. This date is inclusive. (optional)
+     * @param toAcknowledgedDate Filter on the order acknowledged date, unitl this date. This date is exclusive. (optional)
      * @param page The page to filter on. Starts at 1. (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -406,9 +422,9 @@ public class OrderApi {
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call orderGetByFilterAsync(List<OrderStatusView> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, OffsetDateTime fromCreatedAtDate, OffsetDateTime toCreatedAtDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, FulfillmentType fulfillmentType, Boolean onlyWithCancellationRequests, List<Integer> channelIds, List<Integer> stockLocationIds, Boolean isAcknowledged, OffsetDateTime fromUpdatedAtDate, OffsetDateTime toUpdatedAtDate, Integer page, final ApiCallback<CollectionOfMerchantOrderResponse> _callback) throws ApiException {
+    public okhttp3.Call orderGetByFilterAsync(List<OrderStatusView> statuses, List<String> emailAddresses, List<String> merchantOrderNos, List<String> channelOrderNos, OffsetDateTime fromDate, OffsetDateTime toDate, OffsetDateTime fromCreatedAtDate, OffsetDateTime toCreatedAtDate, Boolean excludeMarketplaceFulfilledOrdersAndLines, FulfillmentType fulfillmentType, Boolean onlyWithCancellationRequests, List<Integer> channelIds, List<Integer> stockLocationIds, Boolean isAcknowledged, OffsetDateTime fromUpdatedAtDate, OffsetDateTime toUpdatedAtDate, OffsetDateTime fromAcknowledgedDate, OffsetDateTime toAcknowledgedDate, Integer page, final ApiCallback<CollectionOfMerchantOrderResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = orderGetByFilterValidateBeforeCall(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, fromCreatedAtDate, toCreatedAtDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, channelIds, stockLocationIds, isAcknowledged, fromUpdatedAtDate, toUpdatedAtDate, page, _callback);
+        okhttp3.Call localVarCall = orderGetByFilterValidateBeforeCall(statuses, emailAddresses, merchantOrderNos, channelOrderNos, fromDate, toDate, fromCreatedAtDate, toCreatedAtDate, excludeMarketplaceFulfilledOrdersAndLines, fulfillmentType, onlyWithCancellationRequests, channelIds, stockLocationIds, isAcknowledged, fromUpdatedAtDate, toUpdatedAtDate, fromAcknowledgedDate, toAcknowledgedDate, page, _callback);
         Type localVarReturnType = new TypeToken<CollectionOfMerchantOrderResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

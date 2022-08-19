@@ -25,6 +25,9 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
@@ -47,6 +50,10 @@ public class MerchantReturnLineResponse {
   public static final String SERIALIZED_NAME_QUANTITY = "Quantity";
   @SerializedName(SERIALIZED_NAME_QUANTITY)
   private Integer quantity;
+
+  public static final String SERIALIZED_NAME_EXTRA_DATA = "ExtraData";
+  @SerializedName(SERIALIZED_NAME_EXTRA_DATA)
+  private Map<String, String> extraData = null;
 
 
   public MerchantReturnLineResponse merchantProductNo(String merchantProductNo) {
@@ -142,6 +149,37 @@ public class MerchantReturnLineResponse {
   }
 
 
+  public MerchantReturnLineResponse extraData(Map<String, String> extraData) {
+    
+    this.extraData = extraData;
+    return this;
+  }
+
+  public MerchantReturnLineResponse putExtraDataItem(String key, String extraDataItem) {
+    if (this.extraData == null) {
+      this.extraData = new HashMap<String, String>();
+    }
+    this.extraData.put(key, extraDataItem);
+    return this;
+  }
+
+   /**
+   * Extra data on the returnline. Each item must have an unqiue key
+   * @return extraData
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Extra data on the returnline. Each item must have an unqiue key")
+
+  public Map<String, String> getExtraData() {
+    return extraData;
+  }
+
+
+  public void setExtraData(Map<String, String> extraData) {
+    this.extraData = extraData;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -154,7 +192,8 @@ public class MerchantReturnLineResponse {
     return Objects.equals(this.merchantProductNo, merchantReturnLineResponse.merchantProductNo) &&
         Objects.equals(this.orderLine, merchantReturnLineResponse.orderLine) &&
         Objects.equals(this.shipmentStatus, merchantReturnLineResponse.shipmentStatus) &&
-        Objects.equals(this.quantity, merchantReturnLineResponse.quantity);
+        Objects.equals(this.quantity, merchantReturnLineResponse.quantity) &&
+        Objects.equals(this.extraData, merchantReturnLineResponse.extraData);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -163,7 +202,7 @@ public class MerchantReturnLineResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantProductNo, orderLine, shipmentStatus, quantity);
+    return Objects.hash(merchantProductNo, orderLine, shipmentStatus, quantity, extraData);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -181,6 +220,7 @@ public class MerchantReturnLineResponse {
     sb.append("    orderLine: ").append(toIndentedString(orderLine)).append("\n");
     sb.append("    shipmentStatus: ").append(toIndentedString(shipmentStatus)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
+    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("}");
     return sb.toString();
   }

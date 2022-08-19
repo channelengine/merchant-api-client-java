@@ -28,7 +28,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.threeten.bp.OffsetDateTime;
 
@@ -81,6 +83,10 @@ public class MerchantReturnResponse {
   @SerializedName(SERIALIZED_NAME_STATUS)
   private ReturnStatus status;
 
+  public static final String SERIALIZED_NAME_ACKNOWLEDGED_DATE = "AcknowledgedDate";
+  @SerializedName(SERIALIZED_NAME_ACKNOWLEDGED_DATE)
+  private OffsetDateTime acknowledgedDate;
+
   public static final String SERIALIZED_NAME_ID = "Id";
   @SerializedName(SERIALIZED_NAME_ID)
   private Integer id;
@@ -108,6 +114,10 @@ public class MerchantReturnResponse {
   public static final String SERIALIZED_NAME_RETURN_DATE = "ReturnDate";
   @SerializedName(SERIALIZED_NAME_RETURN_DATE)
   private OffsetDateTime returnDate;
+
+  public static final String SERIALIZED_NAME_EXTRA_DATA = "ExtraData";
+  @SerializedName(SERIALIZED_NAME_EXTRA_DATA)
+  private Map<String, String> extraData = null;
 
 
   public MerchantReturnResponse merchantOrderNo(String merchantOrderNo) {
@@ -371,6 +381,29 @@ public class MerchantReturnResponse {
   }
 
 
+  public MerchantReturnResponse acknowledgedDate(OffsetDateTime acknowledgedDate) {
+    
+    this.acknowledgedDate = acknowledgedDate;
+    return this;
+  }
+
+   /**
+   * Date of acknowledgement
+   * @return acknowledgedDate
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Date of acknowledgement")
+
+  public OffsetDateTime getAcknowledgedDate() {
+    return acknowledgedDate;
+  }
+
+
+  public void setAcknowledgedDate(OffsetDateTime acknowledgedDate) {
+    this.acknowledgedDate = acknowledgedDate;
+  }
+
+
   public MerchantReturnResponse id(Integer id) {
     
     this.id = id;
@@ -534,6 +567,37 @@ public class MerchantReturnResponse {
   }
 
 
+  public MerchantReturnResponse extraData(Map<String, String> extraData) {
+    
+    this.extraData = extraData;
+    return this;
+  }
+
+  public MerchantReturnResponse putExtraDataItem(String key, String extraDataItem) {
+    if (this.extraData == null) {
+      this.extraData = new HashMap<String, String>();
+    }
+    this.extraData.put(key, extraDataItem);
+    return this;
+  }
+
+   /**
+   * Extra data on the return. Each item must have an unqiue key
+   * @return extraData
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Extra data on the return. Each item must have an unqiue key")
+
+  public Map<String, String> getExtraData() {
+    return extraData;
+  }
+
+
+  public void setExtraData(Map<String, String> extraData) {
+    this.extraData = extraData;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -554,13 +618,15 @@ public class MerchantReturnResponse {
         Objects.equals(this.merchantReturnNo, merchantReturnResponse.merchantReturnNo) &&
         Objects.equals(this.channelReturnNo, merchantReturnResponse.channelReturnNo) &&
         Objects.equals(this.status, merchantReturnResponse.status) &&
+        Objects.equals(this.acknowledgedDate, merchantReturnResponse.acknowledgedDate) &&
         Objects.equals(this.id, merchantReturnResponse.id) &&
         Objects.equals(this.reason, merchantReturnResponse.reason) &&
         Objects.equals(this.customerComment, merchantReturnResponse.customerComment) &&
         Objects.equals(this.merchantComment, merchantReturnResponse.merchantComment) &&
         Objects.equals(this.refundInclVat, merchantReturnResponse.refundInclVat) &&
         Objects.equals(this.refundExclVat, merchantReturnResponse.refundExclVat) &&
-        Objects.equals(this.returnDate, merchantReturnResponse.returnDate);
+        Objects.equals(this.returnDate, merchantReturnResponse.returnDate) &&
+        Objects.equals(this.extraData, merchantReturnResponse.extraData);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -569,7 +635,7 @@ public class MerchantReturnResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantOrderNo, channelOrderNo, channelId, globalChannelId, globalChannelName, lines, createdAt, updatedAt, merchantReturnNo, channelReturnNo, status, id, reason, customerComment, merchantComment, refundInclVat, refundExclVat, returnDate);
+    return Objects.hash(merchantOrderNo, channelOrderNo, channelId, globalChannelId, globalChannelName, lines, createdAt, updatedAt, merchantReturnNo, channelReturnNo, status, acknowledgedDate, id, reason, customerComment, merchantComment, refundInclVat, refundExclVat, returnDate, extraData);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -594,6 +660,7 @@ public class MerchantReturnResponse {
     sb.append("    merchantReturnNo: ").append(toIndentedString(merchantReturnNo)).append("\n");
     sb.append("    channelReturnNo: ").append(toIndentedString(channelReturnNo)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    acknowledgedDate: ").append(toIndentedString(acknowledgedDate)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("    customerComment: ").append(toIndentedString(customerComment)).append("\n");
@@ -601,6 +668,7 @@ public class MerchantReturnResponse {
     sb.append("    refundInclVat: ").append(toIndentedString(refundInclVat)).append("\n");
     sb.append("    refundExclVat: ").append(toIndentedString(refundExclVat)).append("\n");
     sb.append("    returnDate: ").append(toIndentedString(returnDate)).append("\n");
+    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("}");
     return sb.toString();
   }

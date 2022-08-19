@@ -23,6 +23,10 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * MerchantReturnLineRequest
@@ -36,6 +40,10 @@ public class MerchantReturnLineRequest {
   public static final String SERIALIZED_NAME_QUANTITY = "Quantity";
   @SerializedName(SERIALIZED_NAME_QUANTITY)
   private Integer quantity;
+
+  public static final String SERIALIZED_NAME_EXTRA_DATA = "ExtraData";
+  @SerializedName(SERIALIZED_NAME_EXTRA_DATA)
+  private Map<String, String> extraData = null;
 
 
   public MerchantReturnLineRequest merchantProductNo(String merchantProductNo) {
@@ -85,6 +93,37 @@ public class MerchantReturnLineRequest {
   }
 
 
+  public MerchantReturnLineRequest extraData(Map<String, String> extraData) {
+    
+    this.extraData = extraData;
+    return this;
+  }
+
+  public MerchantReturnLineRequest putExtraDataItem(String key, String extraDataItem) {
+    if (this.extraData == null) {
+      this.extraData = new HashMap<String, String>();
+    }
+    this.extraData.put(key, extraDataItem);
+    return this;
+  }
+
+   /**
+   * Extra data on the returnline. Each item must have an unqiue key
+   * @return extraData
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Extra data on the returnline. Each item must have an unqiue key")
+
+  public Map<String, String> getExtraData() {
+    return extraData;
+  }
+
+
+  public void setExtraData(Map<String, String> extraData) {
+    this.extraData = extraData;
+  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -95,12 +134,24 @@ public class MerchantReturnLineRequest {
     }
     MerchantReturnLineRequest merchantReturnLineRequest = (MerchantReturnLineRequest) o;
     return Objects.equals(this.merchantProductNo, merchantReturnLineRequest.merchantProductNo) &&
-        Objects.equals(this.quantity, merchantReturnLineRequest.quantity);
+        Objects.equals(this.quantity, merchantReturnLineRequest.quantity) &&
+        Objects.equals(this.extraData, merchantReturnLineRequest.extraData);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantProductNo, quantity);
+    return Objects.hash(merchantProductNo, quantity, extraData);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -109,6 +160,7 @@ public class MerchantReturnLineRequest {
     sb.append("class MerchantReturnLineRequest {\n");
     sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
+    sb.append("    extraData: ").append(toIndentedString(extraData)).append("\n");
     sb.append("}");
     return sb.toString();
   }
