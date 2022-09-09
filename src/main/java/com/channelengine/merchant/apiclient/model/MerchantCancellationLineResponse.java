@@ -23,47 +23,38 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.math.BigDecimal;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * MerchantProductBundlePartResponse
+ * MerchantCancellationLineResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class MerchantProductBundlePartResponse {
+public class MerchantCancellationLineResponse {
   public static final String SERIALIZED_NAME_MERCHANT_PRODUCT_NO = "MerchantProductNo";
   @SerializedName(SERIALIZED_NAME_MERCHANT_PRODUCT_NO)
   private String merchantProductNo;
 
-  public static final String SERIALIZED_NAME_EAN = "Ean";
-  @SerializedName(SERIALIZED_NAME_EAN)
-  private String ean;
-
-  public static final String SERIALIZED_NAME_NAME = "Name";
-  @SerializedName(SERIALIZED_NAME_NAME)
-  private String name;
+  public static final String SERIALIZED_NAME_CHANNEL_PRODUCT_NO = "ChannelProductNo";
+  @SerializedName(SERIALIZED_NAME_CHANNEL_PRODUCT_NO)
+  private String channelProductNo;
 
   public static final String SERIALIZED_NAME_QUANTITY = "Quantity";
   @SerializedName(SERIALIZED_NAME_QUANTITY)
   private Integer quantity;
 
-  public static final String SERIALIZED_NAME_PRICE = "Price";
-  @SerializedName(SERIALIZED_NAME_PRICE)
-  private BigDecimal price;
 
-
-  public MerchantProductBundlePartResponse merchantProductNo(String merchantProductNo) {
+  public MerchantCancellationLineResponse merchantProductNo(String merchantProductNo) {
     
     this.merchantProductNo = merchantProductNo;
     return this;
   }
 
    /**
-   * Get merchantProductNo
+   * The unique product reference used by the Merchant.
    * @return merchantProductNo
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique product reference used by the Merchant.")
 
   public String getMerchantProductNo() {
     return merchantProductNo;
@@ -75,64 +66,42 @@ public class MerchantProductBundlePartResponse {
   }
 
 
-  public MerchantProductBundlePartResponse ean(String ean) {
+  public MerchantCancellationLineResponse channelProductNo(String channelProductNo) {
     
-    this.ean = ean;
+    this.channelProductNo = channelProductNo;
     return this;
   }
 
    /**
-   * Get ean
-   * @return ean
+   * The unique product reference used by the Channel.
+   * @return channelProductNo
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The unique product reference used by the Channel.")
 
-  public String getEan() {
-    return ean;
+  public String getChannelProductNo() {
+    return channelProductNo;
   }
 
 
-  public void setEan(String ean) {
-    this.ean = ean;
+  public void setChannelProductNo(String channelProductNo) {
+    this.channelProductNo = channelProductNo;
   }
 
 
-  public MerchantProductBundlePartResponse name(String name) {
-    
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Get name
-   * @return name
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getName() {
-    return name;
-  }
-
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public MerchantProductBundlePartResponse quantity(Integer quantity) {
+  public MerchantCancellationLineResponse quantity(Integer quantity) {
     
     this.quantity = quantity;
     return this;
   }
 
    /**
-   * Get quantity
+   * Quantity of the product to cancel.
+   * minimum: 0
    * @return quantity
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "Quantity of the product to cancel.")
 
   public Integer getQuantity() {
     return quantity;
@@ -144,29 +113,6 @@ public class MerchantProductBundlePartResponse {
   }
 
 
-  public MerchantProductBundlePartResponse price(BigDecimal price) {
-    
-    this.price = price;
-    return this;
-  }
-
-   /**
-   * Get price
-   * @return price
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public BigDecimal getPrice() {
-    return price;
-  }
-
-
-  public void setPrice(BigDecimal price) {
-    this.price = price;
-  }
-
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -175,12 +121,10 @@ public class MerchantProductBundlePartResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MerchantProductBundlePartResponse merchantProductBundlePartResponse = (MerchantProductBundlePartResponse) o;
-    return Objects.equals(this.merchantProductNo, merchantProductBundlePartResponse.merchantProductNo) &&
-        Objects.equals(this.ean, merchantProductBundlePartResponse.ean) &&
-        Objects.equals(this.name, merchantProductBundlePartResponse.name) &&
-        Objects.equals(this.quantity, merchantProductBundlePartResponse.quantity) &&
-        Objects.equals(this.price, merchantProductBundlePartResponse.price);
+    MerchantCancellationLineResponse merchantCancellationLineResponse = (MerchantCancellationLineResponse) o;
+    return Objects.equals(this.merchantProductNo, merchantCancellationLineResponse.merchantProductNo) &&
+        Objects.equals(this.channelProductNo, merchantCancellationLineResponse.channelProductNo) &&
+        Objects.equals(this.quantity, merchantCancellationLineResponse.quantity);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -189,7 +133,7 @@ public class MerchantProductBundlePartResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantProductNo, ean, name, quantity, price);
+    return Objects.hash(merchantProductNo, channelProductNo, quantity);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -202,12 +146,10 @@ public class MerchantProductBundlePartResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MerchantProductBundlePartResponse {\n");
+    sb.append("class MerchantCancellationLineResponse {\n");
     sb.append("    merchantProductNo: ").append(toIndentedString(merchantProductNo)).append("\n");
-    sb.append("    ean: ").append(toIndentedString(ean)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    channelProductNo: ").append(toIndentedString(channelProductNo)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
-    sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("}");
     return sb.toString();
   }

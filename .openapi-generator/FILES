@@ -51,6 +51,7 @@ src/main/java/com/channelengine/merchant/apiclient/model/ChannelGlobalChannelRes
 src/main/java/com/channelengine/merchant/apiclient/model/ChannelListedProductResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfChannelGlobalChannelResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfChannelListedProductResponse.java
+src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantCancellationResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantNotificationResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantOfferGetStockResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/CollectionOfMerchantOrderResponse.java
@@ -74,7 +75,9 @@ src/main/java/com/channelengine/merchant/apiclient/model/ListedProductExportStat
 src/main/java/com/channelengine/merchant/apiclient/model/MancoReason.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantAddressResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantCancellationLineRequest.java
+src/main/java/com/channelengine/merchant/apiclient/model/MerchantCancellationLineResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantCancellationRequest.java
+src/main/java/com/channelengine/merchant/apiclient/model/MerchantCancellationResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantChannelLabelShipmentRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantNotificationResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantOfferGetStockResponse.java
@@ -110,6 +113,8 @@ src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentRespons
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantShipmentTrackingRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantSingleOrderReturnLineResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantSingleOrderReturnResponse.java
+src/main/java/com/channelengine/merchant/apiclient/model/MerchantStockLocationAddressRequest.java
+src/main/java/com/channelengine/merchant/apiclient/model/MerchantStockLocationCreateRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantStockLocationResponse.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantStockLocationUpdateRequest.java
 src/main/java/com/channelengine/merchant/apiclient/model/MerchantStockPriceUpdateRequest.java

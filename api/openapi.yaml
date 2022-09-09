@@ -2,12 +2,50 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for merchants
   title: ChannelEngine Merchant API
-  version: 2.11.0
+  version: 2.13.0
 servers:
-- url: https://demo.channelengine.net/api
+- url: https://dev.channelengine.local/api
 security:
 - apiKey: []
 paths:
+  /v2/cancellations/merchant:
+    get:
+      description: Gets cancellations created since the supplied date.
+      operationId: CancellationGetForMerchant
+      parameters:
+      - description: Filter on the create date of the cancellation in ChannelEngine,
+          starting from this date. This date is inclusive.
+        explode: true
+        in: query
+        name: createdSince
+        required: false
+        schema:
+          description: Filter on the create date of the cancellation in ChannelEngine,
+            starting from this date. This date is inclusive.
+          format: date-time
+          type: string
+        style: form
+      - description: The page to filter on. Starts at 1.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          description: The page to filter on. Starts at 1.
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfMerchantCancellationResponse'
+          description: Success
+      summary: Get Cancellations.
+      tags:
+      - Cancellation
+      x-accepts: application/json
   /v2/cancellations:
     post:
       description: Mark (part of) an order as cancelled.
@@ -1240,6 +1278,48 @@ paths:
         />call.
       operationId: ReturnGetDeclaredByChannel
       parameters:
+      - description: Filter on Channel IDs
+        explode: true
+        in: query
+        name: channelIds
+        required: false
+        schema:
+          description: Filter on Channel IDs
+          items:
+            format: int32
+            type: integer
+          type: array
+        style: form
+      - description: Filter on unique order reference used by the merchant.
+        explode: true
+        in: query
+        name: merchantOrderNos
+        required: false
+        schema:
+          description: Filter on unique order reference used by the merchant.
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter on unique order reference used by the channel.
+        explode: true
+        in: query
+        name: channelOrderNos
+        required: false
+        schema:
+          description: Filter on unique order reference used by the channel.
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter on the fulfillment type of the order.
+        explode: true
+        in: query
+        name: fulfillmentType
+        required: false
+        schema:
+          $ref: '#/components/schemas/FulfillmentType'
+        style: form
       - description: Return status(es) to filter on.
         explode: true
         in: query
@@ -1303,48 +1383,6 @@ paths:
           description: The page to filter on. Starts at 1.
           format: int32
           type: integer
-        style: form
-      - description: Filter on Channel IDs
-        explode: true
-        in: query
-        name: channelIds
-        required: false
-        schema:
-          description: Filter on Channel IDs
-          items:
-            format: int32
-            type: integer
-          type: array
-        style: form
-      - description: Filter on unique order reference used by the merchant.
-        explode: true
-        in: query
-        name: merchantOrderNos
-        required: false
-        schema:
-          description: Filter on unique order reference used by the merchant.
-          items:
-            type: string
-          type: array
-        style: form
-      - description: Filter on unique order reference used by the channel.
-        explode: true
-        in: query
-        name: channelOrderNos
-        required: false
-        schema:
-          description: Filter on unique order reference used by the channel.
-          items:
-            type: string
-          type: array
-        style: form
-      - description: Filter on the fulfillment type of the order.
-        explode: true
-        in: query
-        name: fulfillmentType
-        required: false
-        schema:
-          $ref: '#/components/schemas/FulfillmentType'
         style: form
       responses:
         "200":
@@ -2112,6 +2150,36 @@ paths:
       tags:
       - StockLocation
       x-accepts: application/json
+    post:
+      operationId: StockLocationCreate
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MerchantStockLocationCreateRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantStockLocationCreateRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MerchantStockLocationCreateRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Success
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      tags:
+      - StockLocation
+      x-contentType: application/json-patch+json
+      x-accepts: application/json
   /v2/webhooks:
     get:
       description: Get all webhooks created in the ChannelEngine.
@@ -2517,6 +2585,83 @@ components:
         Content:
           items:
             $ref: '#/components/schemas/ChannelListedProductResponse'
+          nullable: true
+          type: array
+        Count:
+          format: int32
+          type: integer
+        TotalCount:
+          format: int32
+          type: integer
+        ItemsPerPage:
+          format: int32
+          type: integer
+        StatusCode:
+          format: int32
+          type: integer
+        RequestId:
+          nullable: true
+          type: string
+        LogId:
+          nullable: true
+          type: string
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+      type: object
+    CollectionOfMerchantCancellationResponse:
+      additionalProperties: false
+      example:
+        TotalCount: 1
+        RequestId: RequestId
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+        - ChannelOrderNo: ChannelOrderNo
+          MerchantCancellationNo: MerchantCancellationNo
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantOrderNo: MerchantOrderNo
+          Reason: Reason
+          Lines:
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+        - ChannelOrderNo: ChannelOrderNo
+          MerchantCancellationNo: MerchantCancellationNo
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantOrderNo: MerchantOrderNo
+          Reason: Reason
+          Lines:
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+          - Quantity: 0
+            MerchantProductNo: MerchantProductNo
+            ChannelProductNo: ChannelProductNo
+        ItemsPerPage: 5
+        Count: 6
+        StatusCode: 5
+        LogId: LogId
+        Success: true
+      properties:
+        Content:
+          items:
+            $ref: '#/components/schemas/MerchantCancellationResponse'
           nullable: true
           type: array
         Count:
@@ -4353,6 +4498,29 @@ components:
       - MerchantProductNo
       - Quantity
       type: object
+    MerchantCancellationLineResponse:
+      additionalProperties: false
+      example:
+        Quantity: 0
+        MerchantProductNo: MerchantProductNo
+        ChannelProductNo: ChannelProductNo
+      properties:
+        MerchantProductNo:
+          description: The unique product reference used by the Merchant.
+          nullable: true
+          type: string
+        ChannelProductNo:
+          description: The unique product reference used by the Channel.
+          nullable: true
+          type: string
+        Quantity:
+          description: Quantity of the product to cancel.
+          format: int32
+          minimum: 0
+          type: integer
+      required:
+      - Quantity
+      type: object
     MerchantCancellationRequest:
       additionalProperties: false
       example:
@@ -4380,6 +4548,53 @@ components:
             $ref: '#/components/schemas/MerchantCancellationLineRequest'
           minItems: 1
           type: array
+        Reason:
+          description: Reason for cancellation (text).
+          nullable: true
+          type: string
+        ReasonCode:
+          $ref: '#/components/schemas/MancoReason'
+      required:
+      - Lines
+      - MerchantCancellationNo
+      - MerchantOrderNo
+      type: object
+    MerchantCancellationResponse:
+      additionalProperties: false
+      example:
+        ChannelOrderNo: ChannelOrderNo
+        MerchantCancellationNo: MerchantCancellationNo
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        MerchantOrderNo: MerchantOrderNo
+        Reason: Reason
+        Lines:
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+        - Quantity: 0
+          MerchantProductNo: MerchantProductNo
+          ChannelProductNo: ChannelProductNo
+      properties:
+        MerchantCancellationNo:
+          description: The unique cancellation reference used by the Merchant (sku).
+          maxLength: 250
+          minLength: 0
+          type: string
+        MerchantOrderNo:
+          description: The unique order reference used by the Merchant.
+          type: string
+        ChannelOrderNo:
+          description: The unique order reference used by the Channel.
+          nullable: true
+          type: string
+        Lines:
+          items:
+            $ref: '#/components/schemas/MerchantCancellationLineResponse'
+          type: array
+        CreatedAt:
+          description: The date at which the cancellation was created in ChannelEngine.
+          format: date-time
+          type: string
         Reason:
           description: Reason for cancellation (text).
           nullable: true
@@ -6937,6 +7152,78 @@ components:
           nullable: true
           type: object
       type: object
+    MerchantStockLocationAddressRequest:
+      additionalProperties: false
+      example:
+        StreetName: StreetName
+        HouseNrAddition: HouseNrAddition
+        CountryIso: CountryIso
+        HouseNr: HouseNr
+        ZipCode: ZipCode
+        Region: Region
+        City: City
+      properties:
+        CountryIso:
+          type: string
+        StreetName:
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        ZipCode:
+          nullable: true
+          type: string
+        HouseNr:
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        HouseNrAddition:
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        City:
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+        Region:
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - CountryIso
+      type: object
+    MerchantStockLocationCreateRequest:
+      additionalProperties: false
+      example:
+        IsDefault: true
+        FallBackToDefault: true
+        Address:
+          StreetName: StreetName
+          HouseNrAddition: HouseNrAddition
+          CountryIso: CountryIso
+          HouseNr: HouseNr
+          ZipCode: ZipCode
+          Region: Region
+          City: City
+        Name: Name
+      properties:
+        Name:
+          type: string
+        IsDefault:
+          type: boolean
+        FallBackToDefault:
+          description: 'If false: only use fulfillment by channel, else (also) use
+            merchant fulfillment.'
+          type: boolean
+        Address:
+          $ref: '#/components/schemas/MerchantStockLocationAddressRequest'
+      required:
+      - Name
+      type: object
     MerchantStockLocationResponse:
       additionalProperties: false
       example:
@@ -7691,5 +7978,5 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.11.0
+x-version: 2.13.0
 

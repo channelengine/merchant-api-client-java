@@ -16,7 +16,7 @@ package com.channelengine.merchant.apiclient.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.channelengine.merchant.apiclient.model.MancoReason;
-import com.channelengine.merchant.apiclient.model.MerchantCancellationLineRequest;
+import com.channelengine.merchant.apiclient.model.MerchantCancellationLineResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -28,12 +28,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
+import org.threeten.bp.OffsetDateTime;
 
 /**
- * MerchantCancellationRequest
+ * MerchantCancellationResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class MerchantCancellationRequest {
+public class MerchantCancellationResponse {
   public static final String SERIALIZED_NAME_MERCHANT_CANCELLATION_NO = "MerchantCancellationNo";
   @SerializedName(SERIALIZED_NAME_MERCHANT_CANCELLATION_NO)
   private String merchantCancellationNo;
@@ -42,9 +43,17 @@ public class MerchantCancellationRequest {
   @SerializedName(SERIALIZED_NAME_MERCHANT_ORDER_NO)
   private String merchantOrderNo;
 
+  public static final String SERIALIZED_NAME_CHANNEL_ORDER_NO = "ChannelOrderNo";
+  @SerializedName(SERIALIZED_NAME_CHANNEL_ORDER_NO)
+  private String channelOrderNo;
+
   public static final String SERIALIZED_NAME_LINES = "Lines";
   @SerializedName(SERIALIZED_NAME_LINES)
-  private List<MerchantCancellationLineRequest> lines = new ArrayList<MerchantCancellationLineRequest>();
+  private List<MerchantCancellationLineResponse> lines = new ArrayList<MerchantCancellationLineResponse>();
+
+  public static final String SERIALIZED_NAME_CREATED_AT = "CreatedAt";
+  @SerializedName(SERIALIZED_NAME_CREATED_AT)
+  private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_REASON = "Reason";
   @SerializedName(SERIALIZED_NAME_REASON)
@@ -55,7 +64,7 @@ public class MerchantCancellationRequest {
   private MancoReason reasonCode;
 
 
-  public MerchantCancellationRequest merchantCancellationNo(String merchantCancellationNo) {
+  public MerchantCancellationResponse merchantCancellationNo(String merchantCancellationNo) {
     
     this.merchantCancellationNo = merchantCancellationNo;
     return this;
@@ -78,18 +87,18 @@ public class MerchantCancellationRequest {
   }
 
 
-  public MerchantCancellationRequest merchantOrderNo(String merchantOrderNo) {
+  public MerchantCancellationResponse merchantOrderNo(String merchantOrderNo) {
     
     this.merchantOrderNo = merchantOrderNo;
     return this;
   }
 
    /**
-   * The unique order reference used by the Merchant (sku).
+   * The unique order reference used by the Merchant.
    * @return merchantOrderNo
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The unique order reference used by the Merchant (sku).")
+  @ApiModelProperty(required = true, value = "The unique order reference used by the Merchant.")
 
   public String getMerchantOrderNo() {
     return merchantOrderNo;
@@ -101,13 +110,36 @@ public class MerchantCancellationRequest {
   }
 
 
-  public MerchantCancellationRequest lines(List<MerchantCancellationLineRequest> lines) {
+  public MerchantCancellationResponse channelOrderNo(String channelOrderNo) {
+    
+    this.channelOrderNo = channelOrderNo;
+    return this;
+  }
+
+   /**
+   * The unique order reference used by the Channel.
+   * @return channelOrderNo
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The unique order reference used by the Channel.")
+
+  public String getChannelOrderNo() {
+    return channelOrderNo;
+  }
+
+
+  public void setChannelOrderNo(String channelOrderNo) {
+    this.channelOrderNo = channelOrderNo;
+  }
+
+
+  public MerchantCancellationResponse lines(List<MerchantCancellationLineResponse> lines) {
     
     this.lines = lines;
     return this;
   }
 
-  public MerchantCancellationRequest addLinesItem(MerchantCancellationLineRequest linesItem) {
+  public MerchantCancellationResponse addLinesItem(MerchantCancellationLineResponse linesItem) {
     this.lines.add(linesItem);
     return this;
   }
@@ -119,17 +151,40 @@ public class MerchantCancellationRequest {
   @javax.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
 
-  public List<MerchantCancellationLineRequest> getLines() {
+  public List<MerchantCancellationLineResponse> getLines() {
     return lines;
   }
 
 
-  public void setLines(List<MerchantCancellationLineRequest> lines) {
+  public void setLines(List<MerchantCancellationLineResponse> lines) {
     this.lines = lines;
   }
 
 
-  public MerchantCancellationRequest reason(String reason) {
+  public MerchantCancellationResponse createdAt(OffsetDateTime createdAt) {
+    
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * The date at which the cancellation was created in ChannelEngine.
+   * @return createdAt
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The date at which the cancellation was created in ChannelEngine.")
+
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+
+  public MerchantCancellationResponse reason(String reason) {
     
     this.reason = reason;
     return this;
@@ -152,7 +207,7 @@ public class MerchantCancellationRequest {
   }
 
 
-  public MerchantCancellationRequest reasonCode(MancoReason reasonCode) {
+  public MerchantCancellationResponse reasonCode(MancoReason reasonCode) {
     
     this.reasonCode = reasonCode;
     return this;
@@ -183,12 +238,14 @@ public class MerchantCancellationRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MerchantCancellationRequest merchantCancellationRequest = (MerchantCancellationRequest) o;
-    return Objects.equals(this.merchantCancellationNo, merchantCancellationRequest.merchantCancellationNo) &&
-        Objects.equals(this.merchantOrderNo, merchantCancellationRequest.merchantOrderNo) &&
-        Objects.equals(this.lines, merchantCancellationRequest.lines) &&
-        Objects.equals(this.reason, merchantCancellationRequest.reason) &&
-        Objects.equals(this.reasonCode, merchantCancellationRequest.reasonCode);
+    MerchantCancellationResponse merchantCancellationResponse = (MerchantCancellationResponse) o;
+    return Objects.equals(this.merchantCancellationNo, merchantCancellationResponse.merchantCancellationNo) &&
+        Objects.equals(this.merchantOrderNo, merchantCancellationResponse.merchantOrderNo) &&
+        Objects.equals(this.channelOrderNo, merchantCancellationResponse.channelOrderNo) &&
+        Objects.equals(this.lines, merchantCancellationResponse.lines) &&
+        Objects.equals(this.createdAt, merchantCancellationResponse.createdAt) &&
+        Objects.equals(this.reason, merchantCancellationResponse.reason) &&
+        Objects.equals(this.reasonCode, merchantCancellationResponse.reasonCode);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -197,7 +254,7 @@ public class MerchantCancellationRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(merchantCancellationNo, merchantOrderNo, lines, reason, reasonCode);
+    return Objects.hash(merchantCancellationNo, merchantOrderNo, channelOrderNo, lines, createdAt, reason, reasonCode);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -210,10 +267,12 @@ public class MerchantCancellationRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MerchantCancellationRequest {\n");
+    sb.append("class MerchantCancellationResponse {\n");
     sb.append("    merchantCancellationNo: ").append(toIndentedString(merchantCancellationNo)).append("\n");
     sb.append("    merchantOrderNo: ").append(toIndentedString(merchantOrderNo)).append("\n");
+    sb.append("    channelOrderNo: ").append(toIndentedString(channelOrderNo)).append("\n");
     sb.append("    lines: ").append(toIndentedString(lines)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("    reasonCode: ").append(toIndentedString(reasonCode)).append("\n");
     sb.append("}");

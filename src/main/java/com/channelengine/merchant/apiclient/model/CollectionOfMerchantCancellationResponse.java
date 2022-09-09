@@ -15,7 +15,7 @@ package com.channelengine.merchant.apiclient.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.channelengine.merchant.apiclient.model.MerchantSettingsResponse;
+import com.channelengine.merchant.apiclient.model.MerchantCancellationResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -24,19 +24,32 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * SingleOfMerchantSettingsResponse
+ * CollectionOfMerchantCancellationResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class SingleOfMerchantSettingsResponse {
+public class CollectionOfMerchantCancellationResponse {
   public static final String SERIALIZED_NAME_CONTENT = "Content";
   @SerializedName(SERIALIZED_NAME_CONTENT)
-  private MerchantSettingsResponse content;
+  private List<MerchantCancellationResponse> content = null;
+
+  public static final String SERIALIZED_NAME_COUNT = "Count";
+  @SerializedName(SERIALIZED_NAME_COUNT)
+  private Integer count;
+
+  public static final String SERIALIZED_NAME_TOTAL_COUNT = "TotalCount";
+  @SerializedName(SERIALIZED_NAME_TOTAL_COUNT)
+  private Integer totalCount;
+
+  public static final String SERIALIZED_NAME_ITEMS_PER_PAGE = "ItemsPerPage";
+  @SerializedName(SERIALIZED_NAME_ITEMS_PER_PAGE)
+  private Integer itemsPerPage;
 
   public static final String SERIALIZED_NAME_STATUS_CODE = "StatusCode";
   @SerializedName(SERIALIZED_NAME_STATUS_CODE)
@@ -63,9 +76,17 @@ public class SingleOfMerchantSettingsResponse {
   private Map<String, List<String>> validationErrors = null;
 
 
-  public SingleOfMerchantSettingsResponse content(MerchantSettingsResponse content) {
+  public CollectionOfMerchantCancellationResponse content(List<MerchantCancellationResponse> content) {
     
     this.content = content;
+    return this;
+  }
+
+  public CollectionOfMerchantCancellationResponse addContentItem(MerchantCancellationResponse contentItem) {
+    if (this.content == null) {
+      this.content = new ArrayList<MerchantCancellationResponse>();
+    }
+    this.content.add(contentItem);
     return this;
   }
 
@@ -76,17 +97,86 @@ public class SingleOfMerchantSettingsResponse {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public MerchantSettingsResponse getContent() {
+  public List<MerchantCancellationResponse> getContent() {
     return content;
   }
 
 
-  public void setContent(MerchantSettingsResponse content) {
+  public void setContent(List<MerchantCancellationResponse> content) {
     this.content = content;
   }
 
 
-  public SingleOfMerchantSettingsResponse statusCode(Integer statusCode) {
+  public CollectionOfMerchantCancellationResponse count(Integer count) {
+    
+    this.count = count;
+    return this;
+  }
+
+   /**
+   * Get count
+   * @return count
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getCount() {
+    return count;
+  }
+
+
+  public void setCount(Integer count) {
+    this.count = count;
+  }
+
+
+  public CollectionOfMerchantCancellationResponse totalCount(Integer totalCount) {
+    
+    this.totalCount = totalCount;
+    return this;
+  }
+
+   /**
+   * Get totalCount
+   * @return totalCount
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getTotalCount() {
+    return totalCount;
+  }
+
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
+
+
+  public CollectionOfMerchantCancellationResponse itemsPerPage(Integer itemsPerPage) {
+    
+    this.itemsPerPage = itemsPerPage;
+    return this;
+  }
+
+   /**
+   * Get itemsPerPage
+   * @return itemsPerPage
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Integer getItemsPerPage() {
+    return itemsPerPage;
+  }
+
+
+  public void setItemsPerPage(Integer itemsPerPage) {
+    this.itemsPerPage = itemsPerPage;
+  }
+
+
+  public CollectionOfMerchantCancellationResponse statusCode(Integer statusCode) {
     
     this.statusCode = statusCode;
     return this;
@@ -109,7 +199,7 @@ public class SingleOfMerchantSettingsResponse {
   }
 
 
-  public SingleOfMerchantSettingsResponse requestId(String requestId) {
+  public CollectionOfMerchantCancellationResponse requestId(String requestId) {
     
     this.requestId = requestId;
     return this;
@@ -132,7 +222,7 @@ public class SingleOfMerchantSettingsResponse {
   }
 
 
-  public SingleOfMerchantSettingsResponse logId(String logId) {
+  public CollectionOfMerchantCancellationResponse logId(String logId) {
     
     this.logId = logId;
     return this;
@@ -155,7 +245,7 @@ public class SingleOfMerchantSettingsResponse {
   }
 
 
-  public SingleOfMerchantSettingsResponse success(Boolean success) {
+  public CollectionOfMerchantCancellationResponse success(Boolean success) {
     
     this.success = success;
     return this;
@@ -178,7 +268,7 @@ public class SingleOfMerchantSettingsResponse {
   }
 
 
-  public SingleOfMerchantSettingsResponse message(String message) {
+  public CollectionOfMerchantCancellationResponse message(String message) {
     
     this.message = message;
     return this;
@@ -201,13 +291,13 @@ public class SingleOfMerchantSettingsResponse {
   }
 
 
-  public SingleOfMerchantSettingsResponse validationErrors(Map<String, List<String>> validationErrors) {
+  public CollectionOfMerchantCancellationResponse validationErrors(Map<String, List<String>> validationErrors) {
     
     this.validationErrors = validationErrors;
     return this;
   }
 
-  public SingleOfMerchantSettingsResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
+  public CollectionOfMerchantCancellationResponse putValidationErrorsItem(String key, List<String> validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new HashMap<String, List<String>>();
     }
@@ -240,14 +330,17 @@ public class SingleOfMerchantSettingsResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SingleOfMerchantSettingsResponse singleOfMerchantSettingsResponse = (SingleOfMerchantSettingsResponse) o;
-    return Objects.equals(this.content, singleOfMerchantSettingsResponse.content) &&
-        Objects.equals(this.statusCode, singleOfMerchantSettingsResponse.statusCode) &&
-        Objects.equals(this.requestId, singleOfMerchantSettingsResponse.requestId) &&
-        Objects.equals(this.logId, singleOfMerchantSettingsResponse.logId) &&
-        Objects.equals(this.success, singleOfMerchantSettingsResponse.success) &&
-        Objects.equals(this.message, singleOfMerchantSettingsResponse.message) &&
-        Objects.equals(this.validationErrors, singleOfMerchantSettingsResponse.validationErrors);
+    CollectionOfMerchantCancellationResponse collectionOfMerchantCancellationResponse = (CollectionOfMerchantCancellationResponse) o;
+    return Objects.equals(this.content, collectionOfMerchantCancellationResponse.content) &&
+        Objects.equals(this.count, collectionOfMerchantCancellationResponse.count) &&
+        Objects.equals(this.totalCount, collectionOfMerchantCancellationResponse.totalCount) &&
+        Objects.equals(this.itemsPerPage, collectionOfMerchantCancellationResponse.itemsPerPage) &&
+        Objects.equals(this.statusCode, collectionOfMerchantCancellationResponse.statusCode) &&
+        Objects.equals(this.requestId, collectionOfMerchantCancellationResponse.requestId) &&
+        Objects.equals(this.logId, collectionOfMerchantCancellationResponse.logId) &&
+        Objects.equals(this.success, collectionOfMerchantCancellationResponse.success) &&
+        Objects.equals(this.message, collectionOfMerchantCancellationResponse.message) &&
+        Objects.equals(this.validationErrors, collectionOfMerchantCancellationResponse.validationErrors);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -256,7 +349,7 @@ public class SingleOfMerchantSettingsResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(content, statusCode, requestId, logId, success, message, validationErrors);
+    return Objects.hash(content, count, totalCount, itemsPerPage, statusCode, requestId, logId, success, message, validationErrors);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -269,8 +362,11 @@ public class SingleOfMerchantSettingsResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SingleOfMerchantSettingsResponse {\n");
+    sb.append("class CollectionOfMerchantCancellationResponse {\n");
     sb.append("    content: ").append(toIndentedString(content)).append("\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
+    sb.append("    itemsPerPage: ").append(toIndentedString(itemsPerPage)).append("\n");
     sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");
     sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
     sb.append("    logId: ").append(toIndentedString(logId)).append("\n");
