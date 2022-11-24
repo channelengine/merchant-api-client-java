@@ -74,7 +74,7 @@ public class CancellationApiExample {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         
         // Configure API key authorization: apikey
-        ApiKeyAuth apikey = (ApiKeyAuth) defaultClient.getAuthentication("apikey");
+        ApiKeyAuth apikey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
         apikey.setApiKey("YOUR API KEY");
         // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
         //apikey.setApiKeyPrefix("Token");
